@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#1C2B4A" />
+  <title>Welcome aboard | Bonjour Cruise</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    .mermaid-hero { text-align: center; padding-block: 3rem 4rem; }
+    .mermaid-scene { max-inline-size: 560px; margin: 1.5rem auto 2rem; }
+    .mermaid-scene svg { inline-size: 100%; height: auto; display: block; }
+    @keyframes mc-dive { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(10px) rotate(6deg); } }
+    @keyframes mc-splash { 0%, 100% { transform: scaleX(0.85); opacity: 0.45; } 50% { transform: scaleX(1.15); opacity: 0.8; } }
+    @keyframes mc-float { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 0.9; } 100% { transform: translateY(-40px); opacity: 0; } }
+    .mc-tail { transform-origin: 400px 250px; animation: mc-dive 3.4s ease-in-out infinite; }
+    .mc-splash { transform-origin: 400px 252px; animation: mc-splash 3.4s ease-in-out infinite; }
+    .mc-heart { animation: mc-float 3.6s ease-in-out infinite; }
+    .mc-heart2 { animation: mc-float 3.6s ease-in-out infinite 1.2s; }
+    .mc-heart3 { animation: mc-float 3.6s ease-in-out infinite 2.4s; }
+    @media (prefers-reduced-motion: reduce) { .mc-tail, .mc-splash, .mc-heart, .mc-heart2, .mc-heart3 { animation: none; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="/index.html">Bonjour <span>Cruise</span></a>
+        <ul class="nav-links">
+          <li><a href="/discover.html">Discover</a></li>
+          <li><a href="/cruises.html">Cruises</a></li>
+          <li><a href="/experiences.html">Experiences</a></li>
+          <li><a href="/account.html">Account</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="btn btn-primary nav-cta" href="/account.html">My account</a>
+          <button class="nav-toggle" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+    <div class="mobile-menu"><div class="container"><ul>
+      <li><a href="/discover.html">Discover</a></li>
+      <li><a href="/cruises.html">Cruises</a></li>
+      <li><a href="/experiences.html">Experiences</a></li>
+      <li><a href="/account.html">Account</a></li>
+    </ul></div></div>
+  </header>
+
+  <main>
+    <section class="mermaid-hero">
+      <div class="container">
+        <span class="eyebrow">Welcome aboard</span>
+        <h1>Are you ready to be a mermaid?</h1>
+
+        <div class="mermaid-scene">
+          <svg viewBox="0 0 600 360" role="img" aria-label="A mermaid diving beside the Bonjour Cruise yacht">
+            <!-- sky + sun -->
+            <circle cx="510" cy="70" r="40" fill="#E4D2AE" opacity="0.6"/>
+            <!-- floating hearts -->
+            <path class="mc-heart" d="M300 150c-6-7-14-4-14 3 0 6 8 10 14 16 6-6 14-10 14-16 0-7-8-10-14-3z" fill="#E3B9BB"/>
+            <path class="mc-heart2" d="M250 170c-5-6-11-3-11 2 0 5 6 8 11 12 5-4 11-7 11-12 0-5-6-8-11-2z" fill="#C98A8E"/>
+            <path class="mc-heart3" d="M340 180c-4-5-9-2-9 2 0 4 5 7 9 10 4-3 9-6 9-10 0-4-5-7-9-2z" fill="#E4D2AE"/>
+
+            <!-- water -->
+            <path d="M0 250 q150 -18 300 0 t300 0 V360 H0 Z" fill="#E3B9BB" opacity="0.5"/>
+            <path d="M0 276 q150 -14 300 0 t300 0 V360 H0 Z" fill="#E3B9BB" opacity="0.32"/>
+
+            <!-- boat -->
+            <g>
+              <line x1="150" y1="210" x2="150" y2="120" stroke="#1C2B4A" stroke-width="3"/>
+              <path d="M150 128c-6-7-13-4-13 3 0 5 7 9 13 14 6-5 13-9 13-14 0-7-7-10-13-3z" fill="#C98A8E"/>
+              <path d="M78 212 H228 L206 250 Q150 264 94 250 Z" fill="#C98A8E"/>
+              <rect x="96" y="206" width="140" height="9" rx="4" fill="#EAD7BC"/>
+              <rect x="150" y="176" width="70" height="34" rx="9" fill="#fff" stroke="#E3B9BB" stroke-width="1.5"/>
+              <circle cx="168" cy="193" r="6" fill="none" stroke="#C9A86A" stroke-width="1.6"/>
+              <circle cx="190" cy="193" r="6" fill="none" stroke="#C9A86A" stroke-width="1.6"/>
+              <circle cx="212" cy="193" r="6" fill="none" stroke="#C9A86A" stroke-width="1.6"/>
+              <text x="150" y="238" text-anchor="middle" fill="#fff" font-family="'Cormorant Garamond',serif" font-size="10" letter-spacing="2">BONJOUR</text>
+            </g>
+
+            <!-- splash -->
+            <ellipse class="mc-splash" cx="400" cy="252" rx="34" ry="8" fill="#FFFFFF" opacity="0.6"/>
+            <circle cx="372" cy="244" r="3" fill="#fff" opacity="0.7"/>
+            <circle cx="430" cy="246" r="2.4" fill="#fff" opacity="0.6"/>
+
+            <!-- diving mermaid tail -->
+            <g class="mc-tail">
+              <path d="M392 252 C 380 200, 410 168, 396 116 L 404 116 C 420 168, 414 200, 408 252 Z" fill="#E3B9BB"/>
+              <path d="M400 120 C 372 78, 340 100, 372 128 Z" fill="#C98A8E"/>
+              <path d="M400 120 C 428 78, 460 100, 428 128 Z" fill="#C98A8E"/>
+              <path d="M400 118 c-5-6-11-3-11 2 0 4 5 8 11 12 6-4 11-8 11-12 0-5-6-8-11-2z" fill="#C9A86A"/>
+              <circle cx="399" cy="160" r="3" fill="#C98A8E" opacity="0.6"/>
+              <circle cx="399" cy="185" r="3" fill="#C98A8E" opacity="0.6"/>
+              <circle cx="399" cy="210" r="3" fill="#C98A8E" opacity="0.6"/>
+            </g>
+          </svg>
+        </div>
+
+        <p class="lead" style="max-width: 560px; margin-inline: auto;">Your seat is reserved. Your confirmation and the day's programme are on their way to your inbox. The sea is waiting for you.</p>
+
+        <div class="way-card" style="max-width: 520px; margin: 1.75rem auto 0; text-align: center;">
+          <p class="eyebrow">Your account is ready 🌸</p>
+          <p style="margin: 0.4rem 0 0.9rem;">We created your account from your booking. Set your password to manage your cruise, see who is aboard and add your photo.</p>
+          <div class="spam-tip" style="text-align:left;">📬 Your confirmation email may land in <strong>spam or promotions</strong>. Look there too, and mark it "not spam" so you never miss your cruise.</div>
+          <a class="btn btn-primary" href="/account.html" style="margin-top:1rem;">Set my password</a>
+        </div>
+
+        <div class="hero-ctas" style="justify-content: center; margin-block-start: 1.5rem;">
+          <a class="btn btn-primary" href="https://wa.me/971585986118?text=Hello%20Bonjour%20Cruise%2C%20I%20just%20booked%20and%20I%20have%20a%20question." rel="noopener">Message us on WhatsApp</a>
+          <a class="btn btn-outline" href="/discover.html">Discover your cruise</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border: none; padding-block-start: 0;">
+        <p>Bonjour Cruise · Dubai, United Arab Emirates · <a href="mailto:info@bonjourcruise.com">info@bonjourcruise.com</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/971585986118?text=Hello%20Bonjour%20Cruise%2C%20I%20have%20a%20question." aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.9C8.8 2.9 2.9 8.8 2.9 16c0 2.3.6 4.6 1.8 6.6L2.8 29.2l6.8-1.8c1.9 1.1 4.1 1.6 6.4 1.6 7.2 0 13.1-5.9 13.1-13.1S23.2 2.9 16 2.9zm0 23.9c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8C5 10 9.9 5.1 16 5.1S27 10 27 16.1 22.1 26.8 16 26.8zm6-8.1c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.8-1-2.4-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  </a>
+
+</body>
+</html>

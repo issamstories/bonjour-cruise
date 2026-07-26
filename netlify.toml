@@ -1,0 +1,147 @@
+# Netlify configuration for MADAME CRUISE
+# Deploy with: netlify deploy --prod
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Pretty URLs: /experiences resolves to /experiences.html
+[[redirects]]
+  from = "/experiences"
+  to = "/experiences.html"
+  status = 200
+
+# Crew page was removed: send old links home.
+[[redirects]]
+  from = "/crew"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/crew.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/privacy-promise"
+  to = "/privacy-promise.html"
+  status = 200
+
+[[redirects]]
+  from = "/book"
+  to = "/book.html"
+  status = 200
+
+[[redirects]]
+  from = "/cruises"
+  to = "/cruises.html"
+  status = 200
+
+[[redirects]]
+  from = "/discover"
+  to = "/discover.html"
+  status = 200
+
+[[redirects]]
+  from = "/welcome-aboard"
+  to = "/welcome-aboard.html"
+  status = 200
+
+# About page was removed: send old links home.
+[[redirects]]
+  from = "/about"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/about.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/account"
+  to = "/account.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+# Neutral SEO slugs (pretty URLs) + 301 from the old gendered slugs
+[[redirects]]
+  from = "/things-to-do-in-dubai"
+  to = "/things-to-do-in-dubai.html"
+  status = 200
+
+[[redirects]]
+  from = "/things-to-do-for-women-in-dubai"
+  to = "/things-to-do-in-dubai.html"
+  status = 301
+
+[[redirects]]
+  from = "/things-to-do-for-women-in-dubai.html"
+  to = "/things-to-do-in-dubai.html"
+  status = 301
+
+[[redirects]]
+  from = "/halal-yacht-party-dubai"
+  to = "/halal-yacht-party-dubai.html"
+  status = 200
+
+[[redirects]]
+  from = "/halal-bachelorette-party-dubai"
+  to = "/halal-yacht-party-dubai.html"
+  status = 301
+
+[[redirects]]
+  from = "/halal-bachelorette-party-dubai.html"
+  to = "/halal-yacht-party-dubai.html"
+  status = 301
+
+[[redirects]]
+  from = "/solo-travel-dubai"
+  to = "/solo-travel-dubai.html"
+  status = 200
+
+[[redirects]]
+  from = "/solo-female-travel-dubai"
+  to = "/solo-travel-dubai.html"
+  status = 301
+
+[[redirects]]
+  from = "/solo-female-travel-dubai.html"
+  to = "/solo-travel-dubai.html"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,20 @@
+{
+  "name": "madame-cruise",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Official website for MADAME CRUISE - Dubai's first ladies-only yacht charter brand",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/build-i18n.mjs",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "node-html-parser": "^9.0.0",
+    "opencc-js": "^1.4.0",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2"
+  }
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Xclusive Yachts",
+    "email": null,
+    "whatsapp": "+971 4 432 7233",
+    "best_contact": "form",
+    "contact_url": "https://xclusiveyachts.com/contact/",
+    "source": "https://xclusiveyachts.com/contact/",
+    "note": "No public email on the official contact page or footer. Only a contact form plus phone/WhatsApp at +971 4 432 7233 (a landline, also used as their WhatsApp/chat link). A related sister brand site (xclusiveboats.com) lists contact@xclusiveboats.com, but that is NOT confirmed on xclusiveyachts.com itself. Use the form or WhatsApp."
+  },
+  {
+    "name": "Elegant Yacht Rental",
+    "email": "info@elegantyachtrental.com",
+    "whatsapp": "+971 58 591 9031",
+    "best_contact": "email",
+    "contact_url": "https://elegantyachtrental.com/contact-us/",
+    "source": "https://elegantyachtrental.com/contact-us/",
+    "note": "Email confirmed on official contact page. Same number +971 58 591 9031 serves as phone/WhatsApp. Legal entity: ElegantCruise Yacht Rental LLC, Oud Metha, Dubai."
+  },
+  {
+    "name": "BRD Yachts / Boat Rental Dubai",
+    "email": "booking@boatrentaldubai.com",
+    "whatsapp": "+971 54 561 9773",
+    "best_contact": "email",
+    "contact_url": "https://boatrentaldubai.com/contact/",
+    "source": "https://boatrentaldubai.com/contact/",
+    "note": "Email confirmed on official contact page. Same number +971 54 561 9773 is phone and WhatsApp (Tap to WhatsApp Chat button). Based in Dubai Marina."
+  },
+  {
+    "name": "Arabian Yacht Dubai",
+    "email": "sanjoy@arabianyachtdubai.com",
+    "whatsapp": null,
+    "best_contact": "email",
+    "contact_url": "https://arabianyachtdubai.com/contacts/",
+    "source": "https://arabianyachtdubai.com/contacts/",
+    "note": "Two personal emails listed on the official contact page: sanjoy@arabianyachtdubai.com and sunil@arabianyachtdubai.com (no generic info@ address). Phones on page: +971 55 650 5184, +971 50 344 9990, plus captains +971 55 496 6759 and +971 52 578 6528. No explicit WhatsApp number labelled, though mobiles likely work on WhatsApp. Operates from Dubai Harbour."
+  },
+  {
+    "name": "Balthazar Yachting",
+    "email": "dubai@balthazaryachting.com",
+    "whatsapp": "+971 4 608 6008",
+    "best_contact": "email",
+    "contact_url": "https://balthazaryachting.com/contact/",
+    "source": "https://balthazaryachting.com/contact/",
+    "note": "Dubai office email dubai@balthazaryachting.com confirmed on official contact page; general enquiries@balthazaryachting.com also listed. Phone/WhatsApp +971 4 608 6008. Iris Bay Tower, Business Bay, Dubai. International brand (also Monaco, Hong Kong)."
+  },
+  {
+    "name": "Dubriani Yachts",
+    "email": "bookings@dubriani.com",
+    "whatsapp": "+971 58 950 2303",
+    "best_contact": "email",
+    "contact_url": "https://dubriani.com/contact/",
+    "source": "https://dubriani.com/contact/",
+    "note": "Email bookings@dubriani.com confirmed on official contact page. WhatsApp +971 58 950 2303; UAE phone +971 4 550 6309 (also US +1 754 900 1310, UK +44 7868 811587). Marina Plaza Tower, Dubai Marina."
+  },
+  {
+    "name": "GetMyBoat",
+    "email": "support@getmyboat.com",
+    "whatsapp": null,
+    "best_contact": "form",
+    "contact_url": "https://www.getmyboat.com/contact-us/",
+    "source": "https://www.getmyboat.com/contact-us/",
+    "note": "Aggregator/marketplace, NOT a single operator. support@getmyboat.com and +1 818 927 2148 reach GetMyBoat's own customer team, not individual boat owners. To contact owners: submit a booking inquiry on a listing, then use the built-in in-app/desktop messaging. The platform deliberately filters out and blocks sharing of direct emails/phone numbers between renters and owners, so there is no direct owner email. Best method is the on-platform inquiry + messaging."
+  },
+  {
+    "name": "Rent A Yacht Abu Dhabi",
+    "email": "info@rentayachtabudhabi.com",
+    "whatsapp": "+971 56 903 4855",
+    "best_contact": "email",
+    "contact_url": "https://rentayachtabudhabi.com/contact-us/",
+    "source": "https://rentayachtabudhabi.com/",
+    "note": "Email info@rentayachtabudhabi.com confirmed on site. Same number +971 56 903 4855 is phone and WhatsApp (WhatsApp Now buttons). Based at Yas Island Marina, Abu Dhabi."
+  },
+  {
+    "name": "Aceplace (female crew / yacht crew)",
+    "email": "hello@aceplace.com",
+    "whatsapp": "+971 52 425 2070",
+    "best_contact": "email",
+    "contact_url": "https://aceplace.com/services/female-crew",
+    "source": "https://aceplace.com/",
+    "note": "Email was Cloudflare-obfuscated on the site; decoded deterministically from the site's own protected-link hex to hello@aceplace.com (verify by clicking the email link on the page). Phone/WhatsApp +971 52 425 2070 (wa.me/971524252070). Aceplace is a Dubai yacht platform that offers a Female Crew service (female captains, hostesses, stewards)."
+  }
+]

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="EC4Jbwi8FKROj4awNGJnGCwFx5zJnXVTsiCbd5Hxx0Y" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#1C2B4A" />
+  <title>My Account, Bonjour Cruise</title>
+  <meta name="description" content="Create your Bonjour Cruise account to be the first to know about new cruises and to see your next cruise details." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://bonjourcruise.com/account.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="module" src="/src/account.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="/index.html">Bonjour <span>Cruise</span></a>
+        <ul class="nav-links">
+          <li><a href="/discover.html">Discover</a></li>
+          <li><a href="/cruises.html">Cruises</a></li>
+          <li><a href="/experiences.html">Experiences</a></li>
+          <li><a href="/privacy-promise.html">Privacy Promise</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/account.html" aria-current="page">Account</a></li>
+        </ul>
+        <div class="nav-actions">
+          <div class="lang-switcher desktop" aria-label="Language selection (coming soon)">
+            <button type="button" aria-pressed="true">EN</button> |
+            <button type="button" aria-pressed="false">AR</button> |
+            <button type="button" aria-pressed="false">FR</button>
+          </div>
+          <a class="btn btn-primary nav-cta" href="/cruises.html">Book your cruise</a>
+          <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+    <div class="mobile-menu">
+      <div class="container">
+        <ul>
+          <li><a href="/discover.html">Discover</a></li>
+          <li><a href="/cruises.html">Cruises</a></li>
+          <li><a href="/experiences.html">Experiences</a></li>
+          <li><a href="/privacy-promise.html">Privacy Promise</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/book.html">Book</a></li>
+          <li><a href="/account.html" aria-current="page">Account</a></li>
+        </ul>
+        <div class="lang-switcher" aria-label="Language selection (coming soon)">
+          <button type="button" aria-pressed="true">EN</button> |
+          <button type="button" aria-pressed="false">AR</button> |
+          <button type="button" aria-pressed="false">FR</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Members</span>
+        <h1 id="account-title">Your Bonjour Cruise</h1>
+        <p class="lead" id="account-subtitle">Create your account to hear about new cruises first, and to see your next cruise, date, port and everything you need, in one place.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container" style="max-width: 920px;">
+
+        <!-- Loading -->
+        <p id="account-loading" class="lead" style="text-align:center;">Loading…</p>
+
+        <!-- AUTH VIEW (logged out) -->
+        <div id="auth-view" hidden>
+          <div class="form-card" style="max-width: 560px; margin-inline: auto;">
+            <!-- GOOGLE SIGN-IN, TEMPORARILY DISABLED.
+                 Backend is fully configured and live (Google OAuth client + Supabase
+                 provider). Hidden only because the Google screen shows the raw
+                 supabase.co domain instead of "Bonjour Cruise" until a paid Supabase
+                 custom auth domain (auth.bonjourcruise.com) is set up. To re-enable:
+                 uncomment this block (and add Apple the same day).
+            <div class="social-auth">
+              <button type="button" id="google-auth" class="btn btn-google">
+                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.83.86-3.04.86-2.34 0-4.32-1.58-5.02-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.98 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.02-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.47.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.02 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
+                <span>Continue with Google</span>
+              </button>
+              <div class="auth-or"><span>or</span></div>
+            </div>
+            -->
+            <div class="auth-tabs" role="tablist">
+              <button type="button" class="auth-tab" data-tab="signin" role="tab" aria-selected="false">Sign in</button>
+              <button type="button" class="auth-tab is-active" data-tab="signup" role="tab" aria-selected="true">Create account</button>
+            </div>
+
+            <!-- Sign up -->
+            <form id="signup-form" class="auth-form">
+              <p class="privacy-note">Everything you give us is kept strictly confidential and used only for the logistics of your cruise, reaching you on the day and keeping you safe on board. We never sell your data and nothing is ever shown to anyone unless you choose to share it.</p>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="su-firstname">First name</label>
+                  <input type="text" id="su-firstname" name="first_name" required autocomplete="given-name" />
+                </div>
+                <div class="field">
+                  <label for="su-lastname">Last name</label>
+                  <input type="text" id="su-lastname" name="last_name" required autocomplete="family-name" />
+                </div>
+                <div class="field">
+                  <label for="su-nickname">A nickname you would like to be called? (optional)</label>
+                  <input type="text" id="su-nickname" name="nickname" placeholder="e.g. Sasa" />
+                  <p class="form-note" style="margin-block-start: 0.4rem;">If you give one, it becomes how we greet you and how other guests see you (if you choose to share).</p>
+                </div>
+                <div class="field">
+                  <label for="su-email">Email</label>
+                  <input type="email" id="su-email" name="email" required autocomplete="email" placeholder="you@email.com" />
+                </div>
+                <div class="field">
+                  <label for="su-password">Password</label>
+                  <input type="password" id="su-password" name="password" required minlength="8" autocomplete="new-password" />
+                </div>
+                <div class="field">
+                  <label for="su-password2">Confirm password</label>
+                  <input type="password" id="su-password2" name="password2" required minlength="8" autocomplete="new-password" />
+                </div>
+                <div class="field">
+                  <label for="su-dob">Date of birth</label>
+                  <input type="date" id="su-dob" name="date_of_birth" required autocomplete="bday" data-max="today" />
+                </div>
+                <div class="field">
+                  <label for="su-nationality">Nationality</label>
+                  <select id="su-nationality" name="nationality" data-country-select autocomplete="country-name">
+                    <option value="" selected>Select your country</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="su-whatsapp">WhatsApp number</label>
+                  <input type="tel" id="su-whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+971 5X XXX XXXX" />
+                </div>
+                <div class="field">
+                  <label for="su-tshirt">T-shirt size (for our little gifts)</label>
+                  <select id="su-tshirt" name="tshirt_size" autocomplete="off">
+                    <option value="" selected>Select your size</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <span class="field-legend">Languages you speak</span>
+                  <div class="lang-picker">
+                    <select id="su-language-select" data-language-select aria-label="Choose a language to add">
+                      <option value="" selected disabled>Choose a language…</option>
+                    </select>
+                    <button type="button" class="btn btn-outline lang-add" data-language-add>Add</button>
+                  </div>
+                  <div class="lang-tags" data-language-tags aria-live="polite"></div>
+                  <p class="form-note" style="margin-block-start: 0.4rem;">Pick from the list and tap Add. You can add as many as you like.</p>
+                </div>
+                <div class="field full photo-field">
+                  <span class="field-legend">Your photo (optional)</span>
+                  <div class="photo-row">
+                    <label class="photo-preview" data-photo-preview for="su-photo" role="button" aria-label="Add a photo"></label>
+                    <input type="file" id="su-photo" name="photo" accept="image/*" hidden />
+                    <span class="photo-hint" data-photo-label>Tap the circle to add a photo</span>
+                    <button type="button" class="photo-clear" data-photo-clear hidden>Remove</button>
+                  </div>
+                  <p class="form-note" style="margin-block-start: 0.4rem;">A photo is never required. It is only shown to other guests on your cruise if you switch on "Photo" below.</p>
+                </div>
+                <div class="field full">
+                  <label class="switch-row">
+                    <input type="checkbox" data-share-master />
+                    <span class="switch" aria-hidden="true"></span>
+                    <span>Happy to connect with others on my cruise</span>
+                  </label>
+                  <p class="form-note" data-share-hint style="margin-block-start: 0.6rem;">You stay completely private. Nothing about you is shown to anyone.</p>
+                  <div class="share-options" data-share-options hidden>
+                    <span class="field-legend">Choose what they can see</span>
+                    <div class="share-toggles">
+                      <label class="switch-row"><input type="checkbox" name="share_name" /><span class="switch" aria-hidden="true"></span><span>Name (your nickname if you gave one, else your first name)</span></label>
+                      <label class="switch-row"><input type="checkbox" name="share_age" /><span class="switch" aria-hidden="true"></span><span>Age</span></label>
+                      <label class="switch-row"><input type="checkbox" name="share_languages" /><span class="switch" aria-hidden="true"></span><span>Languages</span></label>
+                      <label class="switch-row"><input type="checkbox" name="share_photo" /><span class="switch" aria-hidden="true"></span><span>Photo</span></label>
+                    </div>
+                    <p class="form-note" style="margin-block-start: 0.6rem;">Only guests booked on the same cruise can ever see this. Switch off anything you prefer to keep private.</p>
+                  </div>
+                </div>
+
+                <div class="field full">
+                  <label class="checkbox-row">
+                    <input type="checkbox" id="su-eligibility" name="eligibility" />
+                    <span>I confirm I am 18 or older.</span>
+                  </label>
+                </div>
+                <div class="field full">
+                  <label class="checkbox-row">
+                    <input type="checkbox" id="su-consent" name="marketing_consent" />
+                    <span>Email me when a new cruise is scheduled.</span>
+                  </label>
+                </div>
+                <div class="full">
+                  <button class="btn btn-primary" type="submit">Create my account</button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Sign in -->
+            <form id="signin-form" class="auth-form" hidden>
+              <div class="form-grid">
+                <div class="field full">
+                  <label for="si-email">Email</label>
+                  <input type="email" id="si-email" name="email" required autocomplete="email" />
+                </div>
+                <div class="field full">
+                  <label for="si-password">Password</label>
+                  <input type="password" id="si-password" name="password" required autocomplete="current-password" />
+                </div>
+                <div class="full">
+                  <button class="btn btn-primary" type="submit">Sign in</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="form-status" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- COMPLETE PROFILE (after Google sign-in: age attestation) -->
+        <div id="complete-view" hidden>
+          <div class="form-card" style="max-width: 560px; margin-inline: auto;">
+            <h2 style="margin-top:0;">One last step</h2>
+            <p class="privacy-note">Please confirm to activate your account.</p>
+            <form id="complete-form" class="auth-form">
+              <div class="field full">
+                <label class="checkbox-row">
+                  <input type="checkbox" id="cp-eligibility" name="eligibility" />
+                  <span>I confirm I am 18 or older.</span>
+                </label>
+              </div>
+              <div class="field full">
+                <label for="cp-nickname">Nickname</label>
+                <input type="text" id="cp-nickname" name="nickname" autocomplete="nickname" />
+                <p class="form-note" style="margin-block-start: 0.4rem;">If you give one, it becomes how we greet you and how other guests see you (if you choose to share).</p>
+              </div>
+              <p class="form-status" data-cp-status role="status" aria-live="polite"></p>
+              <div class="full">
+                <button class="btn btn-primary" type="submit">Enter Bonjour Cruise</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- DASHBOARD VIEW (logged in) -->
+        <div id="dashboard-view" hidden>
+          <div class="dash-head">
+            <div>
+              <span class="eyebrow">Welcome aboard</span>
+              <h2 id="dash-greeting">Hello</h2>
+              <p class="dash-stat" data-cruise-count></p>
+            </div>
+            <button id="signout-btn" class="btn btn-gold" type="button">Sign out</button>
+          </div>
+
+          <h3 class="dash-section-title">Your photo</h3>
+          <div class="way-card photo-card">
+            <div class="photo-row">
+              <label class="photo-preview photo-preview--lg" data-dash-photo for="dash-photo-input" role="button" aria-label="Add a photo"></label>
+              <input type="file" id="dash-photo-input" accept="image/*" hidden />
+              <div class="photo-copy">
+                <span class="photo-hint" data-dash-photo-label>Tap the circle to add a photo</span>
+                <p class="form-note" style="margin:0;">Optional. It is only ever shown to other guests booked on the same cruise, and only if you switch on photo sharing.</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="dash-section-title">Your details</h3>
+          <div class="way-card">
+            <form id="details-form" class="auth-form">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="ed-nickname">Nickname</label>
+                  <input type="text" id="ed-nickname" name="nickname" placeholder="How we call you" />
+                </div>
+                <div class="field">
+                  <label for="ed-whatsapp">WhatsApp number</label>
+                  <input type="tel" id="ed-whatsapp" name="whatsapp" autocomplete="tel" placeholder="+971 5X XXX XXXX" />
+                </div>
+                <div class="field">
+                  <label for="ed-nationality">Nationality</label>
+                  <select id="ed-nationality" name="nationality" data-country-select>
+                    <option value="" selected>Select your country</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="ed-dob">Date of birth</label>
+                  <input type="text" id="ed-dob" name="date_of_birth" inputmode="numeric" autocomplete="bday" placeholder="DD/MM/YYYY" />
+                </div>
+                <div class="field">
+                  <label for="ed-tshirt">T-shirt size (for our little gifts)</label>
+                  <select id="ed-tshirt" name="tshirt_size">
+                    <option value="" selected>Select your size</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <span class="field-legend">Languages you speak</span>
+                  <div class="lang-picker">
+                    <select id="ed-language-select" data-details-language-select aria-label="Choose a language to add">
+                      <option value="" selected disabled>Choose a language…</option>
+                    </select>
+                    <button type="button" class="btn btn-outline lang-add" data-details-language-add>Add</button>
+                  </div>
+                  <div class="lang-tags" id="ed-language-tags" data-details-language-tags aria-live="polite"></div>
+                </div>
+                <div class="field full">
+                  <label class="switch-row">
+                    <input type="checkbox" data-share-master />
+                    <span class="switch" aria-hidden="true"></span>
+                    <span>Happy to connect with others on my cruise</span>
+                  </label>
+                  <p class="form-note" data-share-hint style="margin-block-start: 0.6rem;">You stay completely private. Nothing about you is shown to anyone.</p>
+                  <div class="share-options" data-share-options hidden>
+                    <span class="field-legend">Choose what they can see</span>
+                    <div class="share-toggles">
+                      <label class="switch-row"><input type="checkbox" id="ed-share_name" /><span class="switch" aria-hidden="true"></span><span>First name</span></label>
+                      <label class="switch-row"><input type="checkbox" id="ed-share_age" /><span class="switch" aria-hidden="true"></span><span>Age</span></label>
+                      <label class="switch-row"><input type="checkbox" id="ed-share_languages" /><span class="switch" aria-hidden="true"></span><span>Languages</span></label>
+                      <label class="switch-row"><input type="checkbox" id="ed-share_photo" /><span class="switch" aria-hidden="true"></span><span>Photo</span></label>
+                    </div>
+                    <p class="form-note" style="margin-block-start: 0.6rem;">Only guests booked on the same cruise can ever see this. Switch off anything you prefer to keep private.</p>
+                  </div>
+                </div>
+                <div class="full">
+                  <button class="btn btn-primary" type="submit">Save my details</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <h3 class="dash-section-title">Your next cruise</h3>
+          <div id="next-cruise"></div>
+
+          <h3 class="dash-section-title">Upcoming cruises</h3>
+          <p class="form-note" style="margin-block-start:0;">Reserve a seat and pay only for yourself. Shared departures sail once a small minimum is reached.</p>
+          <div id="upcoming-cruises"></div>
+
+          <h3 class="dash-section-title">Prefer the whole yacht?</h3>
+          <div class="way-card">
+            <p>Sailing with your own group of friends? Charter the entire yacht just for you, nobody else on board, with the full privacy protocol. Tell us the date and group size and we will send a tailored quote.</p>
+            <a class="btn btn-navy" href="/book.html?booking=private">Request a private charter</a>
+          </div>
+
+          <div class="form-status" role="status" aria-live="polite" id="dash-status"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:none; padding-block-start:0;">
+        <p>Bonjour Cruise · Dubai, United Arab Emirates · <a href="mailto:info@bonjourcruise.com">info@bonjourcruise.com</a></p>
+        <p><a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a> · &copy; <span data-year>2026</span> Bonjour Cruise</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/971585986118?text=Hello%20Bonjour%20Cruise%2C%20I%20have%20a%20question%20about%20Bonjour%20Cruise." aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.9C8.8 2.9 2.9 8.8 2.9 16c0 2.3.6 4.6 1.8 6.6L2.8 29.2l6.8-1.8c1.9 1.1 4.1 1.6 6.4 1.6 7.2 0 13.1-5.9 13.1-13.1S23.2 2.9 16 2.9zm0 23.9c-2 0-3.9-.5-5.6-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8C5 10 9.9 5.1 16 5.1S27 10 27 16.1 22.1 26.8 16 26.8zm6-8.1c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6-.1-.2-.7-1.8-1-2.4-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  </a>
+
+  <!-- Hidden static form so Netlify detects it; account.js posts here on signup -->
+  <form name="new-member" method="POST" data-netlify="true" hidden aria-hidden="true">
+    <input type="text" name="first_name" /><input type="text" name="last_name" /><input type="text" name="nickname" />
+    <input type="email" name="email" /><input type="text" name="nationality" /><input type="tel" name="whatsapp" />
+  </form>
+
+</body>
+</html>

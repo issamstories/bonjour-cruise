@@ -1,0 +1,46 @@
+<!--
+  BONJOUR CRUISE, "Confirm your email" template for Supabase Auth.
+  EXCLUSIVE per-language: renders ONLY the language the user chose on the site.
+  Supabase stores it in user_metadata.lang (set at signup), read here as {{ .Data.lang }}.
+  Missing/unknown lang falls back to English. Paste into:
+  Supabase dashboard > Authentication > Emails > Confirm sign up (Message body).
+  Subject: Confirm your email and join Bonjour Cruise 🌸
+-->
+{{- $lang := "en" -}}
+{{- if .Data }}{{ if .Data.lang }}{{ $lang = .Data.lang }}{{ end }}{{ end -}}
+<!doctype html>
+<html{{ if eq $lang "ar" }} dir="rtl"{{ end }}>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bonjour Cruise</title></head>
+<body style="margin:0;padding:0;background:#FBF5EF;font-family:Inter,-apple-system,'Segoe UI',Tahoma,sans-serif;color:#2B2F3A;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF5EF;">
+    <tr><td align="center" style="padding:40px 20px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:#FFFFFF;border-radius:22px;overflow:hidden;box-shadow:0 26px 64px rgba(28,43,74,0.13);">
+
+        <tr><td style="background:linear-gradient(135deg,#E3B9BB 0%,#C98A8E 55%,#A8555C 100%);padding:44px 40px 38px;text-align:center;">
+          <p style="margin:0 0 10px;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:#FFF3EF;">Bonjour Cruise &middot; Dubai &#127800;</p>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;font-style:italic;color:#FFFFFF;letter-spacing:0.02em;">{{ if eq $lang "fr" }}Venez seul, repartez entre amis{{ else if eq $lang "ar" }}تعال بمفردك، وارجع بأصدقاء{{ else if eq $lang "ru" }}Приходите одни, уезжайте с друзьями{{ else if eq $lang "zh" }}独自登船，结伴而归{{ else if eq $lang "zh-hant" }}獨自登船，結伴而歸{{ else }}Come as one, leave with friends{{ end }}</h1>
+        </td></tr>
+
+        <tr><td style="padding:36px 40px 8px;text-align:center;">
+          <p style="margin:0 0 20px;font-family:Inter,sans-serif;font-size:16px;line-height:1.65;color:#2B2F3A;">{{ if eq $lang "fr" }}Confirmez votre e-mail pour activer votre compte Bonjour Cruise.{{ else if eq $lang "ar" }}أكّد بريدك الإلكتروني لتفعيل حسابك في Bonjour Cruise.{{ else if eq $lang "ru" }}Подтвердите почту, чтобы активировать ваш аккаунт Bonjour Cruise.{{ else if eq $lang "zh" }}请确认您的电子邮箱以激活您的 Bonjour Cruise 账户。{{ else if eq $lang "zh-hant" }}請確認您的電子郵箱以啟用您的 Bonjour Cruise 帳戶。{{ else }}Confirm your email to activate your Bonjour Cruise account.{{ end }}</p>
+          <a href="{{ .ConfirmationURL }}" style="display:inline-block;background:linear-gradient(135deg,#B5636A,#A8555C);color:#FFFFFF;text-decoration:none;font-family:Inter,sans-serif;font-size:16px;font-weight:600;padding:15px 40px;border-radius:999px;">{{ if eq $lang "fr" }}Confirmer mon e-mail{{ else if eq $lang "ar" }}تأكيد بريدي الإلكتروني{{ else if eq $lang "ru" }}Подтвердить почту{{ else if eq $lang "zh" }}确认我的邮箱{{ else if eq $lang "zh-hant" }}確認我的郵箱{{ else }}Confirm my email{{ end }}</a>
+        </td></tr>
+
+        <tr><td style="padding:22px 40px 6px;text-align:center;">
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:13px;line-height:1.6;color:#8A7B70;">{{ if eq $lang "fr" }}Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :{{ else if eq $lang "ar" }}إذا لم يعمل الزر، انسخ هذا الرابط في متصفحك:{{ else if eq $lang "ru" }}Если кнопка не работает, скопируйте эту ссылку в браузер:{{ else if eq $lang "zh" }}如果按钮无法使用，请将此链接复制到浏览器：{{ else if eq $lang "zh-hant" }}如果按鈕無法使用，請將此連結複製到瀏覽器：{{ else }}If the button does not work, copy this link into your browser:{{ end }}<br><a href="{{ .ConfirmationURL }}" style="color:#A8555C;word-break:break-all;">{{ .ConfirmationURL }}</a></p>
+        </td></tr>
+
+        <tr><td style="padding:16px 40px 34px;text-align:center;">
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:12px;line-height:1.6;color:#8A7B70;">{{ if eq $lang "fr" }}Arrivé dans les spams ou promotions ? Déplacez-le dans votre boîte de réception et ajoutez info@bonjourcruise.com à vos contacts.{{ else if eq $lang "ar" }}وصلت الرسالة إلى الرسائل غير المرغوبة أو العروض؟ انقلها إلى صندوق الوارد وأضف info@bonjourcruise.com إلى جهات اتصالك.{{ else if eq $lang "ru" }}Письмо попало в спам или промоакции? Перенесите его во «Входящие» и добавьте info@bonjourcruise.com в контакты.{{ else if eq $lang "zh" }}邮件进入了垃圾邮件或推广文件夹？请将其移至收件箱，并将 info@bonjourcruise.com 添加到联系人。{{ else if eq $lang "zh-hant" }}郵件進入了垃圾郵件或推廣資料夾？請將其移至收件匣，並將 info@bonjourcruise.com 加入聯絡人。{{ else }}Landed in spam or promotions? Move it to your inbox and add info@bonjourcruise.com to your contacts.{{ end }}</p>
+        </td></tr>
+
+        <tr><td style="background:#F3E7DC;padding:22px 40px;text-align:center;">
+          <p style="margin:0 0 4px;font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;color:#1C2B4A;">{{ if eq $lang "fr" }}Croisières en yacht partagées, Dubaï{{ else if eq $lang "ar" }}رحلات يخت مشتركة، دبي{{ else if eq $lang "ru" }}Совместные яхт-прогулки, Дубай{{ else if eq $lang "zh" }}共享游艇之旅，迪拜{{ else if eq $lang "zh-hant" }}共享遊艇之旅，杜拜{{ else }}Shared yacht charters, Dubai{{ end }}</p>
+          <p style="margin:0;font-family:Inter,sans-serif;font-size:13px;color:#5C5A5E;">info@bonjourcruise.com &middot; bonjourcruise.com</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>
