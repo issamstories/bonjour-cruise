@@ -5,16 +5,16 @@
 // label it "Bonjour Cruise" automatically.
 //
 // Env vars (set in Netlify UI):
-//   BREVO_API_KEY    — shared across brands, from the one Brevo account
-//   HUB_EMAIL        — defaults to issam.messaoudi.hub+bonjourcruise@gmail.com
-//   FROM_EMAIL       — defaults to notifications@bonjourcruise.com
-//   FROM_NAME        — defaults to "Bonjour Cruise"
+//   BREVO_API_KEY    : shared across brands, from the one Brevo account
+//   HUB_EMAIL        : defaults to issam.messaoudi.hub+bonjourcruise@gmail.com
+//   FROM_EMAIL       : defaults to notifications@bonjourcruise.com
+//   FROM_NAME        : defaults to "Bonjour Cruise"
 
 const BREVO_ENDPOINT = "https://api.brevo.com/v3/smtp/email";
 
-const HUB_EMAIL = "issam.messaoudi.hub+bonjourcruise@gmail.com";
-const FROM_EMAIL = "notifications@bonjourcruise.com";
-const FROM_NAME = "Bonjour Cruise";
+const HUB_EMAIL = process.env.HUB_EMAIL || "issam.messaoudi.hub+bonjourcruise@gmail.com";
+const FROM_EMAIL = process.env.FROM_EMAIL || "notifications@bonjourcruise.com";
+const FROM_NAME = process.env.FROM_NAME || "Bonjour Cruise";
 
 // Customer emails (guest confirmation + companion invite) are sent in the
 // language they used on the site. The dictionary is produced by the email
@@ -118,7 +118,7 @@ exports.handler = async (event) => {
 
   const subjectName =
     data.name || data.first_name || data.email || "New submission";
-  const subject = `[Bonjour Cruise] ${label} — ${subjectName}`;
+  const subject = `[Bonjour Cruise] ${label}: ${subjectName}`;
 
   const replyTo = data.email
     ? { email: data.email, name: data.name || data.first_name || "" }
@@ -273,7 +273,7 @@ function renderEmail({ label, rows, submittedAt, formName, paid }) {
 
 function renderText({ label, rows, submittedAt, paid }) {
   const lines = [
-    `BONJOUR CRUISE — ${label}`,
+    `BONJOUR CRUISE: ${label}`,
     paid ? `${paid.label}: ${paid.note}` : "",
     `Received: ${formatDate(submittedAt)}`,
     "",
@@ -316,7 +316,7 @@ function formatDate(iso) {
 }
 
 /* ==========================================================================
-   GUEST CONFIRMATION — the branded email the guest receives after
+   GUEST CONFIRMATION: the branded email the guest receives after
    they complete the homepage booking wizard. Warm, on-brand, with the day's
    programme and what happens next. Kept dark-on-light and em-dash-free.
    ========================================================================== */
@@ -512,8 +512,8 @@ function renderGuestText({ firstName, data, formName, lang = "en" }) {
 }
 
 /* ==========================================================================
-   COMPANION INVITE — the branded email each guest in the circle receives when
-   the lead booked seats for her. She gets the cruise details + a link to
+   COMPANION INVITE: the branded email each guest in the circle receives when
+   the lead booked seats for them. They get the cruise details + a link to
    create their own Bonjour Cruise account. Dark-on-light, em-dash-free.
    ========================================================================== */
 
@@ -600,7 +600,7 @@ function renderCompanionText({ firstName, lead, data, lang = "en" }) {
 }
 
 /* ==========================================================================
-   NEW MEMBER — a warm, motivating note to Issam each time a new member joins.
+   NEW MEMBER: a warm, motivating note to Issam each time a new member joins.
    Built to feel like a small win, not a data dump. Dark-on-light, em-dash-free.
    ========================================================================== */
 
@@ -659,7 +659,7 @@ function renderMemberJoinedEmail(data, first) {
 
 function renderMemberJoinedText(data, first) {
   const lines = [
-    "BONJOUR CRUISE — A new member just joined",
+    "BONJOUR CRUISE: A new member just joined",
     "",
     `${first} said yes to the sea.`,
     "",

@@ -142,8 +142,9 @@ function injectSwitcher(root, code, path) {
     const cur = l.code === code ? ' aria-current="true"' : '';
     return `<a href="${hrefFor(l.code, path)}" hreflang="${l.htmlLang}"${cur}>${l.label}</a>`;
   }).join('<span aria-hidden="true"> | </span>');
+  const ariaLabel = code === 'en' ? 'Language selection' : (tr('Language selection', code) ?? 'Language selection');
   root.querySelectorAll('.lang-switcher').forEach((sw) => {
-    sw.setAttribute('aria-label', 'Language selection');
+    sw.setAttribute('aria-label', ariaLabel);
     sw.set_content(items);
   });
 }

@@ -240,17 +240,11 @@ section {
 
 .brand span { color: var(--blush); }
 
-/* Header brand: replace the text wordmark with the logo image (header only,
-   footer keeps the text). Text stays in the DOM for SEO and screen readers. */
-.site-header .brand {
-  display: inline-block;
-  height: clamp(17px, 4vw, 24px);
-  aspect-ratio: 2045 / 189;
-  background: url('/assets/img/logo-wordmark.png') left center / contain no-repeat;
-  text-indent: -9999px;
-  overflow: hidden;
-}
-.site-header .brand span { display: none; }
+/* Header brand: text wordmark (matches the footer). The logo-wordmark.png
+   asset in public/assets/img is leftover art from the old Madame Cruise
+   brand (it literally reads "MADAME CRUISE") and must not be used until a
+   correct Bonjour Cruise logo file is produced; that is an image asset,
+   outside the scope of this CSS/HTML/i18n pass. */
 
 .nav-links {
   display: none;
@@ -742,7 +736,11 @@ section {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
+
+.way-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
 
 .way-card .way-price {
   font-family: var(--font-serif);
@@ -2461,8 +2459,8 @@ input[type="date"]::-webkit-clear-button { display: none; -webkit-appearance: no
 
 .wiz-choices { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
 @media (max-width: 520px) { .wiz-choices { grid-template-columns: 1fr; } }
-.wiz-choice { background: var(--white); border: 1.5px solid var(--line); border-radius: 16px; padding: 1.6rem 1.25rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; gap: 0.45rem; align-items: center; transition: border-color 0.15s ease, transform 0.15s ease; }
-.wiz-choice:hover { border-color: var(--blush); transform: translateY(-2px); }
+.wiz-choice { background: var(--white); border: 1.5px solid var(--line); border-radius: 16px; padding: 1.6rem 1.25rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; gap: 0.45rem; align-items: center; box-shadow: var(--shadow-soft); transition: border-color 0.2s ease, transform 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.wiz-choice:hover { border-color: var(--blush); transform: translateY(-3px); box-shadow: var(--shadow-card); }
 .wiz-choice-emoji { font-size: 2rem; line-height: 1; }
 .wiz-choice strong { font-family: var(--font-serif); font-size: 1.35rem; color: var(--navy); }
 .wiz-choice span { color: var(--ink-soft); font-size: 0.9rem; }
