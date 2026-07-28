@@ -121,6 +121,14 @@
       </div>
     </section>
 
+    <!-- SOCIAL PROOF: intentionally NOT added here. Adding a section changes the
+         page structure, which is out of scope for this pass. When Issam wants it,
+         the rules are: never invent a review, a rating or a guest name; publish
+         only quotes a real guest sent, with their permission to attribute them;
+         and never add schema.org AggregateRating without real reviews behind it,
+         Google treats that as structured-data spam. initCarousel() in
+         src/main.js is already guarded so an empty carousel throws nothing. -->
+
     <!-- Hidden static forms so Netlify detects them; the wizard submits via JS -->
     <form name="seat-request" method="POST" data-netlify="true" hidden aria-hidden="true">
       <input type="text" name="name" /><input type="email" name="email" /><input type="tel" name="whatsapp" />

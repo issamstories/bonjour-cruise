@@ -100,16 +100,20 @@
                 <label for="ct-lastname">Last name</label>
                 <input type="text" id="ct-lastname" name="last_name" autocomplete="family-name" />
               </div>
+              <!-- Email is the only contact channel we can always reply on, so it
+                   is the required one. A phone number and a nationality are useful
+                   but asking for them up front costs more leads than they are
+                   worth: both are optional and labelled as such. -->
               <div class="field">
-                <label for="ct-email">Email</label>
-                <input type="email" id="ct-email" name="email" autocomplete="email" placeholder="you@email.com" />
+                <label for="ct-email">Email *</label>
+                <input type="email" id="ct-email" name="email" required autocomplete="email" placeholder="you@email.com" />
               </div>
               <div class="field">
-                <label for="ct-whatsapp">WhatsApp number *</label>
-                <input type="tel" id="ct-whatsapp" name="whatsapp" required autocomplete="tel" placeholder="+971 5X XXX XXXX" />
+                <label for="ct-whatsapp">WhatsApp number (optional)</label>
+                <input type="tel" id="ct-whatsapp" name="whatsapp" autocomplete="tel" placeholder="+971 5X XXX XXXX" />
               </div>
               <div class="field full">
-                <label for="ct-nationality">Nationality</label>
+                <label for="ct-nationality">Nationality (optional)</label>
                 <select id="ct-nationality" name="nationality" data-country-select autocomplete="country-name">
                   <option value="" selected>Select your country</option>
                 </select>

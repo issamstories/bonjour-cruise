@@ -1,7 +1,7 @@
 import './styles.css';
 import './member.js';
 import { COUNTRIES } from './data.js';
-import { araDigits } from './i18n.js';
+import { araDigits, t } from './i18n.js';
 
 /* ==========================================================================
    BONJOUR CRUISE, site behavior
@@ -56,6 +56,13 @@ function initCarousel() {
 
   const slides = carousel.querySelectorAll('.testimonial');
   const dots = carousel.querySelectorAll('.carousel-dots button');
+
+  // The homepage ships an empty, hidden social-proof carousel waiting for real
+  // guest quotes. With no slides, or with fewer dots than slides, show() would
+  // read undefined and throw on the first auto-advance, taking the rest of the
+  // page's JS down with it. Nothing to rotate means nothing to do.
+  if (slides.length < 2 || dots.length < slides.length) return;
+
   let current = 0;
   let timer;
 
@@ -172,8 +179,10 @@ function initForms() {
       const status = form.parentElement.querySelector('.form-status');
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalLabel = submitBtn.textContent;
+      // Disabled for the whole round trip: no double submission, and the label
+      // change is the loading feedback.
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+      submitBtn.textContent = t('Sending…');
 
       const body = new URLSearchParams(new FormData(form)).toString();
 
@@ -208,14 +217,33 @@ function initForms() {
   });
 }
 
+// Pre-filled WhatsApp thread offered whenever a form fails to send. A broken
+// submit must never be a dead end: the lead leaves through WhatsApp instead.
+const WHATSAPP_FALLBACK_LINK =
+  'https://wa.me/971585986118?text=' +
+  encodeURIComponent(
+    'Hello Bonjour Cruise, the contact form on your site did not go through. Here is my question:',
+  );
+
 function showStatus(statusEl, type, successMessage) {
   if (!statusEl) return;
   statusEl.className = `form-status ${type}`;
-  statusEl.textContent =
-    type === 'success'
-      ? successMessage ||
-        'Thank you. Your request is on its way, we will reply on WhatsApp within a few hours.'
-      : 'Something went wrong sending your request. Please reach us directly on WhatsApp and we will take care of you.';
+
+  if (type === 'success') {
+    statusEl.textContent =
+      successMessage ||
+      t('Thank you. Your request is on its way, we will reply on WhatsApp within a few hours.');
+  } else {
+    // Build with the DOM rather than innerHTML: the message is static, but the
+    // status element is also used for server-provided text elsewhere.
+    statusEl.textContent = t('Something went wrong sending your request. Message us on WhatsApp instead and we will take care of you right away:') + ' ';
+    const link = document.createElement('a');
+    link.href = WHATSAPP_FALLBACK_LINK;
+    link.rel = 'noopener';
+    link.textContent = t('open WhatsApp');
+    statusEl.appendChild(link);
+  }
+
   statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 

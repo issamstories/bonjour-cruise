@@ -427,6 +427,20 @@ function init() {
       </div>`;
   }
 
+  // Payment failure is the single most expensive moment to lose a guest, so the
+  // error block always carries a pre-filled WhatsApp thread out. role="alert"
+  // makes screen readers announce it as soon as it appears.
+  const WHATSAPP_PAY_HELP =
+    'https://wa.me/971585986118?text=' +
+    encodeURIComponent('Hello Bonjour Cruise, I could not complete my booking on the site. Can you help me finish it?');
+
+  function payErrorBlock() {
+    return `
+      <p class="form-status error" role="alert">${esc(state.payError)}
+        <a href="${WHATSAPP_PAY_HELP}" rel="noopener">${t('Finish your booking on WhatsApp')}</a>
+      </p>`;
+  }
+
   // The final action button(s): private gets pay-deposit + send-request; group
   // gets a single reserve/keep-me-posted button.
   function payActions() {
@@ -478,7 +492,7 @@ function init() {
             <span>${t('I accept the {terms} and {privacy}. I confirm I am 18 or older.', { terms: `<a href="${langHref('/terms.html')}" target="_blank" rel="noopener">${t('terms of sale')}</a>`, privacy: `<a href="${langHref('/privacy-policy.html')}" target="_blank" rel="noopener">${t('privacy policy')}</a>` })} <span class="req">*</span></span>
           </label>
         </div>
-        ${state.payError ? `<p class="form-status error" role="alert">${esc(state.payError)}</p>` : ''}
+        ${state.payError ? payErrorBlock() : ''}
         ${payActions()}
         <p class="form-note wiz-field-hint">${groupNotify ? t('We will message you the moment a date opens.') : state.mode === 'private' ? t('Secure deposit by Stripe. We confirm your charter, then the balance.') : t('Secure payment by Stripe. Free date change up to 7 days before.')}</p>
       </div>`;
@@ -532,7 +546,7 @@ function init() {
         ${isLast ? leadPerks() : ''}
         ${isLast ? companionBlock() : ''}
         ${optIn}
-        ${state.payError ? `<p class="form-status error" role="alert">${esc(state.payError)}</p>` : ''}
+        ${state.payError ? payErrorBlock() : ''}
         ${isLast ? payActions() : `<div class="wiz-field-nav"><button type="button" class="btn btn-primary wiz-next" data-fnext ${state.paying ? 'disabled' : ''}>${nextLabel}</button></div>`}
         <p class="form-note wiz-field-hint">${isLast && !groupNotify ? t('Secure payment by Stripe. Free date change up to 7 days before.') : t('Press Enter to continue')}</p>
       </div>`;
@@ -990,11 +1004,11 @@ function init() {
         body: { kind: 'charter-deposit', first_name: d.first, email: d.email,
           charter_date: dateStr, starts_at: startsAtIso, boat: boatById(state.boat)?.name || '', addons: chosen, lang: LANG },
       });
-      if (error || !data?.url) throw new Error(data?.error || 'Payment could not start.');
+      if (error || !data?.url) throw new Error(data?.error || t('Payment could not start.'));
       window.location.href = data.url;
     } catch (err) {
       state.paying = false;
-      state.payError = (err && err.message) ? err.message : 'Payment could not start. Please try again, or message us on WhatsApp.';
+      state.payError = (err && err.message) ? err.message : t('Payment could not start. Please try again, or message us on WhatsApp.');
       render();
     }
   }

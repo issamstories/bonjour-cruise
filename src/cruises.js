@@ -261,7 +261,16 @@ function initDateForm() {
       if (statusEl) { statusEl.className = 'form-status success'; statusEl.textContent = form.dataset.successMessage; }
       form.reset();
     } catch {
-      if (statusEl) { statusEl.className = 'form-status error'; statusEl.textContent = t('Could not send right now. Please try again in a moment.'); }
+      // Never a dead end: offer the same request over WhatsApp instead.
+      if (statusEl) {
+        statusEl.className = 'form-status error';
+        statusEl.textContent = t('Could not send right now. Please try again in a moment, or send us your date on WhatsApp:') + ' ';
+        const link = document.createElement('a');
+        link.href = WHATSAPP_DATES_LINK;
+        link.rel = 'noopener';
+        link.textContent = t('open WhatsApp');
+        statusEl.appendChild(link);
+      }
     } finally {
       btn.disabled = false;
       btn.textContent = orig;
