@@ -1483,8 +1483,16 @@ section {
   margin-block: 2.5rem 0.75rem;
 }
 
+.prose h3 {
+  font-size: 1.15rem;
+  margin-block: 1.75rem 0.5rem;
+}
+
 .prose p, .prose li { color: var(--ink-soft); margin-block-end: 1rem; }
 .prose ul, .prose ol { padding-inline-start: 1.4rem; }
+/* Legal copy leans on <strong> to label each clause. Full ink on cream is
+   11:1, so the label reads as a label by weight and contrast, never by hue. */
+.prose strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- Scroll reveal ---------- */
 
