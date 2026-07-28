@@ -17,6 +17,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- The page talks to Supabase as soon as it boots (auth session + cruise
+       data), so warm the TLS connection in parallel with the CSS. -->
+  <link rel="preconnect" href="https://vohocnkgdktssztsbirl.supabase.co" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script type="module" src="/src/account.js"></script>

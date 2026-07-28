@@ -125,12 +125,14 @@ export const PAGES = {
   'index.html': {
     path: '', // site root
     seo: {
+      // Titles are keyword-first and kept under 60 characters so Google shows
+      // them in full on desktop and mobile SERPs. Brand goes last.
       title: {
-        fr: 'Bonjour Cruise, croisières en yacht à Dubaï | Réservez à la place, entre amis',
-        ar: 'Bonjour Cruise، رحلات يخوت جماعية في دبي | احجز مقعدك وارجع بأصدقاء',
-        ru: 'Bonjour Cruise, круизы на яхтах в Дубае | Приходите одни, уезжайте с друзьями',
-        zh: 'Bonjour Cruise，迪拜共享游艇巡游 | 独自登船，结伴而归',
-        'zh-hant': 'Bonjour Cruise，杜拜共享遊艇巡遊 | 獨自登船，結伴而歸',
+        fr: 'Croisières en yacht partagées à Dubaï | Bonjour Cruise',
+        ar: 'رحلات يخوت جماعية في دبي، احجز مقعدك | Bonjour Cruise',
+        ru: 'Круизы на яхтах в Дубае, место за местом | Bonjour Cruise',
+        zh: '迪拜共享游艇巡游，按座位预订 | Bonjour Cruise',
+        'zh-hant': '杜拜共享遊艇巡遊，按座位預訂 | Bonjour Cruise',
       },
       description: {
         fr: 'Les croisières en yacht partagées de Dubaï, réservables à la place. Petits groupes, équipage chaleureux et vérifié, cuisine halal sur demande et partenaire maritime agréé. Venez seul, repartez entre amis.',

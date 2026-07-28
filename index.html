@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#1C2B4A" />
-  <title>Bonjour Cruise, Shared Yacht Cruises in Dubai | Come as One, Leave with Friends</title>
+  <title>Shared Yacht Cruises Dubai, Book by the Seat | Bonjour Cruise</title>
   <meta name="description" content="Dubai's social by-the-seat yacht cruises. Book a single seat, come solo or with friends, and share a sunset sail with a warm crew and halal dining. Come as one, leave with friends." />
   <link rel="canonical" href="https://bonjourcruise.com/" />
 
@@ -28,6 +28,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- The page talks to Supabase as soon as it boots (auth session + cruise
+       data), so warm the TLS connection in parallel with the CSS. -->
+  <link rel="preconnect" href="https://vohocnkgdktssztsbirl.supabase.co" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
@@ -39,16 +42,22 @@
     "slogan": "Come as one, leave with friends.",
     "url": "https://bonjourcruise.com/",
     "telephone": "+971585986118",
-    "priceRange": "AED 2,200 - AED 12,000+",
+    "email": "info@bonjourcruise.com",
+    "priceRange": "AED 380 - AED 12,000+",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Dubai Marina",
+      "streetAddress": "Dubai Marina Yacht Club, Dubai Marina",
       "addressLocality": "Dubai",
+      "addressRegion": "Dubai",
       "addressCountry": "AE"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 25.0805, "longitude": 55.1403 },
     "areaServed": "Dubai, United Arab Emirates",
-    "knowsLanguage": ["en", "ar", "fr", "ru", "zh"]
+    "sameAs": [
+      "https://instagram.com/bonjourcruise",
+      "https://tiktok.com/@bonjourcruise"
+    ],
+    "knowsLanguage": ["en", "fr", "ar", "ru", "zh-Hans", "zh-Hant"]
   }
   </script>
 
@@ -166,6 +175,19 @@
       </div>
       <div class="footer-bottom">
         <p>Bonjour Cruise · Dubai, United Arab Emirates · <a href="mailto:info@bonjourcruise.com">info@bonjourcruise.com</a></p>
+        <!-- TODO (Issam): legal identity block, kept commented out until the real
+             values are confirmed. Nothing here may be invented: an incorrect trade
+             name or licence number on a UAE tourism site is a regulatory problem,
+             not a copy problem. Fill in and uncomment:
+               - Registered legal name (LLC / FZE) and the emirate of registration
+               - DED / free-zone trade licence number
+               - DET (Dubai Department of Economy and Tourism) tourism licence number
+               - Registered office address as printed on the licence
+             The same values must be mirrored in privacy-policy.html section 1.
+        <p>Operated by <span data-legal-name>LEGAL NAME LLC</span>, Dubai, United Arab Emirates.
+           Trade licence <span data-ded-licence>DED-000000</span> ·
+           Tourism licence <span data-det-licence>DET-000000</span>.</p>
+        -->
         <p>&copy; <span data-year>2026</span> Bonjour Cruise. All rights reserved.</p>
       </div>
     </div>
