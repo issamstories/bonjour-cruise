@@ -95,6 +95,12 @@ function showJoinedModal(cruise, count = 0) {
 // Live Stripe payment link (AED 380 launch offer per seat, quantity 1 to 8).
 const PAYMENT_LINK = 'https://buy.stripe.com/8x2eVdbR0fhLgYJ8C5efC00';
 
+// Pre-filled WhatsApp thread, used whenever the live schedule cannot be shown.
+// A failed page load must never cost a lead.
+const WHATSAPP_DATES_LINK =
+  'https://wa.me/971585986118?text=' +
+  encodeURIComponent('Hello Bonjour Cruise, I would like the dates of the next shared cruise.');
+
 async function reserve(cruise, seats, btn) {
   const { data: { session } } = await supabase.auth.getSession();
 
@@ -186,18 +192,32 @@ async function boot() {
 
   if (els.loading) els.loading.hidden = true;
 
+  // The static fallback card rendered server-side in cruises.html. It is the
+  // page's only crawlable content and the only offer a visitor sees when the
+  // database is unreachable, so it is removed ONLY when live cruises replace
+  // it. On an error or an empty schedule we append to it instead.
+  const appendNotice = (html) => {
+    const notice = document.createElement('div');
+    notice.className = 'way-card';
+    notice.style.marginBlockStart = '1.5rem';
+    notice.innerHTML = html;
+    els.list.appendChild(notice);
+  };
+
   if (error) {
-    els.list.innerHTML = `<div class="way-card"><p>${t('We could not load the cruises right now. Please try again shortly, or message us on WhatsApp.')}</p></div>`;
+    appendNotice(
+      `<p>${t('We could not load the live schedule right now. The cruise above still runs, so message us on WhatsApp for the next dates.')}</p>
+       <a class="btn btn-primary" href="${WHATSAPP_DATES_LINK}" rel="noopener">${t('Ask for the next dates on WhatsApp')}</a>`,
+    );
     return;
   }
 
   if (!cruises || !cruises.length) {
-    els.list.innerHTML = `
-      <div class="way-card">
-        <h3>${t('No scheduled cruises just yet.')}</h3>
-        <p>${t('New shared departures are added regularly. Create your account and we will email you the moment the next one opens, so you can grab a seat first.')}</p>
-        <a class="btn btn-primary" href="${langHref('/account.html')}">${t('Create my account')}</a>
-      </div>`;
+    appendNotice(
+      `<h3>${t('No scheduled cruises just yet.')}</h3>
+       <p>${t('New shared departures are added regularly. Create your account and we will email you the moment the next one opens, so you can grab a seat first.')}</p>
+       <a class="btn btn-primary" href="${langHref('/account.html')}">${t('Create my account')}</a>`,
+    );
     return;
   }
 

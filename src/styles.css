@@ -1947,6 +1947,20 @@ section {
 .joined-note { color: var(--ink-soft); margin-block-end: 1.5rem; }
 .cruise-open-card .companions { color: var(--blush); font-weight: 600; }
 
+/* /cruises: discreet live-schedule status line, sitting above the static
+   fallback card. --ink-soft on --cream is 5.5:1, comfortably above WCAG AA. */
+.cruises-loading {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-block-end: 1.25rem;
+}
+
+/* The static, crawlable fallback offer. It is real page content, not a
+   placeholder, so it is styled like any other card. */
+[data-cruises-fallback] .hero-ctas { margin-block-start: 1.25rem; }
+[data-cruises-fallback] .cruise-facts { margin-block-start: 1rem; }
+
 /* Guest seat icons: filled = booked, faint = free */
 .seat-icons { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-block: 0.6rem 0.4rem; }
 .seat-icon { inline-size: 22px; block-size: 22px; display: block; }
