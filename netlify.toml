@@ -5,30 +5,6 @@
   command = "npm run build"
   publish = "dist"
 
-# --------------------------------------------------------------------------
-# Canonical host. One host, one protocol: everything lands on
-# https://bonjourcruise.com so link equity is never split between variants.
-# These must stay ABOVE the pretty-URL rules, Netlify applies the first match.
-# --------------------------------------------------------------------------
-
-[[redirects]]
-  from = "http://bonjourcruise.com/*"
-  to = "https://bonjourcruise.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.bonjourcruise.com/*"
-  to = "https://bonjourcruise.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://www.bonjourcruise.com/*"
-  to = "https://bonjourcruise.com/:splat"
-  status = 301
-  force = true
-
 # Pretty URLs: /experiences resolves to /experiences.html
 [[redirects]]
   from = "/experiences"
