@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE, reference lists for the signup form
+   BONJOUR CRUISE, reference lists for the signup form
    Countries (with ISO codes so we can show a flag) and languages.
    Palestine is included.
    ========================================================================== */

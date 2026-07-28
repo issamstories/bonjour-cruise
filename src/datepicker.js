@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE — feminine date picker
+   BONJOUR CRUISE — feminine date picker
    Native <input type="date"> popups are rendered by the OS/browser and cannot
    be styled. We keep the input (so the value stays ISO, `required` still works
    and forms submit unchanged) but suppress the native popup and open our own

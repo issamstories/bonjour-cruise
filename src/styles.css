@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE — single stylesheet
+   BONJOUR CRUISE — single stylesheet
    Palette and typography are driven by custom properties.
    Logical properties (inline/block) are used throughout so an RTL Arabic
    version only needs `dir="rtl"` on <html>.
@@ -240,11 +240,12 @@ section {
 
 .brand span { color: var(--blush); }
 
-/* Header brand: text wordmark (matches the footer). The logo-wordmark.png
-   asset in public/assets/img is leftover art from the old Madame Cruise
-   brand (it literally reads "MADAME CRUISE") and must not be used until a
-   correct Bonjour Cruise logo file is produced; that is an image asset,
-   outside the scope of this CSS/HTML/i18n pass. */
+/* Header brand: text wordmark (matches the footer). The old logo-wordmark.png
+   was leftover art from the forked brand (it literally read "MADAME CRUISE")
+   and has been moved out of the shipped assets to _private/legacy-madame-assets/.
+   Until a correct Bonjour Cruise wordmark file is produced, the header and the
+   footer both render the brand as live text, which also keeps it translatable
+   and crisp at every density. */
 
 .nav-links {
   display: none;
@@ -1946,7 +1947,7 @@ section {
 .joined-note { color: var(--ink-soft); margin-block-end: 1.5rem; }
 .cruise-open-card .companions { color: var(--blush); font-weight: 600; }
 
-/* Madame seat icons: filled = booked, faint = free */
+/* Guest seat icons: filled = booked, faint = free */
 .seat-icons { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-block: 0.6rem 0.4rem; }
 .seat-icon { inline-size: 22px; block-size: 22px; display: block; }
 .seat-icon-wrap .seat-icon { fill: var(--blush); opacity: 0.25; }
@@ -1956,7 +1957,7 @@ section {
 .seat-icon-wrap.has-info { cursor: help; }
 .seat-icon-wrap.has-info:hover .seat-icon { transform: scale(1.2); transform-origin: center bottom; }
 
-/* The Madame Charter */
+/* The Bonjour Charter */
 .charter-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem; margin-block-start: 2.5rem;
@@ -1977,7 +1978,7 @@ section {
   gap: 1.5rem; margin-block-start: 2.5rem; align-items: start;
 }
 
-/* Founding madames newsletter */
+/* Founding guests newsletter */
 .newsletter-form { margin-block-start: 1.75rem; }
 .newsletter-row { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
 .newsletter-row input {

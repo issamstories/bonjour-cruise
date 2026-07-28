@@ -20,7 +20,7 @@ function meaningful(s) {
   if (!/[A-Za-z]/.test(t)) return false;             // no latin letters (numbers, emojis)
   if (/^[\d\s.,%+\-–—/:()AED]+$/.test(t)) return false;
   if (/@/.test(t) && /\.[a-z]{2,}/.test(t)) return false; // emails
-  if (/^Madame\s*Cruise$/i.test(t)) return false;    // brand
+  if (/^Bonjour\s*Cruise$/i.test(t)) return false;   // brand
   return true;
 }
 

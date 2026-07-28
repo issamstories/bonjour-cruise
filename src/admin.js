@@ -3,7 +3,7 @@ import { supabase } from './supabase.js';
 import { createCalendar, dayKey } from './calendar.js';
 
 /* ==========================================================================
-   MADAME CRUISE, admin scheduling
+   BONJOUR CRUISE, admin scheduling
    Issam signs in, sees a calendar of departures, posts new ones and adjusts
    capacity per date. Everything is written with his own session, so the
    `cruises_admin_write` RLS policy (is_admin) is what authorises it. No secret

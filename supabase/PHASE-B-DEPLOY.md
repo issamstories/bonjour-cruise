@@ -1,4 +1,4 @@
-# Madame Cruise, Phase B, deploy checklist (Issam)
+# Bonjour Cruise, Phase B, deploy checklist (Issam)
 
 Everything below is your part: secrets and a Supabase deploy that must not pass
 through chat. Once done, the homepage books real cruises, the live counter
@@ -6,7 +6,7 @@ works, the after-payment email and the 1h reminder fire.
 
 ## 0. Roll the leaked Stripe key (do this first)
 The `sk_live_...` key was pasted in chat, so treat it as compromised.
-Stripe Dashboard (Madame Cruise account) -> Developers -> API keys ->
+Stripe Dashboard (Bonjour Cruise account) -> Developers -> API keys ->
 **Roll** the secret key. Copy the NEW one. Never paste it in chat again.
 
 ## 1. Become an admin
@@ -35,7 +35,7 @@ Or paste the contents of these files into the dashboard function editor:
 - supabase/functions/stripe-webhook/index.ts   (disable "Verify JWT" for this one)
 
 ## 4. Create the Stripe webhook
-Stripe Dashboard (Madame Cruise account) -> Developers -> Webhooks -> Add endpoint:
+Stripe Dashboard (Bonjour Cruise account) -> Developers -> Webhooks -> Add endpoint:
 - URL: `https://rdfzdizvxavfxlbiwsbg.supabase.co/functions/v1/stripe-webhook`
 - Events: `checkout.session.completed` and `checkout.session.expired`
 - After creating, copy the "Signing secret" (`whsec_...`) and put it in the

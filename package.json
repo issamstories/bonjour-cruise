@@ -1,9 +1,9 @@
 {
-  "name": "madame-cruise",
+  "name": "bonjour-cruise",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Official website for MADAME CRUISE - Dubai's first ladies-only yacht charter brand",
+  "description": "Official website for Bonjour Cruise - shared, by-the-seat yacht cruises in Dubai",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/build-i18n.mjs",

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE, shared month calendar
+   BONJOUR CRUISE, shared month calendar
    A month grid that drops a little boat marker on every day that has a
    departure, with a clear "seats booked / capacity" label and a fill bar.
    Colour is never the only signal (Issam is colour-blind): every state also

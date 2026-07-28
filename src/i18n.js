@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE, runtime i18n for the dynamic JS (wizard, account, cruises).
+   BONJOUR CRUISE, runtime i18n for the dynamic JS (wizard, account, cruises).
    Same model as the static generator: the English string IS the key, so we
    just wrap user-facing strings in t(). Missing translations fall back to
    English, so a partial dictionary never breaks a screen.

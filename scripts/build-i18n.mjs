@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MADAME CRUISE, i18n build generator (full-site)
+   BONJOUR CRUISE, i18n build generator (full-site)
    Runs AFTER `vite build`. Takes the English pages in dist/ (source of truth)
    and stamps out /fr /ar /ru /zh with EVERY string translated, real hreflang,
    a working language switcher and RTL for Arabic. English pages are

@@ -9,3 +9,4 @@ dist/
 
 Partners*/
 *.pdf
+*.env

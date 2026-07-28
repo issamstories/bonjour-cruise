@@ -4,7 +4,7 @@ import { COUNTRIES } from './data.js';
 import { araDigits } from './i18n.js';
 
 /* ==========================================================================
-   MADAME CRUISE, site behavior
+   BONJOUR CRUISE, site behavior
    No frameworks: small vanilla modules, each guarded so every page can load
    the same bundle safely.
    ========================================================================== */
