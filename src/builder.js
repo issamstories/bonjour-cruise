@@ -57,16 +57,22 @@ const BOAT_SVG = `
     <circle cx="557" cy="84" r="8" fill="#E4D2AE" opacity="0.6"/>
     <circle cx="552" cy="60" r="4" fill="#E4D2AE" opacity="0.6"/>
   </g>
-  <g class="boat-hearts" fill="#E3B9BB">
-    <path d="M486 150c-6-7-14-4-14 3 0 6 8 10 14 16 6-6 14-10 14-16 0-7-8-10-14-3z" opacity="0.7"/>
-    <path d="M452 116c-4-5-10-3-10 2 0 5 6 8 10 12 4-4 10-7 10-12 0-5-6-7-10-2z" opacity="0.55"/>
-    <path d="M508 190c-3-3-8-2-8 2 0 4 5 6 8 9 3-3 8-5 8-9 0-4-5-5-8-2z" opacity="0.5"/>
+  <!-- Bonjour Cruise is a mixed brand, not a women-only one. The floating
+       hearts that used to sit here came from the Madame Cruise fork and read
+       as feminine. Replaced by gulls, which stay festive and nautical without
+       gendering the scene. Same positions, same opacities, same visual weight. -->
+  <g class="boat-gulls" fill="none" stroke="#8A94A6" stroke-linecap="round" stroke-width="2.6">
+    <path d="M472 156q7-8 14 0 7-8 14 0" opacity="0.7"/>
+    <path d="M442 120q5-6 10 0 5-6 10 0" opacity="0.55"/>
+    <path d="M500 194q4-5 8 0 4-5 8 0" opacity="0.5"/>
   </g>
   <path class="boat-water"  d="M0 312 q160 -24 320 0 t320 0 V380 H0 Z"/>
   <path class="boat-water boat-water2" d="M0 336 q160 -16 320 0 t320 0 V380 H0 Z"/>
   <g class="boat-body">
   <line class="boat-line" x1="150" y1="250" x2="150" y2="90"/>
-  <path class="boat-flag" d="M150 102c-7-8-15-4-15 3 0 6 8 11 15 17 7-6 15-11 15-17 0-7-8-11-15-3z"/>
+  <!-- Was a heart-shaped masthead flag, inherited from the fork. Now a burgee,
+       the pennant a yacht actually flies. Same anchor point, same footprint. -->
+  <path class="boat-flag" d="M150 100 L186 111 L150 122 Z"/>
   <!-- bunting garland: little pennants from the mast to the cabin -->
   <g class="boat-bunting">
     <path d="M150 108 Q252 170 358 150" fill="none" stroke="rgba(28,43,74,0.35)" stroke-width="1.4"/>
@@ -92,11 +98,12 @@ const BOAT_SVG = `
   </g>
   <rect class="boat-cabin" x="356" y="150" width="108" height="40" rx="12"/>
   <rect class="boat-glass" x="366" y="158" width="88" height="18" rx="6"/>
-  <!-- little flower posy on the cabin roof -->
-  <g class="boat-posy">
-    <circle cx="404" cy="146" r="4.5" fill="#E3B9BB"/><circle cx="413" cy="144" r="4.5" fill="#F3E7DC"/>
-    <circle cx="410" cy="151" r="4.5" fill="#C98A8E"/><circle cx="401" cy="150" r="4" fill="#E4D2AE"/>
-    <circle cx="408" cy="147" r="2.4" fill="#C9A86A"/>
+  <!-- Was a flower posy on the cabin roof, from the fork. Now a radar mast and
+       navigation light: same silhouette on the roofline, read as a boat. -->
+  <g class="boat-mast-kit" stroke="#8A94A6" stroke-width="2" stroke-linecap="round">
+    <line x1="407" y1="150" x2="407" y2="136"/>
+    <path d="M399 136q8-7 16 0" fill="none"/>
+    <circle cx="407" cy="132" r="2.6" fill="#C9A86A" stroke="none"/>
   </g>
   <g class="boat-rail">
     <line x1="100" y1="244" x2="312" y2="244"/>
@@ -473,7 +480,7 @@ function init() {
     return `
       <div class="wiz-field">
         <div class="wiz-signed">
-          <p class="wiz-signed-hi">${t('Booking as {name}', { name: `<strong>${esc(displayName)}</strong>` })} 🌸</p>
+          <p class="wiz-signed-hi">${t('Booking as {name}', { name: `<strong>${esc(displayName)}</strong>` })} ⚓</p>
           <p class="form-note">${esc(state.user.email)}. ${t('Everything is on file, just confirm below.')}</p>
         </div>
         ${leadPerks()}
@@ -530,7 +537,7 @@ function init() {
              <input type="checkbox" data-notify ${state.details.notify ? 'checked' : ''} />
              <span>${t('Keep me posted when another guest joins this cruise.')}</span>
            </label>
-           <p class="wiz-account-note">🌸 ${t('We create your Bonjour Cruise account from these details, so you can manage your booking, see who is aboard and add your photo. You set your password right after payment.')}</p>
+           <p class="wiz-account-note">⚓ ${t('We create your Bonjour Cruise account from these details, so you can manage your booking, see who is aboard and add your photo. You set your password right after payment.')}</p>
            <label class="wiz-optin wiz-optin-terms">
              <input type="checkbox" data-terms ${state.details.terms ? 'checked' : ''} />
              <span>${t('I accept the {terms} and {privacy}. I confirm I am 18 or older.', { terms: `<a href="${langHref('/terms.html')}" target="_blank" rel="noopener">${t('terms of sale')}</a>`, privacy: `<a href="${langHref('/privacy-policy.html')}" target="_blank" rel="noopener">${t('privacy policy')}</a>` })} <span class="req">*</span></span>
@@ -558,7 +565,7 @@ function init() {
         <p class="wiz-q">${t('How would you like to sail?')}</p>
         <div class="wiz-choices">
           <button type="button" class="wiz-choice" data-mode="group">
-            <span class="wiz-choice-emoji">🌸</span><strong>${t('Join a group')}</strong>
+            <span class="wiz-choice-emoji">🥂</span><strong>${t('Join a group')}</strong>
             <span>${t('Come solo and sail among the group. You pay only for your seat.')}</span>
           </button>
           <button type="button" class="wiz-choice" data-mode="private">
@@ -895,7 +902,7 @@ function init() {
   function renderRecap() {
     if (state.sent) {
       recap.innerHTML = `<div class="wiz-recap-card">
-        <p class="wiz-recap-title">${t('All set')} 🌸</p>
+        <p class="wiz-recap-title">${t('All set')} ⚓</p>
         <p class="form-note">${t('We will be in touch shortly. Meanwhile, explore the site.')}</p>
         <a class="btn btn-outline" href="${langHref('/experiences.html')}">${t('See experiences')}</a>
       </div>`;

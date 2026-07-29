@@ -4,7 +4,7 @@
   Supabase stores it in user_metadata.lang (set at signup), read here as {{ .Data.lang }}.
   Missing/unknown lang falls back to English. Paste into:
   Supabase dashboard > Authentication > Emails > Confirm sign up (Message body).
-  Subject: Confirm your email and join Bonjour Cruise 🌸
+  Subject: Confirm your email and join Bonjour Cruise ⚓
 -->
 {{- $lang := "en" -}}
 {{- if .Data }}{{ if .Data.lang }}{{ $lang = .Data.lang }}{{ end }}{{ end -}}

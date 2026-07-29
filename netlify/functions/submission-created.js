@@ -92,7 +92,7 @@ exports.handler = async (event) => {
       sender: { email: FROM_EMAIL, name: FROM_NAME },
       to: [{ email: HUB_EMAIL, name: "Issam" }],
       replyTo: data.email ? { email: data.email, name: first } : undefined,
-      subject: `A new member just joined, ${first} 🌸`,
+      subject: `A new member just joined, ${first} ⚓`,
       htmlContent: renderMemberJoinedEmail(data, first),
       textContent: renderMemberJoinedText(data, first),
     });
@@ -151,10 +151,10 @@ exports.handler = async (event) => {
       replyTo: { email: "info@bonjourcruise.com", name: FROM_NAME },
       subject:
         formName === "charter-request"
-          ? T("Your private charter request is in 🌸", custLang)
+          ? T("Your private charter request is in ⚓", custLang)
           : !data.cruise_starts_at
-            ? T("You are on the list for the next shared cruise 🌸", custLang)
-            : T("Your seat is waiting, one step to go 🌸", custLang),
+            ? T("You are on the list for the next shared cruise ⚓", custLang)
+            : T("Your seat is waiting, one step to go ⚓", custLang),
       htmlContent: renderGuestEmail({ firstName, data, formName, lang: custLang }),
       textContent: renderGuestText({ firstName, data, formName, lang: custLang }),
     };
@@ -181,7 +181,7 @@ exports.handler = async (event) => {
         sender: { email: FROM_EMAIL, name: FROM_NAME },
         to: [{ email: cEmail, name: cName }],
         replyTo: { email: "info@bonjourcruise.com", name: FROM_NAME },
-        subject: T("{lead} saved you a seat on a Bonjour Cruise 🌸", custLang, { lead }),
+        subject: T("{lead} saved you a seat on a Bonjour Cruise ⚓", custLang, { lead }),
         htmlContent: renderCompanionEmail({ firstName: cName, lead, data, lang: custLang }),
         textContent: renderCompanionText({ firstName: cName, lead, data, lang: custLang }),
       };

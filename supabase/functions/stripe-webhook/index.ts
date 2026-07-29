@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     if (email && BREVO_KEY) {
       await sendBrevo({
         to: [{ email, name: md.first_name || '' }],
-        subject: 'Your Bonjour Cruise is booked 🌸',
+        subject: 'Your Bonjour Cruise is booked ⚓',
         htmlContent: confirmationEmail(md, s.amount_total),
         textContent: confirmationText(md, s.amount_total),
       });
@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
     if (email && recovery && BREVO_KEY) {
       await sendBrevo({
         to: [{ email, name: md.first_name || '' }],
-        subject: 'Your seat is still waiting 🌸',
+        subject: 'Your seat is still waiting ⚓',
         htmlContent: reminderEmail(md, recovery),
         textContent: reminderText(md, recovery),
       });
