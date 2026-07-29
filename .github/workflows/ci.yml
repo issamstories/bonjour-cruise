@@ -1,0 +1,154 @@
+# Garde-fou CI du parc de sites.
+#
+# Objectif: empêcher qu'une régression parte en production. Chaque règle ici
+# correspond à un problème réellement constaté sur le parc en juillet 2026,
+# pas à une bonne pratique théorique.
+#
+# Installation: copier dans <repo>/.github/workflows/ci.yml
+# Le job s'adapte tout seul aux sites avec build (Vite) et sans build (statique).
+
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # --- Secrets -------------------------------------------------------
+      # Un secret réel a un corps. On ignore les noms de variables
+      # d'environnement et les mentions en prose dans la documentation.
+      - name: Aucun secret commité
+        run: |
+          if grep -rInE 'sk_live_[A-Za-z0-9]{20,}|sk_test_[A-Za-z0-9]{20,}|eyJhbGciOi[A-Za-z0-9._-]{40,}|BEGIN (RSA |EC )?PRIVATE KEY' \
+               --exclude-dir=.git --exclude-dir=node_modules . \
+             | grep -viE 'placeholder|example|YOUR_|REDACTED'; then
+            echo "::error::Secret détecté dans le code."
+            exit 1
+          fi
+          echo "Aucun secret détecté."
+
+      # --- Build ---------------------------------------------------------
+      - name: Build
+        run: |
+          if [ -f package.json ] && grep -q '"build"' package.json; then
+            npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+            npm run build
+          else
+            echo "Site statique, aucun build à lancer."
+          fi
+
+      # --- Répertoire publié --------------------------------------------
+      - name: Déterminer le répertoire publié
+        id: pubdir
+        run: |
+          for d in dist deploy build _site .; do
+            if [ -f "$d/index.html" ]; then echo "dir=$d" >> "$GITHUB_OUTPUT"; break; fi
+          done
+
+      # --- SEO -----------------------------------------------------------
+      # Un sitemap invalide ou pointant vers des 404 est pire que pas de
+      # sitemap: Google le lit, échoue, et perd confiance dans le site.
+      - name: Sitemap valide
+        run: |
+          D='${{ steps.pubdir.outputs.dir }}'
+          if [ ! -f "$D/sitemap.xml" ]; then
+            echo "::error::sitemap.xml absent de $D"; exit 1
+          fi
+          python3 -c "import xml.dom.minidom;xml.dom.minidom.parse('$D/sitemap.xml')"
+          echo "Sitemap valide, $(grep -c '<loc>' "$D/sitemap.xml") URLs."
+
+      - name: Chaque URL du sitemap existe sur le disque
+        run: |
+          D='${{ steps.pubdir.outputs.dir }}'
+          fail=0
+          # Process substitution, pas un pipe: un `while read` derrière un pipe
+          # tourne dans un sous-shell et l'échec ne remonterait jamais.
+          while read -r url; do
+            path=$(printf '%s' "$url" | sed -E 's#^https?://[^/]+##')
+            [ -z "$path" ] && path="/"
+            case "$path" in */) path="${path}index.html";; esac
+            if [ ! -f "$D$path" ] && [ ! -f "$D$path.html" ] && [ ! -f "$D$path/index.html" ]; then
+              echo "::error::URL du sitemap sans fichier correspondant: $url"; fail=1
+            fi
+          done < <(grep -o '<loc>[^<]*</loc>' "$D/sitemap.xml" | sed 's/<[^>]*>//g')
+          exit $fail
+
+      - name: Métadonnées obligatoires sur les pages indexables
+        run: |
+          D='${{ steps.pubdir.outputs.dir }}'
+          fail=0
+          # `if` explicite plutôt que `cmd && ...`: sous le `set -e` par défaut
+          # de GitHub Actions, un `&&` dont la partie gauche échoue fait sortir
+          # le step, ce qui masquerait les erreurs suivantes.
+          while IFS= read -r f; do
+            if grep -qi 'name="robots"[^>]*noindex' "$f"; then continue; fi
+            # Les fichiers de verification de propriete (Google Search Console,
+            # Bing) et autres jetons ne sont pas des pages: ils n'ont ni <body>
+            # ni metadonnees, et c'est normal.
+            if ! grep -qi '<body' "$f"; then continue; fi
+            if ! grep -qi 'rel="canonical"'  "$f"; then echo "::error file=$f::canonical manquant"; fail=1; fi
+            if ! grep -qi '<title'           "$f"; then echo "::error file=$f::title manquant"; fail=1; fi
+            if ! grep -qi 'name="description"' "$f"; then echo "::error file=$f::meta description manquante"; fail=1; fi
+          done < <(find "$D" -name '*.html' -not -path '*/node_modules/*')
+          exit $fail
+
+      # --- Sécurité ------------------------------------------------------
+      # La CSP doit rester en Report-Only tant qu'Issam n'a pas observé les
+      # rapports de violation. La passer en enforce sans observation casse
+      # le site en silence pour les visiteurs.
+      - name: Headers de sécurité déclarés
+        run: |
+          CFG=""
+          [ -f netlify.toml ] && CFG="netlify.toml"
+          [ -f _headers ] && CFG="$CFG _headers"
+          if [ -z "$CFG" ]; then echo "::error::Ni netlify.toml ni _headers"; exit 1; fi
+          fail=0
+          for h in X-Content-Type-Options X-Frame-Options Referrer-Policy Permissions-Policy; do
+            grep -qi "$h" $CFG || { echo "::error::header $h manquant"; fail=1; }
+          done
+          if grep -hoE '^[[:space:]]*"?Content-Security-Policy"?[[:space:]]*=' $CFG | grep -q .; then
+            echo "::error::CSP en mode bloquant. Elle doit rester en Report-Only."
+            fail=1
+          fi
+          exit $fail
+
+      # --- Accessibilité --------------------------------------------------
+      # Issam est daltonien: l'accessibilité n'est pas cosmétique ici.
+      - name: Accessibilité, contrôles bloquants
+        run: |
+          D='${{ steps.pubdir.outputs.dir }}'
+          fail=0
+          n=$(grep -rho '<img[^>]*>' --include='*.html' "$D" | grep -cv 'alt=' || true)
+          if [ "${n:-0}" -gt 0 ]; then echo "::error::$n balises img sans attribut alt"; fail=1; fi
+          while IFS= read -r f; do
+            h1=$(grep -c '<h1' "$f" || true)
+            if [ "${h1:-0}" -gt 1 ]; then echo "::error file=$f::$h1 balises h1, il en faut une seule"; fail=1; fi
+            if ! grep -qi '<html[^>]*lang=' "$f"; then echo "::error file=$f::attribut lang manquant"; fail=1; fi
+          done < <(find "$D" -name '*.html' -not -path '*/node_modules/*')
+          exit $fail
+
+      # --- Règle anti-invention -------------------------------------------
+      # Publier un avis ou un chiffre inventé est une pratique commerciale
+      # trompeuse (art. VI.97 CDE en Belgique). Ce garde-fou avertit sans
+      # bloquer: c'est à un humain de trancher si le chiffre est sourcé.
+      - name: Preuve sociale à vérifier
+        continue-on-error: true
+        run: |
+          D='${{ steps.pubdir.outputs.dir }}'
+          grep -rInE '[0-9][.,][0-9]/5|[0-9]{3,}\+ ?(membres|members|studios|clients|voyageurs|travellers)' \
+            --include='*.html' "$D" \
+            && echo "::warning::Chiffres de preuve sociale détectés. Chacun doit être sourçable." \
+            || echo "Aucun chiffre de preuve sociale non sourcé."
