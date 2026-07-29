@@ -76,10 +76,10 @@ const BOAT_SVG = `
   <!-- bunting garland: little pennants from the mast to the cabin -->
   <g class="boat-bunting">
     <path d="M150 108 Q252 170 358 150" fill="none" stroke="rgba(28,43,74,0.35)" stroke-width="1.4"/>
-    <path d="M169 121l12 1-5 15z" fill="#C98A8E"/>
+    <path d="M169 121l12 1-5 15z" fill="#6E93A3"/>
     <path d="M199 138l12 1-5 15z" fill="#C9A86A"/>
     <path d="M229 148l12 1-5 15z" fill="#F3E7DC"/>
-    <path d="M259 150l12 -1-5 15z" fill="#C98A8E"/>
+    <path d="M259 150l12 -1-5 15z" fill="#6E93A3"/>
     <path d="M289 145l12 -1-5 15z" fill="#C9A86A"/>
     <path d="M319 137l12 -1-5 15z" fill="#F3E7DC"/>
   </g>
@@ -119,38 +119,38 @@ const BOAT_SVG = `
 const PRIVATE_OPTIONS = [
   { id: 'balloons', label: 'Balloon arch', price: 250,
     svg: `<g class="boat-pop" style="transform-origin:150px 244px">
-      <path d="M108 244 Q150 120 210 188" fill="none" stroke="#C98A8E" stroke-width="2.5"/>
-      <circle cx="112" cy="222" r="11" fill="#E3B9BB"/><circle cx="116" cy="196" r="11" fill="#C98A8E"/>
-      <circle cx="126" cy="170" r="11" fill="#E4D2AE"/><circle cx="146" cy="150" r="11" fill="#E3B9BB"/>
-      <circle cx="172" cy="148" r="11" fill="#C9A86A"/><circle cx="196" cy="164" r="11" fill="#C98A8E"/></g>` },
+      <path d="M108 244 Q150 120 210 188" fill="none" stroke="#6E93A3" stroke-width="2.5"/>
+      <circle cx="112" cy="222" r="11" fill="#BBD1DA"/><circle cx="116" cy="196" r="11" fill="#6E93A3"/>
+      <circle cx="126" cy="170" r="11" fill="#E4D2AE"/><circle cx="146" cy="150" r="11" fill="#BBD1DA"/>
+      <circle cx="172" cy="148" r="11" fill="#C9A86A"/><circle cx="196" cy="164" r="11" fill="#6E93A3"/></g>` },
   { id: 'flowers', label: 'Fresh flowers', price: 600,
     svg: `<g class="boat-pop" style="transform-origin:290px 244px">
       <rect x="276" y="228" width="28" height="16" rx="3" fill="#C9A86A"/>
-      <circle cx="282" cy="220" r="8" fill="#E3B9BB"/><circle cx="296" cy="216" r="8" fill="#C98A8E"/>
-      <circle cx="303" cy="224" r="7" fill="#E3B9BB"/><circle cx="289" cy="225" r="6" fill="#E4D2AE"/></g>` },
+      <circle cx="282" cy="220" r="8" fill="#BBD1DA"/><circle cx="296" cy="216" r="8" fill="#6E93A3"/>
+      <circle cx="303" cy="224" r="7" fill="#BBD1DA"/><circle cx="289" cy="225" r="6" fill="#E4D2AE"/></g>` },
   { id: 'cake', label: 'Celebration cake', price: 350,
     svg: `<g class="boat-pop" style="transform-origin:215px 244px">
       <rect x="200" y="234" width="30" height="10" rx="2" fill="#C9A86A"/>
-      <rect x="205" y="214" width="20" height="20" rx="2" fill="#FFFFFF" stroke="#E3B9BB"/>
-      <rect x="209" y="205" width="12" height="9" rx="2" fill="#F7EAE8" stroke="#E3B9BB"/>
+      <rect x="205" y="214" width="20" height="20" rx="2" fill="#FFFFFF" stroke="#BBD1DA"/>
+      <rect x="209" y="205" width="12" height="9" rx="2" fill="#E9F0F3" stroke="#BBD1DA"/>
       <line x1="215" y1="198" x2="215" y2="205" stroke="#C9A86A" stroke-width="2"/>
       <circle cx="215" cy="197" r="2.5" fill="#C9A86A"/></g>` },
   { id: 'spa', label: 'Spa & henna', price: 400, onRequest: true,
     svg: `<g class="boat-pop" style="transform-origin:255px 244px">
       <ellipse cx="255" cy="240" rx="18" ry="5" fill="#E4D2AE"/>
-      <path d="M255 240 C246 222 250 214 255 210 C260 214 264 222 255 240 Z" fill="#E3B9BB"/>
-      <path d="M255 240 C241 232 239 224 239 219 C246 220 255 228 255 240 Z" fill="#C98A8E" opacity="0.85"/>
-      <path d="M255 240 C269 232 271 224 271 219 C264 220 255 228 255 240 Z" fill="#C98A8E" opacity="0.85"/></g>` },
+      <path d="M255 240 C246 222 250 214 255 210 C260 214 264 222 255 240 Z" fill="#BBD1DA"/>
+      <path d="M255 240 C241 232 239 224 239 219 C246 220 255 228 255 240 Z" fill="#6E93A3" opacity="0.85"/>
+      <path d="M255 240 C269 232 271 224 271 219 C264 220 255 228 255 240 Z" fill="#6E93A3" opacity="0.85"/></g>` },
   { id: 'mocktails', label: 'Mocktail bar', price: 300,
     svg: `<g class="boat-pop" style="transform-origin:470px 244px">
       <rect x="446" y="226" width="48" height="18" rx="3" fill="#C9A86A"/>
-      <rect x="452" y="214" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#E3B9BB"/>
-      <rect x="468" y="214" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#E3B9BB"/>
-      <circle cx="457" cy="212" r="2.5" fill="#C98A8E"/><circle cx="473" cy="212" r="2.5" fill="#C9A86A"/></g>` },
+      <rect x="452" y="214" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#BBD1DA"/>
+      <rect x="468" y="214" width="10" height="12" rx="2" fill="#FFFFFF" stroke="#BBD1DA"/>
+      <circle cx="457" cy="212" r="2.5" fill="#6E93A3"/><circle cx="473" cy="212" r="2.5" fill="#C9A86A"/></g>` },
   { id: 'dj', label: 'DJ', price: 1800, onRequest: true,
     svg: `<g class="boat-pop" style="transform-origin:410px 150px">
       <rect x="392" y="132" width="36" height="18" rx="2" fill="#1C2B4A"/>
-      <circle cx="402" cy="141" r="5" fill="#E3B9BB"/><circle cx="418" cy="141" r="5" fill="#E4D2AE"/>
+      <circle cx="402" cy="141" r="5" fill="#BBD1DA"/><circle cx="418" cy="141" r="5" fill="#E4D2AE"/>
       <path d="M436 126 v-14 l7 -2 v14" fill="none" stroke="#C9A86A" stroke-width="2"/>
       <circle cx="435" cy="126" r="2.5" fill="#C9A86A"/><circle cx="442" cy="124" r="2.5" fill="#C9A86A"/></g>` },
   { id: 'photographer', label: 'Photographer', price: 1200, onRequest: true, svg: '' },
@@ -242,14 +242,14 @@ function ageFrom(dob) {
 }
 
 const GUEST_LOOKS = [
-  { skin: '#F0D7B8', hair: '#2B2F3A', dress: '#C98A8E' },
-  { skin: '#C98F66', veil: '#C98A8E', dress: '#E3B9BB' },
+  { skin: '#F0D7B8', hair: '#2B2F3A', dress: '#6E93A3' },
+  { skin: '#C98F66', veil: '#6E93A3', dress: '#BBD1DA' },
   { skin: '#E8C9A0', hair: '#D9A441', dress: '#C9A86A' },
   { skin: '#7A4B30', hair: '#16110F', dress: '#E4D2AE' },
-  { skin: '#F0D7B8', veil: '#E4D2AE', dress: '#C98A8E' },
-  { skin: '#DDA876', hair: '#A23E1C', dress: '#E3B9BB' },
+  { skin: '#F0D7B8', veil: '#E4D2AE', dress: '#6E93A3' },
+  { skin: '#DDA876', hair: '#A23E1C', dress: '#BBD1DA' },
   { skin: '#C98F66', hair: '#3A2A22', dress: '#C9A86A' },
-  { skin: '#E8C9A0', veil: '#7E6FA6', dress: '#E3B9BB' },
+  { skin: '#E8C9A0', veil: '#7E6FA6', dress: '#BBD1DA' },
 ];
 function guestSvg(x, i) {
   const s = GUEST_LOOKS[i % GUEST_LOOKS.length];

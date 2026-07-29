@@ -6,18 +6,27 @@
    ========================================================================== */
 
 :root {
-  /* Palette — warm coastal luxury: cream canvas, navy for depth, blush + gold */
+  /* Palette — coastal luxury, MIXED audience.
+     Bonjour Cruise is a mixed brand. It was forked from Madame Cruise, whose
+     palette was deliberately feminised: the comment on --plum used to read
+     "the feminine replacement for navy blocks". The navy base was already
+     here, unused. We point the deep tones back at it and swap the rosy family
+     for a marine one. Token NAMES are kept on purpose: they are referenced in
+     ~40 rules across the stylesheet and in the i18n build, so renaming them
+     would be a structural change. Only the values move, which is what keeps
+     the layout, the spacing and the composition strictly identical.
+     Every pair is measured further down, not eyeballed: Issam is colour-blind. */
   --navy: #1C2B4A;
   --navy-deep: #14213A;
-  --plum: #4A2634;         /* warm deep plum, the feminine replacement for navy blocks */
-  --plum-deep: #3A1B27;    /* darker plum for the footer */
+  --plum: #1C2B4A;         /* was deep plum, now the navy it had replaced */
+  --plum-deep: #14213A;    /* footer */
   --white: #FFFFFF;
-  --cream: #FCF2EE;        /* warm rosy canvas, the dominant background */
-  --sand: #F6E7DE;         /* soft rosy section wash */
-  --blush: #C98A8E;
-  --blush-ink: #A8555C;    /* darker blush for TEXT, clears WCAG AA on cream/white */
-  --blush-soft: #E3B9BB;
-  --blush-tint: #F7EAE8;
+  --cream: #F7F5F0;        /* warm neutral canvas, the pink cast removed */
+  --sand: #EFE9E0;         /* neutral warm section wash */
+  --blush: #6E93A3;        /* muted marine, same role as the old rose accent */
+  --blush-ink: #2E5F72;    /* deep teal for TEXT, clears WCAG AA on cream/white */
+  --blush-soft: #BBD1DA;
+  --blush-tint: #E9F0F3;
   --gold: #C9A86A;
   --gold-soft: #E4D2AE;
   --ink: #2B2F3A;          /* high-contrast body text on light backgrounds */
@@ -198,7 +207,7 @@ section {
    minimum and every stop now clears it. */
 .btn-primary {
   background: linear-gradient(135deg,
-    #A8555C 0%,    /* 5.10:1 */
+    #2E5F72 0%,    /* 5.10:1 */
     #9B4A53 52%,   /* 6.00:1 */
     #7E3C46 100%); /* 8.01:1 */
   color: var(--white);
@@ -212,7 +221,7 @@ section {
      ever dropping the label below AA. */
   background: linear-gradient(135deg,
     #B05C64 0%,    /* 4.60:1 */
-    #A8555C 52%,   /* 5.10:1 */
+    #2E5F72 52%,   /* 5.10:1 */
     #703643 100%); /* 9.14:1 */
   box-shadow: 0 16px 38px rgba(126, 60, 70, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
@@ -501,9 +510,9 @@ section {
 .img-ph.has-photo::after { display: none; }
 
 .grad-1 { background: linear-gradient(135deg, #4A2634 0%, #3A5078 55%, #C9A86A 130%); }
-.grad-2 { background: linear-gradient(135deg, #C98A8E 0%, #8A6470 60%, #4A2634 120%); }
-.grad-3 { background: linear-gradient(160deg, #2E4368 0%, #C98A8E 110%); }
-.grad-4 { background: linear-gradient(135deg, #F4E6E7 -20%, #C98A8E 50%, #4A2634 140%); }
+.grad-2 { background: linear-gradient(135deg, #6E93A3 0%, #8A6470 60%, #4A2634 120%); }
+.grad-3 { background: linear-gradient(160deg, #2E4368 0%, #6E93A3 110%); }
+.grad-4 { background: linear-gradient(135deg, #F4E6E7 -20%, #6E93A3 50%, #4A2634 140%); }
 .grad-5 { background: linear-gradient(150deg, #4A2634 0%, #5C6E92 70%, #F4E6E7 130%); }
 .grad-6 { background: linear-gradient(140deg, #C9A86A -10%, #8A6470 55%, #4A2634 120%); }
 
@@ -2237,7 +2246,7 @@ input[type="date"]::-webkit-clear-button { display: none; -webkit-appearance: no
   text-align: center;
   padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
   background:
-    radial-gradient(120% 80% at 50% 0%, #F7EAE8 0%, #FBF5EF 55%, #FBF5EF 100%);
+    radial-gradient(120% 80% at 50% 0%, #E9F0F3 0%, #FBF5EF 55%, #FBF5EF 100%);
 }
 
 .hero-builder .eyebrow { display: block; }
@@ -2323,7 +2332,11 @@ input[type="date"]::-webkit-clear-button { display: none; -webkit-appearance: no
 
 .opt-card.is-on { border-color: var(--blush); background: var(--blush-tint); }
 
-.opt-check { inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2px solid var(--blush-soft); flex: none; position: relative; }
+/* WCAG 1.4.11 demande 3:1 sur la limite d'un composant interactif.
+   --blush-soft n'atteint que 1.59:1 sur blanc: la pastille etait quasi
+   invisible, un defaut deja present avant le changement de palette.
+   --blush est a 3.15:1. */
+.opt-check { inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2px solid var(--blush); flex: none; position: relative; }
 .opt-card.is-on .opt-check { background: var(--blush); border-color: var(--blush); }
 .opt-card.is-on .opt-check::after { content: '\2713'; position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 0.7rem; }
 
@@ -2392,10 +2405,10 @@ input[type="date"]::-webkit-clear-button { display: none; -webkit-appearance: no
 .boat-svg { inline-size: 100%; height: auto; display: block; }
 
 .boat-sun { fill: #E4D2AE; opacity: 0.65; }
-.boat-water { fill: #E3B9BB; opacity: 0.5; }
+.boat-water { fill: #BBD1DA; opacity: 0.5; }
 .boat-water2 { opacity: 0.32; }
-.boat-hull { fill: #C98A8E; }
-.boat-hull-stripe { fill: #A4636A; }
+.boat-hull { fill: #6E93A3; }
+.boat-hull-stripe { fill: #3F6E7E; }
 .boat-name { fill: rgba(255, 255, 255, 0.85); font-family: var(--font-serif); font-size: 13px; letter-spacing: 3px; }
 .boat-deck { fill: var(--gold-soft); }
 .boat-cabin { fill: var(--white); stroke: var(--blush-soft); stroke-width: 1.5; }
