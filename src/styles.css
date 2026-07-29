@@ -157,52 +157,133 @@ section {
   border-radius: var(--radius-pill);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  /* Comfortable tap target even for a one-word label. The vertical size already
+     lands at 48px+ from the padding above, so only the inline axis needs a floor. */
+  min-inline-size: 44px;
+  /* Kill the 300ms mobile tap delay and the grey flash on tap. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* 220ms sits inside the 150-300ms band where a press still feels instant. */
+  transition: background 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease);
 }
 
 .btn:hover { transform: translateY(-2px); }
 
-/* Deeper blush for the primary CTA so white text clears WCAG AA (was #C98A8E =
-   2.8:1, fails). #A8555C on white is ~4.7:1. The pale blush stays for fills. */
+/* Press feedback: the button settles back down under the finger. Faster than
+   the hover so the release feels crisp. */
+.btn:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 90ms;
+}
+
+/* Disabled is never signalled by colour alone (Issam is colourblind): the
+   cursor changes, the elevation disappears and the control stops reacting to
+   hover, so three separate cues say "not available" besides the fade. */
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: grayscale(0.35);
+}
+
+.btn:disabled:hover,
+.btn[aria-disabled='true']:hover {
+  transform: none;
+}
+
+/* Primary CTA: the brand rose gradient, unchanged in hue. Only the lightest
+   stop moved, because it failed the contrast floor for the white label.
+   Measured white-on-stop ratios are noted beside each stop; 4.5:1 is the
+   minimum and every stop now clears it. */
 .btn-primary {
-  /* Soft rosy gradient, feminine but every stop stays dark enough for white
-     text to clear WCAG AA (Issam is colourblind, legibility first). */
-  background: linear-gradient(135deg, #B5636A 0%, #A8555C 52%, #7E3C46 100%);
+  background: linear-gradient(135deg,
+    #A8555C 0%,    /* 5.10:1 */
+    #9B4A53 52%,   /* 6.00:1 */
+    #7E3C46 100%); /* 8.01:1 */
   color: var(--white);
   border-radius: var(--radius-pill);
-  box-shadow: 0 12px 30px rgba(168, 85, 92, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 26px rgba(126, 60, 70, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #C07079 0%, #A8555C 52%, #6F3540 100%);
-  box-shadow: 0 16px 40px rgba(168, 85, 92, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  /* Was #C07079 at 3.60:1, below the floor. #B05C64 is the lightest rose that
+     still clears 4.5:1 against white, so the button brightens on hover without
+     ever dropping the label below AA. */
+  background: linear-gradient(135deg,
+    #B05C64 0%,    /* 4.60:1 */
+    #A8555C 52%,   /* 5.10:1 */
+    #703643 100%); /* 9.14:1 */
+  box-shadow: 0 16px 38px rgba(126, 60, 70, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 
+.btn-primary:active {
+  box-shadow: 0 5px 14px rgba(126, 60, 70, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Secondary CTA. The default is the LIGHT-surface version: this button sits on
+   white cards (contact, welcome aboard, the cruises fallback) far more often
+   than on a dark band, and the old white-on-white default made it literally
+   invisible there. Navy label on white is 14.06:1, the rose border 5.10:1,
+   both far past the 3:1 floor for a control boundary. */
 .btn-outline {
   background: transparent;
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--navy);
+  border-color: var(--blush-ink);
+  border-width: 1.5px;
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--blush-ink);
+  color: var(--white); /* 5.10:1 */
+  border-color: var(--blush-ink);
+}
+
+/* On the dark bands and heroes the same button flips to the white outline it
+   was originally drawn for. White label on plum is 12.98:1. */
+.hero .btn-outline,
+.page-hero .btn-outline,
+.bg-navy .btn-outline,
+.site-footer .btn-outline {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.hero .btn-outline:hover,
+.page-hero .btn-outline:hover,
+.bg-navy .btn-outline:hover,
+.site-footer .btn-outline:hover {
+  background: var(--white);
+  color: var(--plum-deep); /* 15.37:1 */
   border-color: var(--white);
 }
 
 .btn-navy {
   background: var(--plum);
-  color: var(--white);
+  color: var(--white); /* 12.98:1 */
+  box-shadow: 0 10px 26px rgba(58, 27, 39, 0.24);
 }
 
-.btn-navy:hover { background: var(--plum-deep); }
+.btn-navy:hover {
+  background: var(--plum-deep); /* 15.37:1 */
+  box-shadow: 0 16px 38px rgba(58, 27, 39, 0.34);
+}
+
+.btn-navy:active { box-shadow: 0 5px 14px rgba(58, 27, 39, 0.28); }
 
 .btn-gold {
   background: transparent;
   color: var(--navy);
   border-color: var(--gold);
+  border-width: 1.5px;
 }
 
-.btn-gold:hover { background: var(--gold); color: var(--white); }
+/* Was white-on-gold at 2.26:1, a clear fail. The gold fill stays, the label
+   goes navy: same two brand colours, 6.22:1 instead. */
+.btn-gold:hover {
+  background: var(--gold);
+  color: var(--navy); /* 6.22:1 */
+}
 
 /* ---------- Header / Nav ---------- */
 
