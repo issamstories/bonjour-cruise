@@ -3,6 +3,10 @@ import './member.js';
 import { COUNTRIES } from './data.js';
 import { araDigits, t } from './i18n.js';
 
+/* JS is available: flag <html class="js"> so CSS can gate progressive
+   enhancements (scroll-reveal starts hidden only when JS can reveal it). */
+document.documentElement.classList.add('js');
+
 /* ==========================================================================
    BONJOUR CRUISE, site behavior
    No frameworks: small vanilla modules, each guarded so every page can load
@@ -273,6 +277,16 @@ function initYear() {
   if (year) year.textContent = araDigits(new Date().getFullYear());
 }
 
+/* ---------- Header shadow on scroll (design only) ---------- */
+
+function initHeaderShadow() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
 /* ---------- Boot ---------- */
 
 initNav();
@@ -283,3 +297,4 @@ initPrefill();
 initForms();
 initCountrySelect();
 initYear();
+initHeaderShadow();
