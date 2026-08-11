@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#1C2B4A" />
+  <meta name="robots" content="noindex, follow" />
+  <title>Page not found | Bonjour Cruise</title>
+  <meta name="description" content="This page has drifted out to sea. Head back to Bonjour Cruise, Dubai's shared yacht cruises, and find your way aboard." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #1C2B4A;
+      --navy-deep: #14213A;
+      --plum: #1C2B4A;
+      --plum-deep: #14213A;
+      --white: #FFFFFF;
+      --cream: #F7F5F0;
+      --blush: #6E93A3;
+      --blush-ink: #2E5F72;
+      --blush-soft: #BBD1DA;
+      --blush-tint: #E9F0F3;
+      --gold: #C9A86A;
+      --gold-soft: #E4D2AE;
+      --ink: #2B2F3A;
+      --ink-soft: #5C5A5E;
+      --ocean-1: #0F1D38;
+      --ocean-2: #1C2B4A;
+      --ocean-3: #2E4368;
+      --hero-glow-1: rgba(110, 147, 163, 0.35);
+      --hero-glow-2: rgba(201, 168, 106, 0.22);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 85% -5%, rgba(110, 147, 163, 0.10), transparent 60%),
+        radial-gradient(900px 500px at -10% 30%, rgba(201, 168, 106, 0.07), transparent 55%),
+        var(--cream);
+      -webkit-font-smoothing: antialiased;
+      min-block-size: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; }
+    .container { width: min(1180px, 100% - 2.5rem); margin-inline: auto; }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 100;
+      background: rgba(247, 245, 240, 0.78);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border-block-end: 1px solid rgba(28, 43, 74, 0.08);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding-block: 0.55rem; }
+    .brand {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 3.5vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--navy);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .brand span {
+      background: linear-gradient(120deg, var(--blush), var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--blush);
+    }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.65rem 1.2rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2E5F72 0%, #1C2B4A 60%, #14213A 100%);
+      color: var(--white);
+      box-shadow: 0 6px 18px rgba(28, 43, 74, 0.18);
+      white-space: nowrap;
+    }
+    @media (max-width: 619px) { .nav-cta { display: none; } }
+
+    /* 404 hero */
+    .notfound {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding-block: clamp(4rem, 10vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .notfound::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(60% 45% at 78% 12%, var(--hero-glow-1), transparent 65%),
+        radial-gradient(45% 38% at 12% 88%, var(--hero-glow-2), transparent 60%),
+        linear-gradient(160deg, var(--ocean-1) 0%, var(--ocean-2) 42%, var(--ocean-3) 100%);
+      z-index: 0;
+    }
+    .notfound::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      z-index: 0;
+    }
+    .notfound .container { position: relative; z-index: 1; }
+    .notfound-code {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(6rem, 22vw, 11rem);
+      font-weight: 600;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.14);
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 60px rgba(15, 29, 56, 0.5);
+      user-select: none;
+    }
+    .notfound h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5.5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-block: -0.5rem 1rem;
+      text-shadow: 0 2px 36px rgba(15, 29, 56, 0.45);
+    }
+    .notfound p {
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 46ch;
+      margin-inline: auto;
+      margin-block-end: 2.25rem;
+      font-size: 1.05rem;
+    }
+    .notfound-ctas { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.05rem 2.4rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, background 0.3s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #3A7185 0%, #24405F 60%, #1C2B4A 100%);
+      color: var(--white);
+      box-shadow: 0 14px 34px rgba(28, 43, 74, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Footer */
+    .site-footer {
+      background:
+        radial-gradient(50% 60% at 90% 0%, rgba(110, 147, 163, 0.16), transparent 60%),
+        linear-gradient(160deg, var(--ocean-1), var(--ocean-2) 60%, #0B1526);
+      color: rgba(255, 255, 255, 0.7);
+      padding-block: 2.5rem 1.5rem;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .site-footer a { color: var(--gold-soft); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="/index.html">Bonjour <span>Cruise</span></a>
+        <a class="nav-cta" href="/cruises.html">Book your cruise</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="notfound" aria-label="Page not found">
+      <div class="container">
+        <div class="notfound-code" aria-hidden="true">404</div>
+        <h1>This page has drifted out to sea.</h1>
+        <p>The tide took it somewhere we cannot follow. Your next cruise is still here, though, and the crew is ready whenever you are.</p>
+        <div class="notfound-ctas">
+          <a class="btn btn-primary" href="/index.html">Back to home</a>
+          <a class="btn btn-outline" href="/cruises.html">See upcoming cruises</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Bonjour Cruise &middot; Dubai, United Arab Emirates &middot; <a href="mailto:info@bonjourcruise.com">info@bonjourcruise.com</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

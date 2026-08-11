@@ -277,16 +277,6 @@ function initYear() {
   if (year) year.textContent = araDigits(new Date().getFullYear());
 }
 
-/* ---------- Header shadow on scroll (design only) ---------- */
-
-function initHeaderShadow() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
-
 /* ---------- Boot ---------- */
 
 initNav();
@@ -297,4 +287,4 @@ initPrefill();
 initForms();
 initCountrySelect();
 initYear();
-initHeaderShadow();
+/* initHeaderShadow is provided by member.js (shared across every page) */

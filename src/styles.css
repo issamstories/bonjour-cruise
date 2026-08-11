@@ -3148,6 +3148,17 @@ h1 em, h2 em, .manifesto p em, .wiz-q em {
     var(--hero-image) center / cover no-repeat;
 }
 
+/* Gentle parallax: the photo drifts slower than the page (GPU-only, off for
+   reduced-motion). Uses background-attachment fixed where supported; Safari
+   gets a stable cover fallback automatically. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (background-attachment: fixed) {
+    .page-hero--photo, .hero--photo {
+      background-attachment: fixed;
+    }
+  }
+}
+
 .page-hero h1 { text-shadow: 0 2px 36px rgba(15, 29, 56, 0.45); }
 
 /* ---------- Trust bar: slim gold ribbon ---------- */

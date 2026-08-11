@@ -2,6 +2,24 @@ import './styles.css';
 import './datepicker.js';
 import { t, langHref } from './i18n.js';
 
+/* JS is available: flag <html class="js"> so CSS can gate progressive
+   enhancements (scroll-reveal starts hidden only when JS can reveal it).
+   Lives here (not just main.js) because EVERY page imports member.js,
+   including cruises/account/admin which skip main.js. */
+document.documentElement.classList.add('js');
+
+/* ---------- Header shadow on scroll (design only, shared across pages) ---------- */
+
+function initHeaderShadow() {
+  const header = document.querySelector('.site-header');
+  if (!header || header.dataset.shadowInit) return;
+  header.dataset.shadowInit = '1';
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+initHeaderShadow();
+
 /* ==========================================================================
    BONJOUR CRUISE, member layer shared across every page
    Three jobs, all progressive enhancement on top of the static site:
