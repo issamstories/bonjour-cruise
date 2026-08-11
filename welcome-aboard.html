@@ -13,18 +13,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script type="module" src="/src/main.js"></script>
   <style>
-    .mermaid-hero { text-align: center; padding-block: 3rem 4rem; }
-    .mermaid-scene { max-inline-size: 560px; margin: 1.5rem auto 2rem; }
-    .mermaid-scene svg { inline-size: 100%; height: auto; display: block; }
-    @keyframes mc-dive { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(10px) rotate(6deg); } }
-    @keyframes mc-splash { 0%, 100% { transform: scaleX(0.85); opacity: 0.45; } 50% { transform: scaleX(1.15); opacity: 0.8; } }
-    @keyframes mc-float { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 0.9; } 100% { transform: translateY(-40px); opacity: 0; } }
-    .mc-tail { transform-origin: 400px 250px; animation: mc-dive 3.4s ease-in-out infinite; }
-    .mc-splash { transform-origin: 400px 252px; animation: mc-splash 3.4s ease-in-out infinite; }
-    .mc-heart { animation: mc-float 3.6s ease-in-out infinite; }
-    .mc-heart2 { animation: mc-float 3.6s ease-in-out infinite 1.2s; }
-    .mc-heart3 { animation: mc-float 3.6s ease-in-out infinite 2.4s; }
-    @media (prefers-reduced-motion: reduce) { .mc-tail, .mc-splash, .mc-heart, .mc-heart2, .mc-heart3 { animation: none; } }
+    .welcome-hero { text-align: center; padding-block: 3rem 4rem; }
+    .welcome-scene { max-inline-size: 560px; margin: 1.5rem auto 2rem; }
+    .welcome-scene svg { inline-size: 100%; height: auto; display: block; }
+    @keyframes welcome-rock { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+    @keyframes welcome-flag { 0%, 100% { transform: skewY(0deg); } 50% { transform: skewY(-6deg); } }
+    @keyframes welcome-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+    @keyframes welcome-wing { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+    .welcome-boat { transform-origin: 300px 240px; animation: welcome-rock 6s ease-in-out infinite; }
+    .welcome-flag { transform-origin: 150px 120px; animation: welcome-flag 2.8s ease-in-out infinite; }
+    .welcome-water { animation: welcome-bob 5s ease-in-out infinite; }
+    .welcome-water2 { animation: welcome-bob 7s ease-in-out infinite; }
+    .welcome-gull { animation: welcome-wing 4s ease-in-out infinite; }
+    .welcome-gull2 { animation: welcome-wing 4.5s ease-in-out infinite 0.8s; }
+    @media (prefers-reduced-motion: reduce) { .welcome-boat, .welcome-flag, .welcome-water, .welcome-water2, .welcome-gull, .welcome-gull2 { animation: none; } }
   </style>
 </head>
 <body>
@@ -54,29 +56,29 @@
   </header>
 
   <main>
-    <section class="mermaid-hero">
+    <section class="welcome-hero">
       <div class="container">
         <span class="eyebrow">Welcome aboard</span>
-        <h1>Are you ready to be a mermaid?</h1>
+        <h1>The sea is waiting for you.</h1>
 
-        <div class="mermaid-scene">
-          <svg viewBox="0 0 600 360" role="img" aria-label="A mermaid diving beside the Bonjour Cruise yacht">
+        <div class="welcome-scene">
+          <svg viewBox="0 0 600 360" role="img" aria-label="The Bonjour Cruise yacht sailing on calm water at sunset">
             <!-- sky + sun -->
             <circle cx="510" cy="70" r="40" fill="#E4D2AE" opacity="0.6"/>
-            <!-- floating hearts -->
-            <path class="mc-heart" d="M286 156q7-8 14 0 7-8 14 0" fill="none" stroke="#8A94A6" stroke-width="2.6" stroke-linecap="round"/>
-            <path class="mc-heart2" d="M239 175q5.5-6 11 0 5.5-6 11 0" fill="none" stroke="#8A94A6" stroke-width="2.4" stroke-linecap="round"/>
-            <path class="mc-heart3" d="M331 184q4.5-5 9 0 4.5-5 9 0" fill="none" stroke="#A9A08C" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- gulls -->
+            <path class="welcome-gull" d="M120 90 q10 -8 20 0 q10 -8 20 0" fill="none" stroke="#8A94A6" stroke-width="2.6" stroke-linecap="round"/>
+            <path class="welcome-gull2" d="M160 116 q8 -7 16 0 q8 -7 16 0" fill="none" stroke="#8A94A6" stroke-width="2.4" stroke-linecap="round"/>
 
             <!-- water -->
-            <path d="M0 250 q150 -18 300 0 t300 0 V360 H0 Z" fill="#BBD1DA" opacity="0.5"/>
-            <path d="M0 276 q150 -14 300 0 t300 0 V360 H0 Z" fill="#BBD1DA" opacity="0.32"/>
+            <path class="welcome-water" d="M0 250 q150 -18 300 0 t300 0 V360 H0 Z" fill="#BBD1DA" opacity="0.5"/>
+            <path class="welcome-water2" d="M0 276 q150 -14 300 0 t300 0 V360 H0 Z" fill="#BBD1DA" opacity="0.32"/>
 
             <!-- boat -->
-            <g>
+            <g class="welcome-boat">
               <line x1="150" y1="210" x2="150" y2="120" stroke="#1C2B4A" stroke-width="3"/>
-              <path d="M150 128c-6-7-13-4-13 3 0 5 7 9 13 14 6-5 13-9 13-14 0-7-7-10-13-3z" fill="#6E93A3"/>
+              <path class="welcome-flag" d="M150 128 L176 138 L150 148 Z" fill="#6E93A3"/>
               <path d="M78 212 H228 L206 250 Q150 264 94 250 Z" fill="#6E93A3"/>
+              <path d="M78 212 H228 L224 220 H82 Z" fill="#3F6E7E"/>
               <rect x="96" y="206" width="140" height="9" rx="4" fill="#EAD7BC"/>
               <rect x="150" y="176" width="70" height="34" rx="9" fill="#fff" stroke="#BBD1DA" stroke-width="1.5"/>
               <circle cx="168" cy="193" r="6" fill="none" stroke="#C9A86A" stroke-width="1.6"/>
@@ -85,21 +87,9 @@
               <text x="150" y="238" text-anchor="middle" fill="#fff" font-family="'Cormorant Garamond',serif" font-size="10" letter-spacing="2">BONJOUR</text>
             </g>
 
-            <!-- splash -->
-            <ellipse class="mc-splash" cx="400" cy="252" rx="34" ry="8" fill="#FFFFFF" opacity="0.6"/>
-            <circle cx="372" cy="244" r="3" fill="#fff" opacity="0.7"/>
-            <circle cx="430" cy="246" r="2.4" fill="#fff" opacity="0.6"/>
-
-            <!-- diving mermaid tail -->
-            <g class="mc-tail">
-              <path d="M392 252 C 380 200, 410 168, 396 116 L 404 116 C 420 168, 414 200, 408 252 Z" fill="#BBD1DA"/>
-              <path d="M400 120 C 372 78, 340 100, 372 128 Z" fill="#6E93A3"/>
-              <path d="M400 120 C 428 78, 460 100, 428 128 Z" fill="#6E93A3"/>
-              <path d="M400 118 c-5-6-11-3-11 2 0 4 5 8 11 12 6-4 11-8 11-12 0-5-6-8-11-2z" fill="#C9A86A"/>
-              <circle cx="399" cy="160" r="3" fill="#6E93A3" opacity="0.6"/>
-              <circle cx="399" cy="185" r="3" fill="#6E93A3" opacity="0.6"/>
-              <circle cx="399" cy="210" r="3" fill="#6E93A3" opacity="0.6"/>
-            </g>
+            <!-- wake -->
+            <path d="M250 262 q60 -10 120 0" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+            <path d="M270 274 q50 -8 100 0" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
           </svg>
         </div>
 
