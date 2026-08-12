@@ -1,0 +1,17 @@
+# Cloudflare Pages security headers (bonjourcruise.com)
+# Mirrors the netlify.toml block — Cloudflare Pages reads _headers, not netlify.toml.
+# CSP stays REPORT-ONLY: allowlist derived from real code (Google Fonts, Supabase,
+# EmailJS, Stripe Payment Links). Flip to Content-Security-Policy once the
+# console shows no violations for a few weeks.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://vohocnkgdktssztsbirl.supabase.co wss://vohocnkgdktssztsbirl.supabase.co https://api.emailjs.com; form-action 'self' https://buy.stripe.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'
+
+# Hashed build output: cache forever
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
