@@ -276,7 +276,15 @@ strong{ font-weight:600; color:var(--leaf-hi); }
 }
 .logline .lift{ color:var(--leaf); font-style:italic; }
 
-/* ---------- 3. episodes ---------- */
+.deck{
+  font-family:var(--label);
+  font-size:1.0625rem;
+  letter-spacing:.06em;
+  color:var(--dust);
+  margin:.55rem 0 0;
+}
+
+/* ---------- 3. season arc ---------- */
 .episodes{
   list-style:none;
   margin:0;
@@ -309,6 +317,16 @@ strong{ font-weight:600; color:var(--leaf-hi); }
   font-size:1.3rem;
   color:var(--leaf);
   margin:0;
+}
+.ep-eps{
+  font-family:var(--label);
+  font-style:normal;
+  font-size:.875rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--dust);
+  white-space:nowrap;
+  margin-left:.65rem;
 }
 .ep-beat{ margin:0; color:var(--sand); max-width:56ch; }
 .note{
@@ -415,8 +433,60 @@ blockquote.philosophy{
   border-left:2px solid var(--leaf-deep);
 }
 
-/* ---------- 5. plate ---------- */
-.plate{ margin:2rem 0 0; }
+/* ---------- 5. geography, 8. team ---------- */
+.geo,
+.team{
+  list-style:none;
+  margin:1.75rem 0 0;
+  padding:0;
+  display:grid;
+  gap:1px;
+  background:var(--panel-edge);
+  border-block:1px solid var(--panel-edge);
+}
+.team{ margin-top:1rem; }
+.geo li,
+.team li{
+  background:var(--ink-2);
+  padding:1rem clamp(1rem,2.5vw,1.5rem);
+}
+.geo b,
+.team b{
+  display:block;
+  font-family:var(--display);
+  font-weight:500;
+  font-size:1.2rem;
+  color:var(--leaf);
+  margin-bottom:.1rem;
+}
+.team li{
+  font-family:var(--label);
+  font-size:1.0625rem;
+  letter-spacing:.05em;
+  color:var(--dust);
+}
+@media (min-width: 48rem){
+  .geo{ grid-template-columns:repeat(3,1fr); }
+  .team{ grid-template-columns:repeat(2,1fr); }
+}
+
+.closing{
+  margin:2rem 0 0;
+  padding-top:1.5rem;
+  border-top:1px solid var(--panel-edge);
+  font-family:var(--display);
+  font-style:italic;
+  font-size:clamp(1.2rem,2.6vw,1.6rem);
+  line-height:1.4;
+  color:var(--leaf);
+  max-width:38ch;
+}
+.materials-head{ margin-top:2.75rem; }
+.plates{ display:grid; gap:2rem; }
+@media (min-width: 52rem){ .plates{ grid-template-columns:repeat(2,1fr); } }
+
+/* ---------- plates ---------- */
+.plate{ margin:1rem 0 0; }
 .plate-btn{
   display:block;
   width:100%;
@@ -479,6 +549,18 @@ footer{
   color:var(--dust);
 }
 .footer-inner b{ color:var(--sand); font-weight:500; display:block; }
+.footer-line{
+  flex-basis:100%;
+  margin:0;
+  padding-top:1.5rem;
+  border-top:1px solid var(--panel-edge);
+  font-family:var(--display);
+  font-style:italic;
+  letter-spacing:0;
+  font-size:1.05rem;
+  color:var(--dust);
+  max-width:none;
+}
 .confidential{
   color:var(--leaf-deep);
   letter-spacing:.24em;
@@ -546,7 +628,7 @@ html{ scroll-behavior:smooth; }
       <h1 class="hero-title">Dirty Gold</h1>
       <p class="hero-arabic" lang="ar">الذهب الملوث</p>
       <p class="hero-tag">All that glitters isn't gold. The most dangerous love story in Cairo.</p>
-      <p class="hero-doc">Cairo · Giza · Starlight Festival — bilingual Arabic and English production</p>
+      <p class="hero-doc">A bilingual prestige series — Cairo · Giza · Dubai · Saudi Arabia</p>
       <ul class="credits">
         <li>Created by <b>Odain Watson</b></li>
         <li>Directed by <b>Tarik Afifi</b> <span>(Assistant Director, Dune)</span></li>
@@ -567,11 +649,12 @@ html{ scroll-behavior:smooth; }
     <ol>
       <li><a href="#overview"><span class="n">1</span><span>Series Overview</span></a></li>
       <li><a href="#logline"><span class="n">2</span><span>Logline</span></a></li>
-      <li><a href="#episodes"><span class="n">3</span><span>Episode Arc</span></a></li>
+      <li><a href="#episodes"><span class="n">3</span><span>Season Arc</span></a></li>
       <li><a href="#characters"><span class="n">4</span><span>Characters</span></a></li>
       <li><a href="#world"><span class="n">5</span><span>World &amp; Setting</span></a></li>
       <li><a href="#tone"><span class="n">6</span><span>Tone &amp; Visual Identity</span></a></li>
       <li><a href="#positioning"><span class="n">7</span><span>Season-End</span></a></li>
+      <li><a href="#team"><span class="n">8</span><span>Team &amp; Materials</span></a></li>
     </ol>
   </nav>
 
@@ -584,11 +667,11 @@ html{ scroll-behavior:smooth; }
       </div>
       <dl class="spec">
         <dt>Format</dt>
-        <dd>Limited series — originally scoped as 4 episodes; currently in development as a full returnable series, 8–13 episodes per season.</dd>
+        <dd>Full returnable series — <strong>8 episodes per season</strong>, built on four foundational chapters of two episodes each.</dd>
         <dt>Language</dt>
         <dd>Arabic and English, bilingual production.</dd>
         <dt>Setting</dt>
-        <dd>Cairo, anchored at the real-world debut of Starlight Festival at the Pyramids of Giza, with a Gulf/Dubai footprint through Khalid's storyline.</dd>
+        <dd>Cairo and the Pyramids of Giza, anchored at Starlight Festival, extending into Dubai and Saudi Arabia through Khalid's storyline.</dd>
         <dt>Comparables</dt>
         <dd>Mr. &amp; Mrs. Smith · Lupin · Money Heist · Fauda</dd>
       </dl>
@@ -608,31 +691,32 @@ html{ scroll-behavior:smooth; }
     <section id="episodes" class="reveal">
       <div class="sec-head">
         <p class="eyebrow">Three</p>
-        <h2>Episode Arc Summary</h2>
+        <h2>Season Arc</h2>
+        <p class="deck">Four foundational chapters across eight episodes.</p>
       </div>
       <ol class="episodes">
         <li>
           <span class="ep-n" aria-hidden="true">1</span>
-          <p class="ep-title">All That Glitters</p>
-          <p class="ep-beat">Both spouses rob the same room, forty seconds apart, unaware of each other.</p>
+          <p class="ep-title">All That Glitters <span class="ep-eps">Episodes 1&#8211;2</span></p>
+          <p class="ep-beat">Parallel heists, unaware spouses. Both rob the same room, forty seconds apart, neither knowing the other was there.</p>
         </li>
         <li>
           <span class="ep-n" aria-hidden="true">2</span>
-          <p class="ep-title">Two Thieves, One Bed</p>
-          <p class="ep-beat">Quiet mutual suspicion; parallel operations nearly collide in public; Khalid appears as an unknown rival.</p>
+          <p class="ep-title">Two Thieves, One Bed <span class="ep-eps">Episodes 3&#8211;4</span></p>
+          <p class="ep-beat">Mutual suspicion. Parallel operations nearly collide in public, and Khalid appears as an unknown rival.</p>
         </li>
         <li>
           <span class="ep-n" aria-hidden="true">3</span>
-          <p class="ep-title">The Longest Beat</p>
-          <p class="ep-beat">Full marital confrontation in real time; Khalid discovers his rival is Zaid, and finds Layla.</p>
+          <p class="ep-title">The Longest Beat <span class="ep-eps">Episodes 5&#8211;6</span></p>
+          <p class="ep-beat">Confrontation. The full marital reckoning plays in real time; Khalid learns his rival is Zaid, and finds Layla.</p>
         </li>
         <li>
           <span class="ep-n" aria-hidden="true">4</span>
-          <p class="ep-title">Closing Night</p>
-          <p class="ep-beat">The marriage and the heist converge; Khalid and Zaid are forced into uneasy alliance against a larger threat.</p>
+          <p class="ep-title">Closing Night <span class="ep-eps">Episodes 7&#8211;8</span></p>
+          <p class="ep-beat">Convergence. The marriage and the heist land on the same night, and Khalid and Zaid are forced into uneasy alliance against a larger threat.</p>
         </li>
       </ol>
-      <p class="note">Original four-episode structure. As the series expands into a full returnable season, this serves as the foundation for a longer, more elaborated Season One.</p>
+      <p class="note">The four chapters are the spine the original limited-series structure was built on. At eight episodes, each chapter breathes across two hours instead of one.</p>
     </section>
 
     <section id="characters" class="reveal">
@@ -660,7 +744,7 @@ html{ scroll-behavior:smooth; }
           <svg class="stitch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square" aria-hidden="true"><path d="M4 4 L20 20 M20 4 L4 20" /></svg>
           <div class="card-head">
             <h3>Layla Hassan</h3>
-            <p class="slug">Palestinian, 26 — Series Lead</p>
+            <p class="slug">Saudi, 26 — Series Lead</p>
           </div>
           <p>The most dangerous infiltration operative in the Arab world, and — as far as her husband knows — a woman who cannot cook. Layla moves through the world in two registers: the composed, multilingual operator who can hack a government financial system in forty-one seconds, and the domestic performer who stages elaborate fictions of ordinary married life.</p>
           <p>Precise, unreadable under pressure, privately exhausted by how much of herself she hides from the one person she chose to spend her life with. Her tell — the only one — is a single deep-red tatreez stitch on the collar of her robe, never explained.</p>
@@ -674,7 +758,7 @@ html{ scroll-behavior:smooth; }
         <article class="card">
           <div class="card-head">
             <h3>Khalid Rashid</h3>
-            <p class="slug">Emirati, early 30s — Recurring / Major Guest Star, Episodes 2–4</p>
+            <p class="slug">Emirati, early 30s — Recurring / Major Guest Star, Chapters 2–4 (Episodes 3–8)</p>
           </div>
           <p>The eldest son of a wealthy, respected Emirati family, given every advantage and every expectation to inherit the family business — and who walked away from that life entirely. From childhood, Khalid possessed an intense curiosity about things he was never meant to touch: locks, security systems, the minds of the people who designed them. His interest was never primarily about money. It was the realization that someone had built a system, and that he could be smarter than it.</p>
           <p>Khalid doesn't steal because he needs to. He steals because he loves it — the planning, the patience, the details, and above all, walking away knowing no one realized he was there. Potential to expand into a series regular.</p>
@@ -707,9 +791,9 @@ html{ scroll-behavior:smooth; }
           <div class="arc">
             <h4>Arc</h4>
             <ol class="beats">
-              <li><b>Episode 2 — The Unknown Rival</b>Khalid works a parallel operation at Starlight Festival, targeting the same statues as Zaid, without knowing his rival's identity. A silent game develops between two thieves who don't recognize each other — Khalid, rather than feeling threatened, feels genuinely excited to have finally met someone who can keep pace with him.</li>
-              <li><b>Episode 3 — The Rival Has a Face</b>Khalid discovers his rival is Zaid, a man he's known for years. The game changes completely — no longer about the artifact, but about infiltrating and outplaying the other's entire world. He tracks Zaid, discovers Layla, and begins exploiting her presence to destabilize Zaid — not out of desire for her, but to prove his rival can lose control too. The rivalry turns personal.</li>
-              <li><b>Episode 4 — The Rules Change</b>Khalid and Zaid discover their rivalry was only a piece of a much larger game — a bigger enemy, a larger plan, both of them exploited by a system designed to use their skills for someone else's benefit. For the first time, Khalid needs help he cannot provide himself, and Zaid needs him just as much. They don't become friends, but their rivalry becomes a weapon they can use together instead of an obstacle between them.</li>
+              <li><b>Chapter 2, Episodes 3–4 — The Unknown Rival</b>Khalid works a parallel operation at Starlight Festival, targeting the same statues as Zaid, without knowing his rival's identity. A silent game develops between two thieves who don't recognize each other — Khalid, rather than feeling threatened, feels genuinely excited to have finally met someone who can keep pace with him.</li>
+              <li><b>Chapter 3, Episodes 5–6 — The Rival Has a Face</b>Khalid discovers his rival is Zaid, a man he's known for years. The game changes completely — no longer about the artifact, but about infiltrating and outplaying the other's entire world. He tracks Zaid, discovers Layla, and begins exploiting her presence to destabilize Zaid — not out of desire for her, but to prove his rival can lose control too. The rivalry turns personal.</li>
+              <li><b>Chapter 4, Episodes 7–8 — The Rules Change</b>Khalid and Zaid discover their rivalry was only a piece of a much larger game — a bigger enemy, a larger plan, both of them exploited by a system designed to use their skills for someone else's benefit. For the first time, Khalid needs help he cannot provide himself, and Zaid needs him just as much. They don't become friends, but their rivalry becomes a weapon they can use together instead of an obstacle between them.</li>
             </ol>
           </div>
 
@@ -762,13 +846,12 @@ html{ scroll-behavior:smooth; }
       </div>
       <p>The series is anchored entirely at Starlight Festival, the real international music festival debuting October 8–11 at the Pyramids of Giza — five stages, a major international lineup, and a VR installation, positioned so the Great Pyramid dominates the sightline from the main stage as a constant, watching presence over the story.</p>
       <p>The festival is not a backdrop. The show is structurally built so it cannot be removed without breaking the premise.</p>
-      <p>Khalid's storyline extends the world into Dubai and the wider Gulf, planting the seeds for the series' stated international expansion into Dubai, Paris, New York, and Berlin in future seasons — with Cairo/Giza remaining the story's permanent point of origin.</p>
-      <figure class="plate">
-        <button type="button" class="plate-btn" id="plate-open" aria-label="Enlarge the Dirty Gold and Starlight Festival partnership deck">
-          <img src="assets/starlight-partnership.jpg" width="1536" height="1024" alt="Ten-panel Dirty Gold and Starlight Festival partnership deck covering the convergence, distribution pathway, revenue streams, capital recovery structure, risk profile, partnership tiers, and the global expansion map." />
-        </button>
-        <figcaption>Companion document — the Dirty Gold × Starlight Festival partnership deck, which carries the distribution pathway, capital recovery structure and multi-city expansion plan behind this world. Click to enlarge.</figcaption>
-      </figure>
+      <p>Khalid's storyline extends the world into Dubai and Saudi Arabia — a story spanning Egypt, the Gulf, and beyond. It plants the seeds for the series' stated international expansion into Dubai, Paris, New York, and Berlin in future seasons, with Cairo and Giza remaining the permanent point of origin.</p>
+      <ol class="geo">
+        <li><b>Cairo / Giza</b>Origin point. The festival, the Minister, the marriage.</li>
+        <li><b>Dubai</b>Khalid's world, and one end of Tariq's laundering pipeline.</li>
+        <li><b>Saudi Arabia</b>Layla's ground, and the season's reach beyond Egypt.</li>
+      </ol>
     </section>
 
     <section id="tone" class="reveal">
@@ -788,6 +871,40 @@ html{ scroll-behavior:smooth; }
       <p>The finale converges all threads: Zaid and Layla's choice to work together rather than turn on each other, Khalid and Zaid's forced alliance against a larger enemy, and Minister Tariq's operation collapsing under the season's accumulated pressure.</p>
       <p>The marriage's fate is left deliberately ambiguous — the job's success stands in for an answer neither confirmed nor denied.</p>
       <p>A final image — <strong>passports on the dash: Dubai, Paris, New York, Berlin</strong> — signals the door to expansion without resolving it, positioning Season Two's Gulf-forward storyline through Khalid as a natural next chapter.</p>
+      <p class="closing">An ambiguous marriage. A successful heist. A door left open for what's next.</p>
+    </section>
+
+    <section id="team" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Eight</p>
+        <h2>Team &amp; Materials</h2>
+      </div>
+
+      <h4>Creative &amp; producing team</h4>
+      <ul class="team">
+        <li><b>Odain Watson</b>Creator &amp; Showrunner</li>
+        <li><b>Mazen Saad</b>Writer</li>
+        <li><b>Tarik Afifi</b>Director — Assistant Director on <em>Dune</em></li>
+        <li><b>Yam Fida</b>Co-Showrunner &amp; Executive Producer</li>
+        <li><b>Issam Messaoudi</b>Executive Producer</li>
+      </ul>
+      <p class="note">Odaingerous LLC, developed in partnership with Gamma Engineering.</p>
+
+      <h4 class="materials-head">Companion documents</h4>
+      <div class="plates">
+        <figure class="plate">
+          <button type="button" class="plate-btn" aria-label="Enlarge the Dirty Gold presentation deck">
+            <img src="assets/series-deck.png" width="1224" height="1285" alt="Twelve-panel Dirty Gold presentation deck: key art, logline, series at a glance, season arc, character panels for Zaid, Layla and Khalid, the wider ensemble, the world, season-end positioning, the producing team, and the closing statement." />
+          </button>
+          <figcaption>The twelve-panel presentation deck — this bible in pitch form. Click to enlarge.</figcaption>
+        </figure>
+        <figure class="plate">
+          <button type="button" class="plate-btn" aria-label="Enlarge the Dirty Gold and Starlight Festival partnership deck">
+            <img src="assets/starlight-partnership.jpg" width="1536" height="1024" alt="Ten-panel Dirty Gold and Starlight Festival partnership deck covering the convergence, distribution pathway, revenue streams, capital recovery structure, risk profile, partnership tiers, and the global expansion map." />
+          </button>
+          <figcaption>The Dirty Gold × Starlight Festival partnership deck — distribution pathway, capital recovery structure and the multi-city expansion plan. Click to enlarge.</figcaption>
+        </figure>
+      </div>
     </section>
 
   </main>
@@ -798,12 +915,13 @@ html{ scroll-behavior:smooth; }
     <p><b>Odain Watson</b>Creator &amp; Showrunner</p>
     <p><b>Odaingerous LLC ©</b>Developed in partnership with Gamma Engineering</p>
     <p class="confidential">Strictly Confidential</p>
+    <p class="footer-line">Where love and theft share the same bed. A full series, built for the world stage.</p>
   </div>
 </footer>
 
-<dialog class="lightbox" id="plate-lightbox">
+<dialog class="lightbox" id="plate-lightbox" aria-label="Enlarged document">
   <button type="button" class="lightbox-close" id="plate-close">Close</button>
-  <img src="assets/starlight-partnership.jpg" alt="Dirty Gold and Starlight Festival partnership deck, enlarged." />
+  <img id="plate-full" src="" alt="" />
 </dialog>
 
 <script>
@@ -846,14 +964,22 @@ html{ scroll-behavior:smooth; }
     sections.forEach(function (el) { if (el.id) spy.observe(el); });
   }
 
-  // Partnership deck plate.
+  // Deck plates open full size in a single shared lightbox.
   var box = document.getElementById('plate-lightbox');
-  var open = document.getElementById('plate-open');
+  var full = document.getElementById('plate-full');
   var close = document.getElementById('plate-close');
-  if (box && open && close && typeof box.showModal === 'function') {
-    open.addEventListener('click', function () { box.showModal(); });
+  if (box && full && close && typeof box.showModal === 'function') {
+    Array.prototype.forEach.call(document.querySelectorAll('.plate-btn'), function (btn) {
+      btn.addEventListener('click', function () {
+        var thumb = btn.querySelector('img');
+        full.src = thumb ? thumb.src : '';
+        full.alt = thumb ? thumb.alt : '';
+        box.showModal();
+      });
+    });
     close.addEventListener('click', function () { box.close(); });
     box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
+    box.addEventListener('close', function () { full.src = ''; });
   }
 })();
 </script>
