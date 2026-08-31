@@ -57,7 +57,7 @@ a{ color:var(--leaf); text-decoration:none; }
 a:hover{ color:var(--leaf-hi); }
 :focus-visible{ outline:2px solid var(--leaf); outline-offset:3px; }
 
-img{ max-width:100%; display:block; }
+img{ max-width:100%; height:auto; display:block; }
 
 /* ---------- shared type devices ---------- */
 .eyebrow{
@@ -468,6 +468,8 @@ blockquote.philosophy{
 @media (min-width: 48rem){
   .geo{ grid-template-columns:repeat(3,1fr); }
   .team{ grid-template-columns:repeat(2,1fr); }
+  /* An odd headcount would otherwise leave a stray empty tile. */
+  .team li:last-child:nth-child(odd){ grid-column:1 / -1; }
 }
 
 .closing{

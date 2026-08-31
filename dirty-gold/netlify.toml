@@ -3,7 +3,6 @@
 # separate from the Bonjour Cruise site that owns the repo root.
 [build]
   publish = "."
-  command = ""
 
 [[headers]]
   for = "/*"
