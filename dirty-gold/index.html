@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dirty Gold Series Bible</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="description" content="The complete series bible for DIRTY GOLD — a Cairo-set heist and marriage drama anchored at Starlight Festival, Pyramids of Giza." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Barlow+Condensed:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" />
+<style>
+/* ------------------------------------------------------------------
+   DIRTY GOLD — series bible
+   Single-theme by intent: this is key art, not a document that should
+   flip to a light ground. Every colour is painted explicitly so the
+   page holds on any host background.
+   ------------------------------------------------------------------ */
+:root{
+  color-scheme: dark;
+  --ink:        #0A0806;  /* bitumen black, warm bias */
+  --ink-2:      #100D09;
+  --panel:      #171309;
+  --panel-edge: #2C2415;
+  --leaf:       #E9B85C;  /* gold leaf */
+  --leaf-hi:    #F6DBA0;
+  --leaf-deep:  #A6761E;  /* burnished, for rules */
+  --tatreez:    #8E1B24;  /* Layla's stitch — the only red on this page */
+  --sand:       #E6DDCC;  /* body */
+  --dust:       #8B8172;  /* secondary */
+
+  --display: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --body:    "Spectral", Georgia, "Times New Roman", serif;
+  --label:   "Barlow Condensed", "Oswald", "Arial Narrow", sans-serif;
+  --arabic:  "Amiri", "Times New Roman", serif;
+
+  --measure: 66ch;
+  --rail: 15.5rem;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--sand);
+  font-family:var(--body);
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--leaf-deep); color:#0A0806; }
+
+a{ color:var(--leaf); text-decoration:none; }
+a:hover{ color:var(--leaf-hi); }
+:focus-visible{ outline:2px solid var(--leaf); outline-offset:3px; }
+
+img{ max-width:100%; display:block; }
+
+/* ---------- shared type devices ---------- */
+.eyebrow{
+  font-family:var(--label);
+  font-weight:500;
+  font-size:.8125rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--leaf-deep);
+  margin:0;
+}
+.rule{
+  height:1px;
+  border:0;
+  background:linear-gradient(90deg,var(--leaf-deep),rgba(166,118,30,0));
+  margin:0;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  padding:clamp(2.5rem,6vw,5.5rem) clamp(1.25rem,5vw,4rem) clamp(3rem,7vw,6rem);
+  background:
+    radial-gradient(120% 80% at 78% 12%, rgba(233,184,92,.10), rgba(10,8,6,0) 60%),
+    var(--ink);
+  border-bottom:1px solid var(--panel-edge);
+}
+.hero-grid{
+  max-width:76rem;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,20rem);
+  gap:clamp(2rem,5vw,4.5rem);
+  align-items:center;
+}
+.hero-title{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(3.2rem,10vw,6.8rem);
+  line-height:.92;
+  letter-spacing:-.015em;
+  margin:.6rem 0 0;
+  text-wrap:balance;
+  background:linear-gradient(172deg,var(--leaf-hi) 8%,var(--leaf) 42%,var(--leaf-deep) 96%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero-arabic{
+  font-family:var(--arabic);
+  font-size:clamp(1.75rem,5vw,3rem);
+  line-height:1.5;
+  color:var(--leaf-deep);
+  margin:.1rem 0 0;
+  direction:rtl;
+}
+.hero-tag{
+  font-family:var(--display);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(1.15rem,2.3vw,1.5rem);
+  line-height:1.4;
+  color:var(--sand);
+  max-width:34ch;
+  margin:1.6rem 0 0;
+}
+.hero-doc{
+  font-family:var(--label);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-size:.8125rem;
+  color:var(--dust);
+  margin:2rem 0 0;
+}
+.credits{
+  margin:1.1rem 0 0;
+  padding:0;
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.35rem 1.5rem;
+  font-family:var(--label);
+  font-size:1rem;
+  letter-spacing:.05em;
+  color:var(--dust);
+}
+.credits b{ color:var(--sand); font-weight:500; }
+
+.one-sheet{
+  position:relative;
+  padding:.5rem;
+  border:1px solid var(--panel-edge);
+  background:linear-gradient(160deg,rgba(233,184,92,.14),rgba(10,8,6,0));
+  box-shadow:0 2rem 4rem rgba(0,0,0,.6);
+}
+.one-sheet img{ width:100%; }
+.one-sheet figcaption{
+  font-family:var(--label);
+  font-size:.75rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--dust);
+  padding:.7rem .25rem .1rem;
+}
+
+/* ---------- page frame: sticky contents rail + column ---------- */
+.frame{
+  max-width:76rem;
+  margin:0 auto;
+  padding:clamp(2.5rem,5vw,4.5rem) clamp(1.25rem,5vw,4rem) 0;
+  display:grid;
+  grid-template-columns:var(--rail) minmax(0,1fr);
+  gap:clamp(2rem,5vw,4rem);
+  align-items:start;
+}
+.toc{ position:sticky; top:2.5rem; }
+.toc ol{
+  list-style:none;
+  margin:.9rem 0 0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:.55rem;
+}
+.toc a{
+  display:grid;
+  grid-template-columns:1.5rem 1fr;
+  gap:.35rem;
+  font-family:var(--label);
+  font-size:1rem;
+  letter-spacing:.06em;
+  color:var(--dust);
+  border-left:1px solid transparent;
+  padding-left:.6rem;
+  transition:color .2s, border-color .2s;
+}
+.toc a .n{ color:var(--leaf-deep); font-variant-numeric:tabular-nums; }
+.toc a:hover,
+.toc a.is-current{ color:var(--sand); border-left-color:var(--leaf); }
+.toc a.is-current .n{ color:var(--leaf); }
+
+.column{ min-width:0; }
+
+section{ padding-block:clamp(2.5rem,6vw,4.5rem); }
+section:first-of-type{ padding-top:0; }
+section + section{ border-top:1px solid var(--panel-edge); }
+
+.sec-head{ margin:0 0 2rem; }
+h2{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:clamp(2rem,4.4vw,3.1rem);
+  line-height:1.05;
+  letter-spacing:-.01em;
+  color:var(--leaf);
+  margin:.35rem 0 0;
+  text-wrap:balance;
+}
+h3{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:clamp(1.4rem,2.6vw,1.9rem);
+  line-height:1.15;
+  color:var(--sand);
+  margin:0;
+  text-wrap:balance;
+}
+h4{
+  font-family:var(--label);
+  font-weight:600;
+  font-size:.9375rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--leaf-deep);
+  margin:0 0 .3rem;
+}
+p{ max-width:var(--measure); margin:0 0 1.1rem; }
+p:last-child{ margin-bottom:0; }
+em{ font-style:italic; }
+strong{ font-weight:600; color:var(--leaf-hi); }
+
+/* ---------- 1. spec sheet ---------- */
+.spec{
+  margin:0 0 2rem;
+  display:grid;
+  grid-template-columns:max-content minmax(0,1fr);
+  gap:.1rem 2rem;
+  max-width:var(--measure);
+}
+.spec dt{
+  font-family:var(--label);
+  font-size:.875rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--leaf-deep);
+  padding-top:.42rem;
+}
+.spec dd{
+  margin:0;
+  padding-bottom:.85rem;
+  border-bottom:1px solid var(--panel-edge);
+}
+.spec dd:last-of-type{ border-bottom:0; }
+
+/* ---------- 2. logline ---------- */
+.logline{
+  margin:0;
+  max-width:34ch;
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(1.5rem,3.6vw,2.4rem);
+  line-height:1.28;
+  color:var(--sand);
+  border-left:2px solid var(--leaf);
+  padding-left:clamp(1.1rem,3vw,2rem);
+}
+.logline .lift{ color:var(--leaf); font-style:italic; }
+
+/* ---------- 3. episodes ---------- */
+.episodes{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:1px;
+  background:var(--panel-edge);
+  border-block:1px solid var(--panel-edge);
+}
+.episodes li{
+  background:var(--ink-2);
+  padding:1.4rem clamp(1rem,2.5vw,1.75rem);
+  display:grid;
+  grid-template-columns:3.25rem minmax(0,1fr);
+  gap:.25rem 1.25rem;
+  align-items:baseline;
+}
+.ep-n{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:2.4rem;
+  line-height:1;
+  color:var(--leaf-deep);
+  font-variant-numeric:tabular-nums;
+  grid-row:span 2;
+}
+.ep-title{
+  font-family:var(--display);
+  font-style:italic;
+  font-size:1.3rem;
+  color:var(--leaf);
+  margin:0;
+}
+.ep-beat{ margin:0; color:var(--sand); max-width:56ch; }
+.note{
+  font-family:var(--label);
+  font-size:1rem;
+  letter-spacing:.04em;
+  color:var(--dust);
+  max-width:var(--measure);
+  margin:1.25rem 0 0;
+}
+
+/* ---------- 4. characters ---------- */
+.cast{ display:grid; gap:1.5rem; }
+.card{
+  position:relative;
+  background:var(--ink-2);
+  border:1px solid var(--panel-edge);
+  border-top:2px solid var(--leaf-deep);
+  padding:clamp(1.4rem,3.2vw,2.25rem);
+}
+.card-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:.4rem 1rem;
+  margin-bottom:1.2rem;
+}
+.slug{
+  font-family:var(--label);
+  font-size:.9375rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--dust);
+}
+.card p{ max-width:64ch; }
+.blocks{
+  display:grid;
+  gap:1.15rem;
+  margin:1.5rem 0 0;
+  padding-top:1.5rem;
+  border-top:1px solid var(--panel-edge);
+}
+.blocks p{ margin:0; }
+.arc{
+  margin:1.5rem 0 0;
+  padding:1.1rem 0 0;
+  border-top:1px solid var(--panel-edge);
+}
+.beats{
+  list-style:none;
+  margin:.75rem 0 0;
+  padding:0;
+  display:grid;
+  gap:.9rem;
+}
+.beats li{ max-width:64ch; }
+.beats b{
+  font-family:var(--label);
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:.9375rem;
+  color:var(--leaf);
+  display:block;
+}
+blockquote.philosophy{
+  margin:1.4rem 0 0;
+  padding:0 0 0 1.1rem;
+  border-left:2px solid var(--leaf-deep);
+  font-family:var(--display);
+  font-style:italic;
+  font-size:1.1rem;
+  line-height:1.5;
+  color:var(--leaf-hi);
+  max-width:52ch;
+}
+
+/* Layla's tell: one deep-red tatreez stitch, the only red on the page. */
+.stitch{
+  position:absolute;
+  top:1.15rem;
+  right:1.15rem;
+  width:1.15rem;
+  height:1.15rem;
+  color:var(--tatreez);
+}
+.card--layla{ border-top-color:var(--tatreez); }
+.stitch-note{
+  font-family:var(--label);
+  font-size:.9375rem;
+  letter-spacing:.06em;
+  color:var(--dust);
+  margin:1.1rem 0 0;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.stitch-note svg{ width:.85rem; height:.85rem; color:var(--tatreez); flex:none; }
+
+.pairing{
+  margin:1.5rem 0 0;
+  padding:1.25rem clamp(1rem,2.5vw,1.5rem);
+  background:rgba(233,184,92,.05);
+  border-left:2px solid var(--leaf-deep);
+}
+
+/* ---------- 5. plate ---------- */
+.plate{ margin:2rem 0 0; }
+.plate-btn{
+  display:block;
+  width:100%;
+  padding:.4rem;
+  background:var(--ink-2);
+  border:1px solid var(--panel-edge);
+  cursor:zoom-in;
+}
+.plate figcaption{
+  font-family:var(--label);
+  font-size:.9375rem;
+  letter-spacing:.06em;
+  color:var(--dust);
+  margin-top:.7rem;
+  max-width:var(--measure);
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(6,5,3,.94);
+  padding:clamp(1rem,4vw,3rem);
+  overflow:auto;
+  border:0;
+}
+.lightbox img{ margin:0 auto; max-width:min(100%,88rem); }
+.lightbox-close{
+  position:sticky;
+  top:0;
+  margin-left:auto;
+  display:block;
+  background:none;
+  border:1px solid var(--panel-edge);
+  color:var(--leaf);
+  font-family:var(--label);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.875rem;
+  padding:.45rem 1rem;
+  cursor:pointer;
+}
+
+/* ---------- footer ---------- */
+footer{
+  margin-top:clamp(3rem,7vw,6rem);
+  border-top:1px solid var(--panel-edge);
+  background:var(--ink-2);
+  padding:clamp(2.5rem,5vw,4rem) clamp(1.25rem,5vw,4rem);
+}
+.footer-inner{
+  max-width:76rem;
+  margin:0 auto;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:1.5rem 3rem;
+  font-family:var(--label);
+  letter-spacing:.08em;
+  color:var(--dust);
+}
+.footer-inner b{ color:var(--sand); font-weight:500; display:block; }
+.confidential{
+  color:var(--leaf-deep);
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  font-size:.8125rem;
+}
+
+/* ---------- motion ---------- */
+.reveal{ opacity:0; transform:translateY(14px); }
+.reveal.is-in{ opacity:1; transform:none; transition:opacity .7s ease, transform .7s ease; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal,.reveal.is-in{ opacity:1; transform:none; transition:none; }
+  *{ scroll-behavior:auto !important; }
+}
+html{ scroll-behavior:smooth; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 60rem){
+  .hero-grid{ grid-template-columns:minmax(0,1fr); }
+  .one-sheet{ max-width:22rem; }
+  .frame{ grid-template-columns:minmax(0,1fr); }
+  .toc{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--ink);
+    padding:.85rem 0;
+    margin:0 -1.25rem;
+    border-bottom:1px solid var(--panel-edge);
+  }
+  .toc .eyebrow{ display:none; }
+  .toc ol{
+    flex-direction:row;
+    overflow-x:auto;
+    margin:0;
+    padding:0 1.25rem;
+    gap:1.25rem;
+    scrollbar-width:none;
+  }
+  .toc ol::-webkit-scrollbar{ display:none; }
+  .toc a{
+    border-left:0;
+    border-bottom:1px solid transparent;
+    padding:0 0 .3rem;
+    white-space:nowrap;
+  }
+  .toc a:hover,
+  .toc a.is-current{ border-bottom-color:var(--leaf); }
+}
+@media (max-width: 34rem){
+  .spec{ grid-template-columns:minmax(0,1fr); gap:0; }
+  .spec dt{ padding-top:.9rem; }
+  .episodes li{ grid-template-columns:minmax(0,1fr); }
+  .ep-n{ grid-row:auto; font-size:1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Odaingerous LLC — Complete Series Bible</p>
+      <h1 class="hero-title">Dirty Gold</h1>
+      <p class="hero-arabic" lang="ar">الذهب الملوث</p>
+      <p class="hero-tag">All that glitters isn't gold. The most dangerous love story in Cairo.</p>
+      <p class="hero-doc">Cairo · Giza · Starlight Festival — bilingual Arabic and English production</p>
+      <ul class="credits">
+        <li>Created by <b>Odain Watson</b></li>
+        <li>Directed by <b>Tarik Afifi</b> <span>(Assistant Director, Dune)</span></li>
+        <li>Written by <b>Mazen Saad</b></li>
+        <li>Developed with <b>Gamma Engineering</b></li>
+      </ul>
+    </div>
+    <figure class="one-sheet">
+      <img src="assets/one-sheet.jpg" width="1024" height="1536" alt="Dirty Gold teaser one-sheet: gold bars stacked before a night-lit Cairo skyline on the Nile, with the title in fractured gold leaf." />
+      <figcaption>Teaser one-sheet</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="frame">
+  <nav class="toc" aria-label="Contents">
+    <p class="eyebrow">Contents</p>
+    <ol>
+      <li><a href="#overview"><span class="n">1</span><span>Series Overview</span></a></li>
+      <li><a href="#logline"><span class="n">2</span><span>Logline</span></a></li>
+      <li><a href="#episodes"><span class="n">3</span><span>Episode Arc</span></a></li>
+      <li><a href="#characters"><span class="n">4</span><span>Characters</span></a></li>
+      <li><a href="#world"><span class="n">5</span><span>World &amp; Setting</span></a></li>
+      <li><a href="#tone"><span class="n">6</span><span>Tone &amp; Visual Identity</span></a></li>
+      <li><a href="#positioning"><span class="n">7</span><span>Season-End</span></a></li>
+    </ol>
+  </nav>
+
+  <main class="column">
+
+    <section id="overview" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">One</p>
+        <h2>Series Overview</h2>
+      </div>
+      <dl class="spec">
+        <dt>Format</dt>
+        <dd>Limited series — originally scoped as 4 episodes; currently in development as a full returnable series, 8–13 episodes per season.</dd>
+        <dt>Language</dt>
+        <dd>Arabic and English, bilingual production.</dd>
+        <dt>Setting</dt>
+        <dd>Cairo, anchored at the real-world debut of Starlight Festival at the Pyramids of Giza, with a Gulf/Dubai footprint through Khalid's storyline.</dd>
+        <dt>Comparables</dt>
+        <dd>Mr. &amp; Mrs. Smith · Lupin · Money Heist · Fauda</dd>
+      </dl>
+      <h4>Tone</h4>
+      <p>Sexy, glamorous, fast-paced — prestige drama in the tradition of Ryan Murphy's precision and Aaron Spelling's excess. Heist mechanics played for tension; marriage played for comedy and ache; fashion and Cairo treated as characters in their own right.</p>
+    </section>
+
+    <section id="logline" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Two</p>
+        <h2>Logline</h2>
+      </div>
+      <p class="logline">Zaid and Layla are madly, genuinely married — and <span class="lift">completely unaware</span> that the person sleeping beside them every night is the most dangerous thief in Cairo.</p>
+      <p class="note">Over four nights of Cairo's biggest festival, their secrets, their marriage, and their crews collide, building toward a global heist franchise.</p>
+    </section>
+
+    <section id="episodes" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Three</p>
+        <h2>Episode Arc Summary</h2>
+      </div>
+      <ol class="episodes">
+        <li>
+          <span class="ep-n" aria-hidden="true">1</span>
+          <p class="ep-title">All That Glitters</p>
+          <p class="ep-beat">Both spouses rob the same room, forty seconds apart, unaware of each other.</p>
+        </li>
+        <li>
+          <span class="ep-n" aria-hidden="true">2</span>
+          <p class="ep-title">Two Thieves, One Bed</p>
+          <p class="ep-beat">Quiet mutual suspicion; parallel operations nearly collide in public; Khalid appears as an unknown rival.</p>
+        </li>
+        <li>
+          <span class="ep-n" aria-hidden="true">3</span>
+          <p class="ep-title">The Longest Beat</p>
+          <p class="ep-beat">Full marital confrontation in real time; Khalid discovers his rival is Zaid, and finds Layla.</p>
+        </li>
+        <li>
+          <span class="ep-n" aria-hidden="true">4</span>
+          <p class="ep-title">Closing Night</p>
+          <p class="ep-beat">The marriage and the heist converge; Khalid and Zaid are forced into uneasy alliance against a larger threat.</p>
+        </li>
+      </ol>
+      <p class="note">Original four-episode structure. As the series expands into a full returnable season, this serves as the foundation for a longer, more elaborated Season One.</p>
+    </section>
+
+    <section id="characters" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Four</p>
+        <h2>Character Breakdowns</h2>
+      </div>
+
+      <div class="cast">
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Zaid Hassan</h3>
+            <p class="slug">Egyptian, late 20s — Series Lead</p>
+          </div>
+          <p>Cairo's most sought-after forger and artifact specialist, capable of producing replica antiquities so precise they fool anyone short of a laboratory. Zaid wears his gold chain like armor and moves through elite spaces with practiced ease — a performance nearly as elaborate as his wife's.</p>
+          <p>Warmer and more openly funny than Layla, he's the one who breaks first in an argument, the one who reaches across the table. Unlike Khalid, Zaid maintains a code — there are lines he won't cross. Underneath the charm is a man doing incredibly high-stakes, precise work who has never let his wife see him sweat, until he has to.</p>
+          <div class="arc">
+            <h4>Arc</h4>
+            <p>Comfortable secrecy → discovery → forced honesty → choosing to build something real with Layla, professionally and personally, for the first time — while confronting a rival in Khalid who mirrors and threatens everything he's built.</p>
+          </div>
+        </article>
+
+        <article class="card card--layla">
+          <svg class="stitch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square" aria-hidden="true"><path d="M4 4 L20 20 M20 4 L4 20" /></svg>
+          <div class="card-head">
+            <h3>Layla Hassan</h3>
+            <p class="slug">Palestinian, 26 — Series Lead</p>
+          </div>
+          <p>The most dangerous infiltration operative in the Arab world, and — as far as her husband knows — a woman who cannot cook. Layla moves through the world in two registers: the composed, multilingual operator who can hack a government financial system in forty-one seconds, and the domestic performer who stages elaborate fictions of ordinary married life.</p>
+          <p>Precise, unreadable under pressure, privately exhausted by how much of herself she hides from the one person she chose to spend her life with. Her tell — the only one — is a single deep-red tatreez stitch on the collar of her robe, never explained.</p>
+          <p class="stitch-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square" aria-hidden="true"><path d="M4 4 L20 20 M20 4 L4 20" /></svg> The stitch is the only mark of her real self anywhere in the series — and the only red in this document.</p>
+          <div class="arc">
+            <h4>Arc</h4>
+            <p>Suspicion → confrontation → reluctant, dangerous partnership with Zaid, culminating in choosing him — and the job — over self-protection. Becomes a target of Khalid's manipulation as he seeks to unbalance Zaid.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Khalid Rashid</h3>
+            <p class="slug">Emirati, early 30s — Recurring / Major Guest Star, Episodes 2–4</p>
+          </div>
+          <p>The eldest son of a wealthy, respected Emirati family, given every advantage and every expectation to inherit the family business — and who walked away from that life entirely. From childhood, Khalid possessed an intense curiosity about things he was never meant to touch: locks, security systems, the minds of the people who designed them. His interest was never primarily about money. It was the realization that someone had built a system, and that he could be smarter than it.</p>
+          <p>Khalid doesn't steal because he needs to. He steals because he loves it — the planning, the patience, the details, and above all, walking away knowing no one realized he was there. Potential to expand into a series regular.</p>
+
+          <div class="blocks">
+            <div>
+              <h4>Method</h4>
+              <p>Khalid is not a hacker or a loophole exploiter. He understands people — how a security guard thinks, when an officer begins to panic, who can be bought and who can't. He doesn't break a system; he makes it believe he belongs inside it. His work is built on three principles: precision, composure, and cleanliness. He has no tolerance for chaos, leaves nothing to chance, and treats timing as the plan itself, not merely part of it.</p>
+            </div>
+            <div>
+              <h4>What he steals</h4>
+              <p>Rare watches, family heirlooms, works of art, and — increasingly — antiquities with real historical weight: objects that vanished from the record, manuscripts known to only a handful of people, pieces believed lost for decades. To Khalid, rarity and impossibility are what make an object irresistible, not price.</p>
+            </div>
+            <div>
+              <h4>Human manipulation</h4>
+              <p>Khalid makes people help him without ever realizing they're helping him. He reads what drives a person — money, ego, fear, greed, recognition — and uses it so naturally it never feels like manipulation at all.</p>
+            </div>
+            <div>
+              <h4>No code</h4>
+              <p>Unlike Zaid, Khalid does not believe there are lines a thief should never cross. If someone must die for a job to succeed, he will do it without hesitation, guilt, or second thought.</p>
+            </div>
+            <div>
+              <h4>Relationship with Zaid</h4>
+              <p>Neither traditional hostility nor friendship — a long-standing, deeply personal rivalry built on mutual respect neither man would ever admit to. Khalid has known Zaid for years and has learned never to underestimate him. Their dynamic resembles Batman and the Joker: each knows there are moments he could end the other, but ending the game holds no appeal. Khalid does not want Zaid dead — killing him would mean killing the only opponent capable of playing at his level. Every job Zaid pulls off becomes a new challenge; every time Khalid outplays him is a satisfaction nothing else provides.</p>
+            </div>
+          </div>
+
+          <blockquote class="philosophy">Stealing is not a crime; it is an act of freedom through which he asserts his superiority over a system that believes itself impenetrable.</blockquote>
+
+          <div class="arc">
+            <h4>Arc</h4>
+            <ol class="beats">
+              <li><b>Episode 2 — The Unknown Rival</b>Khalid works a parallel operation at Starlight Festival, targeting the same statues as Zaid, without knowing his rival's identity. A silent game develops between two thieves who don't recognize each other — Khalid, rather than feeling threatened, feels genuinely excited to have finally met someone who can keep pace with him.</li>
+              <li><b>Episode 3 — The Rival Has a Face</b>Khalid discovers his rival is Zaid, a man he's known for years. The game changes completely — no longer about the artifact, but about infiltrating and outplaying the other's entire world. He tracks Zaid, discovers Layla, and begins exploiting her presence to destabilize Zaid — not out of desire for her, but to prove his rival can lose control too. The rivalry turns personal.</li>
+              <li><b>Episode 4 — The Rules Change</b>Khalid and Zaid discover their rivalry was only a piece of a much larger game — a bigger enemy, a larger plan, both of them exploited by a system designed to use their skills for someone else's benefit. For the first time, Khalid needs help he cannot provide himself, and Zaid needs him just as much. They don't become friends, but their rivalry becomes a weapon they can use together instead of an obstacle between them.</li>
+            </ol>
+          </div>
+
+          <div class="arc">
+            <h4>Casting target</h4>
+            <p>Mohamed Faisal Mostafa — Emirati actor, first to hold a key role in an international hit series (Apple TV+'s <em>Hijack</em>), stunt performer on <em>Dune: Part Three</em>, action-trained.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Minister Youssef Tariq</h3>
+            <p class="slug">Egyptian, 50s–60s — Recurring, all episodes</p>
+          </div>
+          <p>The season's connective tissue and central mark. Publicly, the Minister of Culture — a man who attends Starlight Festival because he "loves music and heritage." Privately, he's laundering millions in stolen Egyptian antiquities through the festival's chaos as cover, using a financial pipeline running through Geneva, the Caymans, and Dubai.</p>
+          <p>Tariq is a masterclass in performed sincerity. The audience should be genuinely unsure, in early episodes, whether he's a monster or simply a very good politician.</p>
+          <div class="arc">
+            <h4>Arc</h4>
+            <p>Untouchable public figure → security tightening around a threat he can't name, because he can't admit he's been robbed → cornered by the season's convergence.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Reese</h3>
+            <p class="slug">American, 32–38 — Series Regular</p>
+          </div>
+          <p>Zaid's off-books logistics fixer — ex-intelligence, meticulous, allergic to vulnerability. Reese secures technical drawings, forgers, and exit routes, and has never once let anyone see him fail. Dry, controlled, quietly arrogant about his own competence.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3>Dani</h3>
+            <p class="slug">American, 29–35 — Series Regular</p>
+          </div>
+          <p>Layla's asset and technical contact — magnetic, chaotic, brilliant, and constitutionally incapable of staying in her lane. Mapped the entry point that makes the pilot's heist possible; expects to be paid and respected accordingly.</p>
+          <div class="pairing">
+            <h4>Reese / Dani dynamic</h4>
+            <p>The toxic mirror to the central marriage — professionally brilliant, personally catastrophic together. Where Zaid and Layla have trust wearing a lie, Reese and Dani have heat with zero trust.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="world" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Five</p>
+        <h2>World &amp; Setting</h2>
+      </div>
+      <p>The series is anchored entirely at Starlight Festival, the real international music festival debuting October 8–11 at the Pyramids of Giza — five stages, a major international lineup, and a VR installation, positioned so the Great Pyramid dominates the sightline from the main stage as a constant, watching presence over the story.</p>
+      <p>The festival is not a backdrop. The show is structurally built so it cannot be removed without breaking the premise.</p>
+      <p>Khalid's storyline extends the world into Dubai and the wider Gulf, planting the seeds for the series' stated international expansion into Dubai, Paris, New York, and Berlin in future seasons — with Cairo/Giza remaining the story's permanent point of origin.</p>
+      <figure class="plate">
+        <button type="button" class="plate-btn" id="plate-open" aria-label="Enlarge the Dirty Gold and Starlight Festival partnership deck">
+          <img src="assets/starlight-partnership.jpg" width="1536" height="1024" alt="Ten-panel Dirty Gold and Starlight Festival partnership deck covering the convergence, distribution pathway, revenue streams, capital recovery structure, risk profile, partnership tiers, and the global expansion map." />
+        </button>
+        <figcaption>Companion document — the Dirty Gold × Starlight Festival partnership deck, which carries the distribution pathway, capital recovery structure and multi-city expansion plan behind this world. Click to enlarge.</figcaption>
+      </figure>
+    </section>
+
+    <section id="tone" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Six</p>
+        <h2>Tone &amp; Visual Identity</h2>
+      </div>
+      <p>Prestige, luxury, and visually sophisticated presentation throughout — gold as a recurring visual and thematic motif: jewelry, artifacts, the pyramid itself lit gold at night.</p>
+      <p>Heist sequences are precise, patient, and controlled, mirroring Khalid's own philosophy of composure over chaos. Marital scenes are shot with the same close, observational attention as the heists — comedy and intimacy given equal visual weight to suspense.</p>
+    </section>
+
+    <section id="positioning" class="reveal">
+      <div class="sec-head">
+        <p class="eyebrow">Seven</p>
+        <h2>Season-End Positioning</h2>
+      </div>
+      <p>The finale converges all threads: Zaid and Layla's choice to work together rather than turn on each other, Khalid and Zaid's forced alliance against a larger enemy, and Minister Tariq's operation collapsing under the season's accumulated pressure.</p>
+      <p>The marriage's fate is left deliberately ambiguous — the job's success stands in for an answer neither confirmed nor denied.</p>
+      <p>A final image — <strong>passports on the dash: Dubai, Paris, New York, Berlin</strong> — signals the door to expansion without resolving it, positioning Season Two's Gulf-forward storyline through Khalid as a natural next chapter.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><b>Odain Watson</b>Creator &amp; Showrunner</p>
+    <p><b>Odaingerous LLC ©</b>Developed in partnership with Gamma Engineering</p>
+    <p class="confidential">Strictly Confidential</p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="plate-lightbox">
+  <button type="button" class="lightbox-close" id="plate-close">Close</button>
+  <img src="assets/starlight-partnership.jpg" alt="Dirty Gold and Starlight Festival partnership deck, enlarged." />
+</dialog>
+
+<script>
+(function () {
+  // Scroll reveal — one quiet entrance per section, skipped when the viewer
+  // has asked for reduced motion.
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+
+  if (calm || !('IntersectionObserver' in window)) {
+    sections.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var reveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    sections.forEach(function (el) { reveal.observe(el); });
+  }
+
+  // Contents rail follows the section currently being read.
+  var links = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.toc a'), function (a) {
+    links[a.getAttribute('href').slice(1)] = a;
+  });
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = links[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          Object.keys(links).forEach(function (id) { links[id].classList.remove('is-current'); });
+          link.classList.add('is-current');
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    sections.forEach(function (el) { if (el.id) spy.observe(el); });
+  }
+
+  // Partnership deck plate.
+  var box = document.getElementById('plate-lightbox');
+  var open = document.getElementById('plate-open');
+  var close = document.getElementById('plate-close');
+  if (box && open && close && typeof box.showModal === 'function') {
+    open.addEventListener('click', function () { box.showModal(); });
+    close.addEventListener('click', function () { box.close(); });
+    box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
+  }
+})();
+</script>
+
+</body>
+</html>
