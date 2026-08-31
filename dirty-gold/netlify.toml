@@ -1,0 +1,13 @@
+# Standalone deploy for the DIRTY GOLD series bible.
+# This directory is published as-is — no build step, and deliberately
+# separate from the Bonjour Cruise site that owns the repo root.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "no-referrer"

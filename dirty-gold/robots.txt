@@ -1,0 +1,3 @@
+# Confidential document. Not for indexing.
+User-agent: *
+Disallow: /
