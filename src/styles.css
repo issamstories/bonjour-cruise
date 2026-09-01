@@ -2739,6 +2739,13 @@ input[type="date"]::-webkit-clear-button { display: none; -webkit-appearance: no
 .admin-request-note { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink); background: #FAF7F2; padding: 0.6rem 0.8rem; border-radius: 8px; }
 .admin-request-link { margin: 0.5rem 0 0; font-size: 0.85rem; }
 .admin-section { margin: 0 0 0.8rem; font-family: var(--font-serif); color: var(--navy); }
+.team-perms { display: grid; gap: 0.5rem; margin-block-start: 0.8rem; }
+.team-perm { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.55rem 0.7rem; border: 1px solid rgba(28,43,74,0.1); border-radius: 10px; background: #FAF7F2; cursor: pointer; }
+.team-perm input { margin-block-start: 0.2rem; accent-color: var(--blush); width: 18px; height: 18px; }
+.team-perm span { display: flex; flex-direction: column; }
+.team-perm strong { font-size: 0.9rem; color: var(--navy); }
+.team-perm small { font-size: 0.78rem; color: var(--ink-soft); }
+.team-perm input:disabled { opacity: 0.5; cursor: not-allowed; }
 .admin-panel { background: #fff; border-radius: 18px; padding: 1.3rem; box-shadow: 0 18px 46px rgba(28,43,74,0.08); }
 .admin-panel-date { margin: 0 0 1rem; font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy); }
 .admin-cruise { border: 1px solid rgba(28,43,74,0.1); border-radius: 12px; padding: 1rem; margin-block-end: 1rem; }

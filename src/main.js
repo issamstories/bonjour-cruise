@@ -2,6 +2,7 @@ import './styles.css';
 import './member.js';
 import { COUNTRIES } from './data.js';
 import { araDigits, t } from './i18n.js';
+import { supabase } from './supabase.js';
 
 /* JS is available: flag <html class="js"> so CSS can gate progressive
    enhancements (scroll-reveal starts hidden only when JS can reveal it). */
@@ -146,33 +147,29 @@ function initBookingType() {
   apply();
 }
 
-/* ---------- Form submission: Netlify Forms with EmailJS fallback ---------- */
+/* ---------- Form submission: Supabase edge function (Brevo) ---------- */
 
-// EmailJS fallback configuration. Fill these in from the EmailJS dashboard
-// to activate the fallback; left as placeholders, the fallback is skipped.
-const EMAILJS = {
-  publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
-  serviceId: 'YOUR_EMAILJS_SERVICE_ID',
-  templateId: 'YOUR_EMAILJS_TEMPLATE_ID',
-};
+// The contact form POSTs to the Supabase edge function contact-form, which
+// emails the brand inbox via Brevo. This works on Cloudflare Pages (no
+// Netlify Forms dependency) and on any static host.
 
-function emailJsConfigured() {
-  return !Object.values(EMAILJS).some((v) => v.startsWith('YOUR_'));
-}
+const FORM_SITE_NAME = 'Bonjour Cruise';
 
-async function sendViaEmailJs(form) {
+async function sendViaEdgeFunction(form) {
   const fields = Object.fromEntries(new FormData(form).entries());
-  const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      service_id: EMAILJS.serviceId,
-      template_id: EMAILJS.templateId,
-      user_id: EMAILJS.publicKey,
-      template_params: fields,
-    }),
+  const { data, error } = await supabase.functions.invoke('contact-form', {
+    body: {
+      site_name: FORM_SITE_NAME,
+      first_name: fields.first_name || '',
+      last_name: fields.last_name || '',
+      email: fields.email || '',
+      whatsapp: fields.whatsapp || '',
+      subject: fields.subject || 'Website enquiry',
+      message: fields.message || fields.enquiry || '',
+    },
   });
-  if (!response.ok) throw new Error(`EmailJS responded ${response.status}`);
+  if (error) throw error;
+  if (!data?.ok) throw new Error(data?.error || 'Send failed');
 }
 
 function initForms() {
@@ -188,31 +185,12 @@ function initForms() {
       submitBtn.disabled = true;
       submitBtn.textContent = t('Sending…');
 
-      const body = new URLSearchParams(new FormData(form)).toString();
-
       try {
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body,
-        });
-        if (!response.ok) throw new Error(`Netlify Forms responded ${response.status}`);
+        await sendViaEdgeFunction(form);
         showStatus(status, 'success', form.dataset.successMessage);
         form.reset();
-      } catch (netlifyError) {
-        // Netlify Forms only accepts POSTs on the deployed site; fall back to
-        // EmailJS when configured, otherwise surface a friendly error.
-        if (emailJsConfigured()) {
-          try {
-            await sendViaEmailJs(form);
-            showStatus(status, 'success', form.dataset.successMessage);
-            form.reset();
-          } catch (emailJsError) {
-            showStatus(status, 'error', null);
-          }
-        } else {
-          showStatus(status, 'error', null);
-        }
+      } catch (err) {
+        showStatus(status, 'error', null);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;

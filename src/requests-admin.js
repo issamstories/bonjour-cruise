@@ -6,6 +6,18 @@
 // ============================================================================
 
 export async function renderRequestsTab(root, { switchTab }) {
+  const { supabase } = await import('./supabase.js');
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) { location.reload(); return; }
+
+  // Permissions of the signed-in user
+  const { data: me } = await supabase
+    .from('profiles').select('is_master, is_admin, admin_permissions').eq('id', session.user.id).single();
+  const perms = new Set(me?.admin_permissions || []);
+  if (me?.is_master) perms.add('master');
+  const canView = me?.is_master || perms.has('master') || perms.has('requests');
+  const canApprove = me?.is_master || perms.has('master') || perms.has('approve');
+
   root.innerHTML = `
     <div class="admin-top">
       <p class="admin-hello" data-count>Loading requests…</p>
@@ -14,17 +26,28 @@ export async function renderRequestsTab(root, { switchTab }) {
     <div class="admin-tabs">
       <button class="admin-tab" data-tab="calendar">Calendar</button>
       <button class="admin-tab admin-tab-active" data-tab="requests">Requests</button>
+      ${me?.is_master || perms.has('team') || perms.has('master') ? '<button class="admin-tab" data-tab="team">Team</button>' : ''}
     </div>
     <div data-requests></div>`;
 
   root.querySelector('[data-signout]').addEventListener('click', async () => {
-    const { supabase } = await import('./supabase.js');
     await supabase.auth.signOut();
     location.reload();
   });
   root.querySelector('[data-tab="calendar"]').addEventListener('click', () => switchTab('calendar'));
+  const teamBtn = root.querySelector('[data-tab="team"]');
+  if (teamBtn) teamBtn.addEventListener('click', async () => {
+    const { renderTeamTab } = await import('./team-admin.js');
+    renderTeamTab(root, { switchTab: () => location.reload() });
+  });
 
-  const { supabase } = await import('./supabase.js');
+  if (!canView) {
+    root.querySelector('[data-count]').textContent = 'No access';
+    root.querySelector('[data-requests]').innerHTML =
+      '<p class="form-status error">You do not have permission to view requests. Ask the master admin to grant the "View requests" access.</p>';
+    return;
+  }
+
   const { data, error } = await supabase
     .from('booking_requests')
     .select('*')
@@ -41,7 +64,7 @@ export async function renderRequestsTab(root, { switchTab }) {
     `${pending.length} pending · ${done.length} processed`;
 
   root.querySelector('[data-requests]').innerHTML = `
-    ${pending.length ? `<h3 class="admin-section">Pending</h3>${pending.map((r) => requestCard(r, true)).join('')}`
+    ${pending.length ? `<h3 class="admin-section">Pending</h3>${pending.map((r) => requestCard(r, canApprove)).join('')}`
       : '<p class="form-note">No pending requests. New bookings will appear here.</p>'}
     ${done.length ? `<h3 class="admin-section" style="margin-top:28px;">Processed</h3>${done.map((r) => requestCard(r, false)).join('')}` : ''}`;
 

@@ -2,6 +2,7 @@ import './styles.css';
 import { supabase } from './supabase.js';
 import { createCalendar, dayKey } from './calendar.js';
 import { renderRequestsTab } from './requests-admin.js';
+import { renderTeamTab } from './team-admin.js';
 
 /* ==========================================================================
    BONJOUR CRUISE, admin scheduling
@@ -50,9 +51,30 @@ async function boot() {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return renderSignIn();
   const { data: profile } = await supabase
-    .from('profiles').select('is_admin, full_name').eq('id', session.user.id).single();
+    .from('profiles').select('is_admin, is_master, admin_permissions, full_name').eq('id', session.user.id).single();
   if (!profile?.is_admin) return renderDenied(session.user.email);
-  return renderAdmin();
+
+  // Permissions drive which tabs are shown and what the calendar can do.
+  const perms = new Set(profile.admin_permissions || []);
+  if (profile.is_master) perms.add('master');
+  const canCruises = profile.is_master || perms.has('master') || perms.has('cruises');
+  const canRequests = profile.is_master || perms.has('master') || perms.has('requests');
+  const canTeam = profile.is_master || perms.has('master') || perms.has('team');
+
+  // If the user has no cruises permission, show requests first (or team).
+  if (!canCruises && canRequests) return renderRequestsTab(root, { switchTab: () => boot() });
+  if (!canCruises && canTeam) return renderTeamTab(root, { switchTab: () => boot() });
+  if (!canCruises) {
+    root.innerHTML = `
+      <div class="form-card" style="max-width:480px;margin-inline:auto;text-align:center;">
+        <h3>Welcome, ${esc(profile.full_name || '')}</h3>
+        <p>You do not have any access yet. Ask the master admin to grant you access (cruises, requests or approve).</p>
+        <button class="btn btn-outline" data-signout>Sign out</button>
+      </div>`;
+    root.querySelector('[data-signout]').addEventListener('click', async () => { await supabase.auth.signOut(); boot(); });
+    return;
+  }
+  return renderAdmin({ canRequests, canTeam });
 }
 
 function renderSignIn(message) {
@@ -128,6 +150,7 @@ async function renderAdmin() {
     <div class="admin-tabs">
       <button class="admin-tab admin-tab-active" data-tab="calendar">Calendar</button>
       <button class="admin-tab" data-tab="requests">Requests</button>
+      <button class="admin-tab" data-tab="team">Team</button>
     </div>
     <div data-admin-view>
       <div class="admin-grid">
@@ -137,8 +160,11 @@ async function renderAdmin() {
     </div>`;
 
   root.querySelector('[data-signout]').addEventListener('click', async () => { await supabase.auth.signOut(); boot(); });
+  const view = root.querySelector('[data-admin-view]');
   root.querySelector('[data-tab="requests"]').addEventListener('click', () =>
-    renderRequestsTab(root.querySelector('[data-admin-view]'), { switchTab: () => boot() }));
+    renderRequestsTab(view, { switchTab: () => boot() }));
+  root.querySelector('[data-tab="team"]').addEventListener('click', () =>
+    renderTeamTab(view, { switchTab: () => boot() }));
 
   createCalendar(root.querySelector('[data-cal]'), {
     cruises,
