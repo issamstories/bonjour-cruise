@@ -1,6 +1,7 @@
 import './styles.css';
 import { supabase } from './supabase.js';
 import { createCalendar, dayKey } from './calendar.js';
+import { renderRequestsTab } from './requests-admin.js';
 
 /* ==========================================================================
    BONJOUR CRUISE, admin scheduling
@@ -124,12 +125,20 @@ async function renderAdmin() {
       <p class="admin-hello">${cruises.length} upcoming ${cruises.length === 1 ? 'departure' : 'departures'}.</p>
       <button class="btn btn-outline btn-small" data-signout>Sign out</button>
     </div>
-    <div class="admin-grid">
-      <div data-cal class="admin-cal"></div>
-      <aside data-panel class="admin-panel"></aside>
+    <div class="admin-tabs">
+      <button class="admin-tab admin-tab-active" data-tab="calendar">Calendar</button>
+      <button class="admin-tab" data-tab="requests">Requests</button>
+    </div>
+    <div data-admin-view>
+      <div class="admin-grid">
+        <div data-cal class="admin-cal"></div>
+        <aside data-panel class="admin-panel"></aside>
+      </div>
     </div>`;
 
   root.querySelector('[data-signout]').addEventListener('click', async () => { await supabase.auth.signOut(); boot(); });
+  root.querySelector('[data-tab="requests"]').addEventListener('click', () =>
+    renderRequestsTab(root.querySelector('[data-admin-view]'), { switchTab: () => boot() }));
 
   createCalendar(root.querySelector('[data-cal]'), {
     cruises,
