@@ -256,7 +256,7 @@ function enhanceEmailLinks() {
     if (a.dataset.copyBound) return;
     a.dataset.copyBound = '1';
     a.classList.add('email-copy');
-    a.setAttribute('title', 'Click to copy, or open your mail app');
+    a.setAttribute('title', t('Click to copy, or open your mail app'));
     a.addEventListener('click', () => {
       const email = (a.getAttribute('href') || '').replace(/^mailto:/i, '').split('?')[0];
       if (email && navigator.clipboard?.writeText) {

@@ -14,6 +14,7 @@ create table if not exists public.booking_requests (
   email            text not null,
   whatsapp         text,
   guests_note      text,                        -- optional: occasion, preferences
+  lang             text not null default 'en',  -- guest's UI language (en | ar), used for the emails
   status           text not null default 'pending'
                      check (status in ('pending', 'approved', 'rejected', 'expired', 'paid')),
   payment_link     text,                        -- Stripe Payment Link (after approval)

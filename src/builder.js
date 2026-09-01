@@ -43,8 +43,7 @@ const BOATS = [
 const boatById = (id) => BOATS.find((b) => b.id === id);
 const SEAT_PRICE = 380; // launch default, used only until a cruise sets its own price
 
-const BOAT_SVG = `
-<svg viewBox="0 0 640 380" class="boat-svg" role="img" aria-label="Your Bonjour Cruise yacht">
+const BOAT_SVG = ` <svg viewBox="0 0 640 380" class="boat-svg" role="img" aria-label="${t('Your Bonjour Cruise yacht')}">
   <g class="boat-stars">
     <circle cx="110" cy="70" r="2"/><circle cx="210" cy="116" r="1.6"/><circle cx="300" cy="58" r="2"/>
     <circle cx="400" cy="120" r="1.6"/><circle cx="470" cy="150" r="2"/><circle cx="360" cy="96" r="1.6"/>
@@ -381,9 +380,9 @@ function init() {
       const years = [];
       for (let y = nowY; y >= nowY - 100; y -= 1) years.push(String(y));
       return `<div class="wiz-dob" data-field-group>
-        <select class="wiz-dob-sel" data-dob-day aria-label="${t('Day')}"><option value="">${t('Day')}</option>${days.map((d) => opt(d, String(Number(d)), dd)).join('')}</select>
+        <select class="wiz-dob-sel" data-dob-day aria-label="${t('Day')}"><option value="">${t('Day')}</option>${days.map((d) => opt(d, t(String(Number(d))), dd)).join('')}</select>
         <select class="wiz-dob-sel" data-dob-month aria-label="${t('Month')}"><option value="">${t('Month')}</option>${MONTHS.map((m, i) => opt(String(i + 1).padStart(2, '0'), t(m), mm)).join('')}</select>
-        <select class="wiz-dob-sel" data-dob-year aria-label="${t('Year')}"><option value="">${t('Year')}</option>${years.map((y) => opt(y, y, yy)).join('')}</select>
+        <select class="wiz-dob-sel" data-dob-year aria-label="${t('Year')}"><option value="">${t('Year')}</option>${years.map((y) => opt(y, t(y), yy)).join('')}</select>
       </div>`;
     }
     return `<input class="wiz-field-input" type="${f.type}" value="${esc(v)}" ${f.placeholder ? `placeholder="${f.placeholder}"` : ''} autocomplete="${f.autocomplete || 'off'}" data-field />`;
@@ -614,9 +613,9 @@ function init() {
         return `
           <p class="wiz-q">${t('When would you like the yacht?')}</p>
           <div class="wiz-dob charter-dmy" data-charter-group>
-            <select class="wiz-dob-sel" data-cdate-day aria-label="${t('Day')}"><option value="">${t('Day')}</option>${days.map((d) => opt(d, String(Number(d)), dd)).join('')}</select>
+            <select class="wiz-dob-sel" data-cdate-day aria-label="${t('Day')}"><option value="">${t('Day')}</option>${days.map((d) => opt(d, t(String(Number(d))), dd)).join('')}</select>
             <select class="wiz-dob-sel" data-cdate-month aria-label="${t('Month')}"><option value="">${t('Month')}</option>${MONTHS.map((m, i) => opt(String(i + 1).padStart(2, '0'), t(m), mm)).join('')}</select>
-            <select class="wiz-dob-sel" data-cdate-year aria-label="${t('Year')}"><option value="">${t('Year')}</option>${years.map((y) => opt(y, y, yy)).join('')}</select>
+            <select class="wiz-dob-sel" data-cdate-year aria-label="${t('Year')}"><option value="">${t('Year')}</option>${years.map((y) => opt(y, t(y), yy)).join('')}</select>
           </div>
           <p class="form-note">${t('Pick any date (day / month / year) that suits your circle. On the last step you can lock it with a deposit, or send a request.')}</p>
           <div class="wiz-field-nav"><button type="button" class="btn btn-primary wiz-next" data-charternext ${state.charterDate ? '' : 'disabled'}>${t('Continue')}</button></div>`;

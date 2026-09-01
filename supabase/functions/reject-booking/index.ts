@@ -1,5 +1,6 @@
 // Supabase Edge Function: reject a booking request.
-// Admin action. Marks the request rejected and emails the guest politely.
+// Admin action. Marks the request rejected and emails the guest politely,
+// in the language she used when submitting (lang column).
 //
 // Deploy: supabase functions deploy reject-booking
 // Secrets: BREVO_API_KEY, FROM_EMAIL
@@ -40,11 +41,15 @@ function esc(v: unknown) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-function fmtDate(iso: string) {
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const arDigits = (s: string | number): string => String(s).replace(/[0-9]/g, (d) => AR_DIGITS[+d]);
+
+function fmtDate(iso: string, lang: string) {
   try {
-    return new Intl.DateTimeFormat('en-GB', {
+    const out = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-AE' : 'en-GB', {
       weekday: 'long', day: 'numeric', month: 'long', timeZone: 'Asia/Dubai',
     }).format(new Date(iso));
+    return lang === 'ar' ? arDigits(out) : out;
   } catch { return iso; }
 }
 
@@ -83,33 +88,55 @@ Deno.serve(async (req) => {
       .eq('id', reqRow.id);
     if (updErr) throw updErr;
 
+    // Language the guest used when submitting (defaults to English for old rows).
+    const lang = reqRow.lang === 'ar' ? 'ar' : 'en';
+    const ar = lang === 'ar';
+    const dir = ar ? 'rtl' : 'ltr';
+    const L = ar ? {
+      subject: 'تحديث بخصوص طلبك',
+      about: 'بخصوص طلبك',
+      hello: `مرحباً ${esc(reqRow.first_name)}،`,
+      body: `شكراً لطلبك في <strong>${fmtDate(reqRow.requested_date, lang)}</strong>. لسوء الحظ، لا يمكننا تأكيد هذا التاريخ حالياً.`,
+      follow: 'يسعدنا استقبالك في يوم آخر، أو يمكننا اقتراح تجربة بديلة. فقط رد على هذا البريد.',
+      ref: 'المرجع',
+    } : {
+      subject: `Update on your request — ${site_name || 'Cruise'}`,
+      about: 'About your request',
+      hello: `Hello ${esc(reqRow.first_name)},<br>`,
+      body: `thank you for your request for <strong>${fmtDate(reqRow.requested_date, lang)}</strong>. Unfortunately we are not able to confirm this date at the moment.`,
+      follow: 'We would love to welcome you another day, or we can suggest an alternative experience. Just reply to this email.',
+      ref: 'Reference',
+    };
+
     if (BREVO_KEY) {
       try {
         const userReason = reason?.trim() ? `<p style="margin:12px 0 0;font-size:14px;color:#5A6070;line-height:1.6;">${esc(reason)}</p>` : '';
         await sendBrevo({
           to: [{ email: reqRow.email, name: reqRow.first_name }],
-          subject: `Update on your request — ${site_name || 'Cruise'}`,
-          htmlContent: `<!doctype html><html><head><meta charset="utf-8"></head>
+          subject: L.subject,
+          htmlContent: `<!doctype html><html dir="${dir}"><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#FBF5EF;font-family:Inter,-apple-system,sans-serif;color:#2B2F3A;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF5EF;padding:32px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#FFFFFF;border-radius:16px;overflow:hidden;">
-        <tr><td style="background:#1C2B4A;padding:28px 32px;">
+        <tr><td style="background:#1C2B4A;padding:28px 32px;${ar ? 'text-align:right;' : ''}">
           <h1 style="margin:0;color:#F7F5F0;font-size:22px;font-family:Georgia,serif;">${esc(site_name || 'Cruise')}</h1>
-          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">About your request</p>
+          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">${L.about}</p>
         </td></tr>
         <tr><td style="padding:28px 32px;">
-          <p style="margin:0;font-size:15px;line-height:1.6;">Hello ${esc(reqRow.first_name)},<br>
-          thank you for your request for <strong>${fmtDate(reqRow.requested_date)}</strong>. Unfortunately we are not able to confirm this date at the moment.</p>
+          <p style="margin:0;font-size:15px;line-height:1.6;">${L.hello}
+          ${L.body}</p>
           ${userReason}
-          <p style="margin:16px 0 0;font-size:15px;line-height:1.6;">We would love to welcome you another day, or we can suggest an alternative experience. Just reply to this email.</p>
-          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;">Reference: <strong>${reqRow.id.slice(0, 8).toUpperCase()}</strong></p>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.6;">${L.follow}</p>
+          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;">${L.ref}: <strong>${reqRow.id.slice(0, 8).toUpperCase()}</strong></p>
         </td></tr>
       </table>
     </td></tr>
   </table>
 </body></html>`,
-          textContent: `Hello ${reqRow.first_name}, thank you for your request for ${fmtDate(reqRow.requested_date)}. Unfortunately we cannot confirm this date. We would love to welcome you another day.`,
+          textContent: ar
+            ? `مرحباً ${reqRow.first_name}، شكراً لطلبك في ${fmtDate(reqRow.requested_date, lang)}. لسوء الحظ لا يمكننا تأكيد هذا التاريخ. يسعدنا استقبالك في يوم آخر.\nالمرجع: ${reqRow.id.slice(0, 8).toUpperCase()}`
+            : `Hello ${reqRow.first_name}, thank you for your request for ${fmtDate(reqRow.requested_date, lang)}. Unfortunately we cannot confirm this date. We would love to welcome you another day.\nReference: ${reqRow.id.slice(0, 8).toUpperCase()}`,
         });
       } catch { /* best-effort */ }
     }

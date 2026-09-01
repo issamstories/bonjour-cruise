@@ -169,7 +169,7 @@ async function sendViaEdgeFunction(form) {
     },
   });
   if (error) throw error;
-  if (!data?.ok) throw new Error(data?.error || 'Send failed');
+  if (!data?.ok) throw new Error(data?.error || t('Send failed'));
 }
 
 function initForms() {

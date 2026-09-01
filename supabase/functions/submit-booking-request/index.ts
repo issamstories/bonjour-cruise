@@ -42,41 +42,62 @@ function esc(v: unknown) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-function fmtDate(iso: string) {
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const arDigits = (s: string | number): string => String(s).replace(/[0-9]/g, (d) => AR_DIGITS[+d]);
+
+function fmtDate(iso: string, lang: string) {
   try {
-    return new Intl.DateTimeFormat('en-GB', {
+    const out = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-AE' : 'en-GB', {
       weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Dubai',
     }).format(new Date(iso));
+    return lang === 'ar' ? arDigits(out) : out;
   } catch { return iso; }
 }
 
-function fmtAED(n?: number | null) {
-  if (!n && n !== 0) return 'Price on request';
-  return `AED ${Number(n).toLocaleString('en-US')}`;
+function fmtAED(n?: number | null, lang?: string) {
+  if (!n && n !== 0) return lang === 'ar' ? 'السعر عند الطلب' : 'Price on request';
+  const num = Number(n).toLocaleString('en-US');
+  return lang === 'ar' ? `${arDigits(num)} د.إ` : `AED ${num}`;
 }
 
-function confirmationEmail(r: any, cruise: any, siteName: string) {
-  const total = cruise?.price_per_seat && r.seats ? cruise.price_per_seat * r.seats : null;
-  return `<!doctype html><html><head><meta charset="utf-8"></head>
+function emailHtml(r, siteName, cruise, total, lang) {
+  const ar = lang === 'ar';
+  const dir = ar ? 'rtl' : 'ltr';
+  const L = ar ? {
+    received: 'تم استلام طلب الحجز',
+    hello: `مرحباً ${r.first_name}،`,
+    body: 'شكراً لك! فريقنا يراجع طلبك وسيؤكد التوفر قريباً. ستتلقى بريداً إلكترونياً مع رابط دفع آمن بعد الموافقة.',
+    date: 'التاريخ', guests: 'الضيوف', exp: 'التجربة', total: 'الإجمالي التقريبي',
+    ref: 'المرجع', questions: 'أسئلة؟ رد على هذا البريد أو راسلنا على واتساب.',
+    guest: 'ضيف', guests2: 'ضيوف',
+  } : {
+    received: 'Booking request received',
+    hello: `Hello ${r.first_name},<br>`,
+    body: 'thank you for your request. Our team is reviewing it and will confirm availability shortly. You will receive an email with your secure payment link once it is approved.',
+    date: 'Date', guests: 'Guests', exp: 'Experience', total: 'Estimated total',
+    ref: 'Reference', questions: 'Questions? Reply to this email or message us on WhatsApp.',
+    guest: 'guest', guests2: 'guests',
+  };
+  return `<!doctype html><html dir="${dir}"><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#FBF5EF;font-family:Inter,-apple-system,sans-serif;color:#2B2F3A;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF5EF;padding:32px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF;border-radius:16px;overflow:hidden;">
-        <tr><td style="background:#1C2B4A;padding:28px 32px;">
+        <tr><td style="background:#1C2B4A;padding:28px 32px;${ar ? 'text-align:right;' : ''}">
           <h1 style="margin:0;color:#F7F5F0;font-size:22px;font-family:Georgia,serif;">${esc(siteName)}</h1>
-          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">Booking request received</p>
+          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">${L.received}</p>
         </td></tr>
         <tr><td style="padding:28px 32px;">
-          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">Hello ${esc(r.first_name)},<br>
-          thank you for your request. Our team is reviewing it and will confirm availability shortly. You will receive an email with your secure payment link once it is approved.</p>
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">${L.hello}
+          ${L.body}</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8F4EE;border-radius:12px;padding:16px 20px;font-size:14px;">
-            <tr><td style="padding:4px 0;color:#8A8F9C;">Date</td><td align="right" style="padding:4px 0;font-weight:600;">${fmtDate(r.requested_date)}</td></tr>
-            <tr><td style="padding:4px 0;color:#8A8F9C;">Guests</td><td align="right" style="padding:4px 0;font-weight:600;">${r.seats} ${r.seats > 1 ? 'guests' : 'guest'}</td></tr>
-            ${cruise?.title ? `<tr><td style="padding:4px 0;color:#8A8F9C;">Experience</td><td align="right" style="padding:4px 0;font-weight:600;">${esc(cruise.title)}</td></tr>` : ''}
-            ${total ? `<tr><td style="padding:4px 0;color:#8A8F9C;">Estimated total</td><td align="right" style="padding:4px 0;font-weight:600;">${fmtAED(total)}</td></tr>` : ''}
+            <tr><td style="padding:4px 0;color:#8A8F9C;">${L.date}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${fmtDate(r.requested_date, lang)}</td></tr>
+            <tr><td style="padding:4px 0;color:#8A8F9C;">${L.guests}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${r.seats} ${r.seats > 1 ? L.guests2 : L.guest}</td></tr>
+            ${cruise?.title ? `<tr><td style="padding:4px 0;color:#8A8F9C;">${L.exp}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${esc(cruise.title)}</td></tr>` : ''}
+            ${total ? `<tr><td style="padding:4px 0;color:#8A8F9C;">${L.total}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${fmtAED(total, lang)}</td></tr>` : ''}
           </table>
-          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;line-height:1.5;">Reference: <strong>${r.id.slice(0, 8).toUpperCase()}</strong><br>
-          Questions? Reply to this email or message us on WhatsApp.</p>
+          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;line-height:1.5;">${L.ref}: <strong>${r.id.slice(0, 8).toUpperCase()}</strong><br>
+          ${L.questions}</p>
         </td></tr>
       </table>
     </td></tr>
@@ -87,7 +108,8 @@ function confirmationEmail(r: any, cruise: any, siteName: string) {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   try {
-    const { cruise_id, requested_date, seats, first_name, last_name, email, whatsapp, guests_note, site_name } = await req.json();
+    const { cruise_id, requested_date, seats, first_name, last_name, email, whatsapp, guests_note, site_name, lang = 'en' } = await req.json();
+    const ar = lang === 'ar';
 
     if (!requested_date || !first_name || !email) {
       return new Response(JSON.stringify({ error: 'Date, name and email are required.' }), { status: 400, headers: cors });
@@ -113,6 +135,7 @@ Deno.serve(async (req) => {
         email: email.trim().toLowerCase(),
         whatsapp: whatsapp?.trim() || null,
         guests_note: guests_note?.trim() || null,
+        lang: ar ? 'ar' : 'en',
         status: 'pending',
       })
       .select()
@@ -121,13 +144,16 @@ Deno.serve(async (req) => {
     if (error) throw error;
 
     const siteName = site_name || 'Cruise';
+    const mark = siteName === 'Madame Cruise' ? '🌸' : '⚓';
     if (BREVO_KEY) {
       try {
         await sendBrevo({
           to: [{ email: row.email, name: row.first_name }],
-          subject: `We received your request ${siteName === 'Madame Cruise' ? '🌸' : '⚓'}`,
-          htmlContent: confirmationEmail(row, cruise, siteName),
-          textContent: `Hello ${row.first_name}, thank you for your request. Our team will confirm availability and send your secure payment link once approved.`,
+          subject: ar ? `تم استلام طلبك ${mark}` : `We received your request ${mark}`,
+          htmlContent: emailHtml(row, cruise, siteName, cruise?.price_per_seat && row.seats ? cruise.price_per_seat * row.seats : null, lang),
+          textContent: ar
+            ? `مرحباً ${row.first_name}، شكراً لك على طلبك. سيقوم فريقنا بتأكيد التوفر وإرسال رابط الدفع الآمن بعد الموافقة.\nالمرجع: ${row.id.slice(0, 8).toUpperCase()}`
+            : `Hello ${row.first_name}, thank you for your request. Our team will confirm availability and send your secure payment link once approved.\nReference: ${row.id.slice(0, 8).toUpperCase()}`,
         });
       } catch { /* email is best-effort */ }
     }

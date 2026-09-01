@@ -2,6 +2,8 @@
 // Admin action (called from the admin dashboard with the admin's JWT).
 // Generates a Stripe Payment Link for the exact amount (price_per_seat x seats),
 // stores it on the request, and emails the guest with the link + T&Cs.
+// The email follows the guest's language (lang column set at submit time):
+// full Arabic template with RTL + Arabic-Indic numerals when lang = 'ar'.
 //
 // Deploy: supabase functions deploy approve-booking
 // Secrets: STRIPE_SECRET_KEY (or STRIPE_SECRET_KEY_BONJOUR_CRUISE / _MADAME_CRUISE),
@@ -50,20 +52,25 @@ function esc(v: unknown) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-function fmtDate(iso: string) {
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const arDigits = (s: string | number): string => String(s).replace(/[0-9]/g, (d) => AR_DIGITS[+d]);
+
+function fmtDate(iso: string, lang: string) {
   try {
-    return new Intl.DateTimeFormat('en-GB', {
+    const out = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-AE' : 'en-GB', {
       weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Dubai',
     }).format(new Date(iso));
+    return lang === 'ar' ? arDigits(out) : out;
   } catch { return iso; }
 }
 
-function fmtAED(n?: number | null) {
-  if (!n && n !== 0) return 'Price on request';
-  return `AED ${Number(n).toLocaleString('en-US')}`;
+function fmtAED(n?: number | null, lang?: string) {
+  if (!n && n !== 0) return lang === 'ar' ? 'السعر عند الطلب' : 'Price on request';
+  const num = Number(n).toLocaleString('en-US');
+  return lang === 'ar' ? `${arDigits(num)} د.إ` : `AED ${num}`;
 }
 
-const TERMS = [
+const TERMS_EN = [
   'Payment confirms your date and seats. Your spot is reserved only once the payment is received.',
   'Full refund for cancellations made more than 72 hours before departure.',
   'Within 72 hours of departure, refunds are not possible, but we can move your booking to another available date.',
@@ -71,38 +78,70 @@ const TERMS = [
   'Weather: if the captain cancels for safety, you get a full refund or a new date, your choice.',
 ];
 
-function paymentEmail(r: any, cruise: any, link: string, siteName: string, total: number | null) {
-  const termsRows = TERMS.map((t) => `<tr><td style="padding:5px 0;color:#5A6070;font-size:14px;line-height:1.5;">• ${esc(t)}</td></tr>`).join('');
-  return `<!doctype html><html><head><meta charset="utf-8"></head>
+const TERMS_AR = [
+  'الدفع يؤكد تاريخك ومقاعدك. يتم حجز مكانك فقط بعد استلام الدفع.',
+  'استرداد كامل للإلغاء قبل أكثر من 72 ساعة من موعد الرحلة.',
+  'خلال 72 ساعة من موعد الرحلة، لا يمكن الاسترداد، لكن يمكننا نقل حجزك إلى تاريخ آخر متاح.',
+  'يرجى الوصول قبل 20 دقيقة من موعد الرحلة إلى نقطة الالتقاء الموضحة في رسالة التأكيد.',
+  'الطقس: إذا ألغى القبطان لأسباب تتعلق بالسلامة، ستحصل على استرداد كامل أو تاريخ جديد، حسب اختيارك.',
+];
+
+function paymentEmail(r: any, cruise: any, link: string, siteName: string, total: number | null, lang: string) {
+  const ar = lang === 'ar';
+  const dir = ar ? 'rtl' : 'ltr';
+  const L = ar ? {
+    approved: 'تمت الموافقة على حجزك',
+    hello: `مرحباً ${esc(r.first_name)}،`,
+    body: 'خبر رائع، تمت <strong>الموافقة</strong> على طلبك. أكّد تاريخك بإتمام الدفع أدناه.',
+    date: 'التاريخ', guests: 'الضيوف', guest: 'ضيف', guests2: 'ضيوف', exp: 'التجربة', total: 'الإجمالي',
+    pay: 'ادفع الآن وأكّد',
+    linkHint: 'إذا لم يعمل الزر، انسخ هذا الرابط في متصفحك:',
+    expires: 'رابط الدفع الخاص بك صالح لمدة 7 أيام.',
+    terms: 'الشروط والأحكام',
+    ref: 'المرجع', questions: 'أسئلة؟ رد على هذا البريد أو راسلنا على واتساب.',
+  } : {
+    approved: 'Your booking is approved',
+    hello: `Hello ${esc(r.first_name)},<br>`,
+    body: 'great news, your request is <strong>approved</strong>. Secure your date by completing the payment below.',
+    date: 'Date', guests: 'Guests', guest: 'guest', guests2: 'guests', exp: 'Experience', total: 'Total',
+    pay: 'Pay now and confirm',
+    linkHint: 'If the button does not work, copy this link into your browser:',
+    expires: 'Your payment link expires in 7 days.',
+    terms: 'Terms and conditions',
+    ref: 'Reference', questions: 'Questions? Reply to this email or message us on WhatsApp.',
+  };
+  const termsRows = (ar ? TERMS_AR : TERMS_EN)
+    .map((t) => `<tr><td style="padding:5px 0;color:#5A6070;font-size:14px;line-height:1.5;">• ${esc(t)}</td></tr>`).join('');
+  return `<!doctype html><html dir="${dir}"><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#FBF5EF;font-family:Inter,-apple-system,sans-serif;color:#2B2F3A;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF5EF;padding:32px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF;border-radius:16px;overflow:hidden;">
-        <tr><td style="background:#1C2B4A;padding:28px 32px;">
+        <tr><td style="background:#1C2B4A;padding:28px 32px;${ar ? 'text-align:right;' : ''}">
           <h1 style="margin:0;color:#F7F5F0;font-size:22px;font-family:Georgia,serif;">${esc(siteName)}</h1>
-          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">Your booking is approved</p>
+          <p style="margin:6px 0 0;color:#C9A86A;font-size:13px;">${L.approved}</p>
         </td></tr>
         <tr><td style="padding:28px 32px;">
-          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">Hello ${esc(r.first_name)},<br>
-          great news, your request is <strong>approved</strong>. Secure your date by completing the payment below.</p>
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">${L.hello}
+          ${L.body}</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8F4EE;border-radius:12px;padding:16px 20px;font-size:14px;">
-            <tr><td style="padding:4px 0;color:#8A8F9C;">Date</td><td align="right" style="padding:4px 0;font-weight:600;">${fmtDate(r.requested_date)}</td></tr>
-            <tr><td style="padding:4px 0;color:#8A8F9C;">Guests</td><td align="right" style="padding:4px 0;font-weight:600;">${r.seats} ${r.seats > 1 ? 'guests' : 'guest'}</td></tr>
-            ${cruise?.title ? `<tr><td style="padding:4px 0;color:#8A8F9C;">Experience</td><td align="right" style="padding:4px 0;font-weight:600;">${esc(cruise.title)}</td></tr>` : ''}
-            ${total ? `<tr><td style="padding:4px 0;color:#8A8F9C;">Total</td><td align="right" style="padding:4px 0;font-weight:600;font-size:17px;">${fmtAED(total)}</td></tr>` : ''}
+            <tr><td style="padding:4px 0;color:#8A8F9C;">${L.date}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${fmtDate(r.requested_date, lang)}</td></tr>
+            <tr><td style="padding:4px 0;color:#8A8F9C;">${L.guests}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${r.seats} ${r.seats > 1 ? L.guests2 : L.guest}</td></tr>
+            ${cruise?.title ? `<tr><td style="padding:4px 0;color:#8A8F9C;">${L.exp}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;">${esc(cruise.title)}</td></tr>` : ''}
+            ${total ? `<tr><td style="padding:4px 0;color:#8A8F9C;">${L.total}</td><td align="${ar ? 'left' : 'right'}" style="padding:4px 0;font-weight:600;font-size:17px;">${fmtAED(total, lang)}</td></tr>` : ''}
           </table>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
             <tr><td align="center">
-              <a href="${esc(link)}" style="display:inline-block;background:#C9A86A;color:#1C2B4A;text-decoration:none;font-weight:700;font-size:15px;padding:14px 36px;border-radius:999px;">Pay now and confirm</a>
+              <a href="${esc(link)}" style="display:inline-block;background:#C9A86A;color:#1C2B4A;text-decoration:none;font-weight:700;font-size:15px;padding:14px 36px;border-radius:999px;">${L.pay}</a>
             </td></tr>
           </table>
-          <p style="margin:0 0 8px;font-size:13px;color:#8A8F9C;">If the button does not work, copy this link into your browser:</p>
+          <p style="margin:0 0 8px;font-size:13px;color:#8A8F9C;">${L.linkHint}</p>
           <p style="margin:0 0 20px;font-size:13px;word-break:break-all;color:#4A6FA5;"><a href="${esc(link)}" style="color:#4A6FA5;">${esc(link)}</a></p>
-          <p style="margin:0 0 8px;font-size:13px;color:#8A8F9C;">Your payment link expires in 7 days.</p>
-          <p style="margin:0 0 8px;font-size:14px;font-weight:600;color:#2B2F3A;">Terms and conditions</p>
+          <p style="margin:0 0 8px;font-size:13px;color:#8A8F9C;">${L.expires}</p>
+          <p style="margin:0 0 8px;font-size:14px;font-weight:600;color:#2B2F3A;">${L.terms}</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${termsRows}</table>
-          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;line-height:1.5;">Reference: <strong>${r.id.slice(0, 8).toUpperCase()}</strong><br>
-          Questions? Reply to this email or message us on WhatsApp.</p>
+          <p style="margin:20px 0 0;font-size:13px;color:#8A8F9C;line-height:1.5;">${L.ref}: <strong>${r.id.slice(0, 8).toUpperCase()}</strong><br>
+          ${L.questions}</p>
         </td></tr>
       </table>
     </td></tr>
@@ -140,6 +179,10 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: `Request already ${reqRow.status}.` }), { status: 400, headers: cors });
     }
 
+    // Language the guest used when submitting (defaults to English for old rows).
+    const lang = reqRow.lang === 'ar' ? 'ar' : 'en';
+    const ar = lang === 'ar';
+
     // Fetch the cruise for the price.
     let cruise = null;
     if (reqRow.cruise_id) {
@@ -155,7 +198,7 @@ Deno.serve(async (req) => {
       currency: 'aed',
       unit_amount: amountFils ?? 10000, // fallback 100 AED if no price set
       product_data: {
-        name: `${site_name || 'Cruise'}, ${cruise?.title || 'Private charter'} (${fmtDate(reqRow.requested_date)})`,
+        name: `${site_name || 'Cruise'}, ${cruise?.title || 'Private charter'} (${fmtDate(reqRow.requested_date, lang)})`,
       },
     });
 
@@ -176,14 +219,18 @@ Deno.serve(async (req) => {
       .eq('id', reqRow.id);
     if (updErr) throw updErr;
 
-    // Email the guest with the link + T&Cs.
+    // Email the guest with the link + T&Cs, in her language.
     if (BREVO_KEY) {
       try {
         await sendBrevo({
           to: [{ email: reqRow.email, name: reqRow.first_name }],
-          subject: `${site_name || 'Your cruise'} is approved — pay to confirm ${site_name === 'Madame Cruise' ? '🌸' : '⚓'}`,
-          htmlContent: paymentEmail(reqRow, cruise, paymentLink.url, site_name || 'Cruise', total),
-          textContent: `Hello ${reqRow.first_name}, your request is approved. Pay ${total ? fmtAED(total) : 'the amount shown'} to confirm: ${paymentLink.url}`,
+          subject: ar
+            ? `تمت الموافقة على طلبك — ادفع للتأكيد ${site_name === 'Madame Cruise' ? '🌸' : '⚓'}`
+            : `${site_name || 'Your cruise'} is approved — pay to confirm ${site_name === 'Madame Cruise' ? '🌸' : '⚓'}`,
+          htmlContent: paymentEmail(reqRow, cruise, paymentLink.url, site_name || 'Cruise', total, lang),
+          textContent: ar
+            ? `مرحباً ${reqRow.first_name}، تمت الموافقة على طلبك. ادفع ${total ? fmtAED(total, lang) : 'المبلغ الموضح'} للتأكيد: ${paymentLink.url}`
+            : `Hello ${reqRow.first_name}, your request is approved. Pay ${total ? fmtAED(total, lang) : 'the amount shown'} to confirm: ${paymentLink.url}`,
         });
       } catch { /* email best-effort */ }
     }
