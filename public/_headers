@@ -10,7 +10,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://vohocnkgdktssztsbirl.supabase.co wss://vohocnkgdktssztsbirl.supabase.co https://api.emailjs.com; form-action 'self' https://buy.stripe.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://vohocnkgdktssztsbirl.supabase.co wss://vohocnkgdktssztsbirl.supabase.co; form-action 'self' https://buy.stripe.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'
 
 # Hashed build output: cache forever
 /assets/*
