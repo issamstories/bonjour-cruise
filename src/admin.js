@@ -2,6 +2,7 @@ import './styles.css';
 import { supabase } from './supabase.js';
 import { createCalendar, dayKey } from './calendar.js';
 import { renderRequestsTab } from './requests-admin.js';
+import { renderAnnounceTab } from './announce-admin.js';
 import { renderTeamTab } from './team-admin.js';
 
 /* ==========================================================================
@@ -150,6 +151,7 @@ async function renderAdmin() {
     <div class="admin-tabs">
       <button class="admin-tab admin-tab-active" data-tab="calendar">Calendar</button>
       <button class="admin-tab" data-tab="requests">Requests</button>
+      <button class="admin-tab" data-tab="announce">Announce</button>
       <button class="admin-tab" data-tab="team">Team</button>
     </div>
     <div data-admin-view>
@@ -165,6 +167,8 @@ async function renderAdmin() {
     renderRequestsTab(view, { switchTab: () => boot() }));
   root.querySelector('[data-tab="team"]').addEventListener('click', () =>
     renderTeamTab(view, { switchTab: () => boot() }));
+  root.querySelector('[data-tab="announce"]').addEventListener('click', () =>
+    renderAnnounceTab(view, { switchTab: () => boot() }));
 
   createCalendar(root.querySelector('[data-cal]'), {
     cruises,
